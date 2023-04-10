@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://player.gd" type="Script" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://chat.gd" type="Script" id=4]
 [ext_resource path="res://level_mechanics/enemy_trigger.tscn" type="PackedScene" id=5]
 [ext_resource path="res://enemies/centipedes/centipedes.tscn" type="PackedScene" id=6]
+[ext_resource path="res://battle/battle_borders.tscn" type="PackedScene" id=7]
+[ext_resource path="res://battle/battle_arena.tscn" type="PackedScene" id=8]
 
 [sub_resource type="CylinderShape" id=1]
 height = 0.873814
@@ -89,6 +91,13 @@ transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 2.87557, 0 )
 mesh = SubResource( 5 )
 skeleton = NodePath("../..")
 
-[node name="Enemies" type="Node2D" parent="."]
+[node name="Battle" type="Node2D" parent="."]
+visible = false
 
-[node name="Centipedes" parent="Enemies" instance=ExtResource( 6 )]
+[node name="battle_arena" parent="Battle" instance=ExtResource( 8 )]
+
+[node name="Enemies" type="Node2D" parent="Battle"]
+
+[node name="Centipedes" parent="Battle/Enemies" instance=ExtResource( 6 )]
+
+[node name="battle_borders" parent="Battle" instance=ExtResource( 7 )]

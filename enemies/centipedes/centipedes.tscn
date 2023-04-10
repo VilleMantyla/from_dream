@@ -1,6 +1,13 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://enemies/centipedes/centipedes.gd" type="Script" id=1]
+[ext_resource path="res://enemies/centipedes/centipede.tscn" type="PackedScene" id=2]
 
 [node name="Centipedes" type="Node2D"]
 script = ExtResource( 1 )
+
+[node name="Centipede" parent="." instance=ExtResource( 2 )]
+position = Vector2( 950, 0 )
+
+[node name="Centipede2" parent="." instance=ExtResource( 2 )]
+position = Vector2( 700, 0 )
