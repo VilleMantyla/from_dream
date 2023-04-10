@@ -1,0 +1,1211 @@
+{
+	"Intro": [{
+			"textframe": [{
+    				"text": "Ouch, my head.",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "Where am I?",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "I remember repairing the antenna and then...",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+        {
+			"textframe": [{
+					"text": "Ah, that headache is killing me!",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+        {
+			"textframe": [{
+					"text": "Did I fall?",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "No, I'd be dead falling from that height.",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+        {
+			"textframe": [{
+					"text": "My head hurts if I keep thinking. Better to just find my way back home.",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		}
+    ],
+	"FrogBoyMeet": [{
+			"textframe": [{
+					"text": "Is that a HUMAN??",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "[color=#18F500]RIBBIT[/color]",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "KISS ME",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "...",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "...",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "Why aren't you kissing me???",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "Oh, I know. It's because the setting isn't right.",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "Wait. Meet me at a house close by and I'll set the mood right.",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "Oh and watch out for [color=#DB0404]Dark Angels[/color]",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "You will not survive them.",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		}
+	],
+	"FrogBoyMeetAlt1": [{
+			"textframe": [{
+					"text": "Hey.",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "...",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "Have you seen a locket?",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "I've lost it here in the woods.",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "It has a picture of my friend.",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "I miss her.",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "Have you lost something too?",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "There's a [color=#FFEE00]house[/color] nearby.",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "I've heard kids have [color=#DB0404]died[/color] there.",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "I hope my friend is okay.",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "...",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		}
+	],
+	"GirlMeet1": [{
+			"textframe": [{
+					"text": "Hey",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "...",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "Have you seen my friend?",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "I left her in these woods.",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "But now I can't find her.",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "Are you looking for something too?",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "There's a house nearby.",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "Maybe they can help.",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "See ya.",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		}
+	],
+	"GirleDemo1": [{
+			"textframe": [{
+					"text": "KYAA~!!",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		}
+	],
+	"GirleDemo2": [{
+			"textframe": [{
+					"text": "Hey that's mine!!",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "Give it back!!",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		}
+		
+	],
+	"GirleDemo3": [{
+			"textframe": [{
+					"text": "No, don't come any closer!!",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		}
+	],
+	"afterbattle": [{
+			"textframe": [{
+					"text": "Wow, that was cool!!",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "I mean-... I could have done that myself!!",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "STUPID",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		}
+	],
+	"afterbattle2": [{
+			"textframe": [{
+					"text": "Wow, that was cool!!",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "At first I thought you were a glitch ghost too",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "But then I saw you scared it away!",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "Thanks a ton!",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "My name is Melph",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "[color=#B8951A]I'm looking for a woman, her name is Riri.[/color]",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "Huh?",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "Oh you mean my sister?",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "[color=#D14821]You are Riri's sister?[/color]",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "[color=#D14821]That can't be, her sister died 10 years ago...[/color]",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "[color=#D14821]Ahh, it doesn't matter. I just want to find my wife.[/color]",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "[color=#D14821]Then I'll get hell out of this place![/color]",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "Wait.. you want to take my sister?",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "I won't let you take her!",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "NEVER!!",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		}
+	],
+	"melph_yell": [{
+			"textframe": [{
+					"text": "OH NO!!",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "HELP!!!",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "[color=#D14821]She's in trouble?![/color]",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		}
+	],
+	"melph_first": [{
+			"textframe": [{
+					"text": "Who are you!!",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "What do you want!!",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "[color=#D14821]Calm down[/color]",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "[color=#D14821]I'm looking for my-[/color]",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "Get away from me!!",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+	],
+		"melph_second": [{
+			"textframe": [{
+					"text": "[color=#D14821]Wait, you left your toy![/color]",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "[color=#D14821]...[/color]",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		}
+	],
+	"riri_jump": [{
+		"textframe": [{
+				"text": "[color=#D14821]Riri, wait, just stop[/color]",
+				"speed": 50,
+				"sound" : 0
+			}
+		]
+	},
+	{
+		"textframe": [{
+				"text": "[color=#D14821]Where are you going?[/color]",
+				"speed": 50,
+				"sound" : 0
+			}
+		]
+	},
+		{
+			"textframe": [{
+					"text": "[color=#D14821]Riri, no, do not jump[/color]",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "[color=#D14821]...[/color]",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "[color=#D14821]RIRI!![/color]",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "[color=#D14821]RIRI, HANG IN THERE[/color]",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "[color=#D14821]I'LL COME[/color]",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+
+	],
+	"locket": [{
+			"textframe": [{
+					"text": "[color=#D14821]Riri's locket[/color]",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "[color=#D14821]She's here?[/color]",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "[color=#D14821]I have to find her[/color]",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "[color=#D14821]I hope she's safe[/color]",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		}
+	],
+	"rose_from_water": [{
+			"textframe": [{
+					"text": "[color=#D14821]...[/color]",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "[color=#D14821]Where am I[/color]",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "[color=#D14821]...[/color]",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		}
+	],
+	"gun": [{
+			"textframe": [{
+					"text": "[color=#D14821]?[/color]",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		}
+	],
+	"first_enemy": [{
+			"textframe": [{
+					"text": "[color=#a0cc00]I-it was an accident[/color]",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "[color=#a0cc00]she came at me[/color]",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		},
+		{
+			"textframe": [{
+					"text": "[color=#a0cc00]I had to kill her!![/color]",
+					"speed": 50,
+					"sound" : 0
+				}
+			]
+		}
+	],
+	"test_text": [{
+		"textframe": [{
+				"text": "[color=#a0cc00]It's an object[/color]",
+				"speed": 50,
+				"sound" : 0
+			}
+		]
+	},
+	{
+		"textframe": [{
+				"text": "[color=#a0cc00]I don't know what to do with it[/color]",
+				"speed": 50,
+				"sound" : 0
+			}
+		]
+	},
+	{
+		"textframe": [{
+				"text": "[color=#a0cc00]...[/color]",
+				"speed": 50,
+				"sound" : 0
+			}
+		]
+	}
+	],
+"melph_behind_door_org": [{
+		"textframe": [{
+				"text": "[color=#D14821]...[/color]",
+				"speed": 50,
+				"sound" : 0
+			}
+		]
+	},
+	{
+		"textframe": [{
+				"text": "[color=#D14821]I can't get out[/color]",
+				"speed": 50,
+				"sound" : 0
+			}
+		]
+	},
+	{
+		"textframe": [{
+				"text": "[color=#D14821]...[/color]",
+				"speed": 50,
+				"sound" : 0
+			}
+		]
+	}
+],
+"melph_behind_door": [{
+		"textframe": [{
+				"text": "I'm here!",
+				"speed": 50,
+				"sound" : 0,
+				"character" : "Girle"
+			}
+		]
+	},
+	{
+		"textframe": [{
+				"text": "...",
+				"speed": 50,
+				"sound" : 0,
+				"character" : "Girle"
+			}
+		]
+	},
+	{
+		"textframe": [{
+				"text": "I can't get out",
+				"speed": 50,
+				"sound" : 0,
+				"character" : "Girle"
+			}
+		]
+	},
+	{
+		"textframe": [{
+				"text": "The doors just closed after me",
+				"speed": 50,
+				"sound" : 0
+			}
+		]
+	},
+	{
+		"textframe": [{
+				"text": "Can you help me out of here?",
+				"speed": 50,
+				"sound" : 0
+			}
+		]
+	},
+	{
+		"textframe": [{
+				"text": "...",
+				"speed": 50,
+				"sound" : 0
+			}
+		]
+	},
+	{
+		"textframe": [{
+				"text": "Oh yeah, you can't talk",
+				"speed": 50,
+				"sound" : 0
+			}
+		]
+	},
+	{
+		"questionframe": [{
+				"text": "Just try to find a way to open these doors PLEASE",
+				"speed": 50,
+				"sound" : 0
+			},
+			{
+				"answers": ["yes", "no"],
+				"results" : ["melph_thanks", "melph_doesn't thank"]
+			}
+		]
+	}
+],
+"melph_thanks": [{
+	"textframe": [{
+			"text": "THANK YOU",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "By the way, my name is TV",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+}
+],
+"melph_doesn't thank": [{
+	"textframe": [{
+			"text": "[color=#D14821]YOU ARE IDIOT[/color]",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "[color=#D14821]I can't get out[/color]",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "[color=#D14821]...[/color]",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+}
+],
+"alku_demo": [{
+	"textframe": [{
+			"text": "I want you to promise me something.",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "Promise that you'll find me.",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "I'm ...",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "God I miss you.",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "Please come.",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "I'm waiting for you.",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "Please hurry.",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+}
+],
+"melph_new_first": [{
+	"textframe": [{
+			"text": "KYAA~!!",
+			"speed": 50,
+			"sound" : 0,
+			"character" : "Girle"
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "Don't sneak up like that!",
+			"speed": 50,
+			"sound" : 0,
+			"character" : "Girle"
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "I almost peed my pants",
+			"speed": 50,
+			"sound" : 0,
+			"character" : "Girle"
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "Hey, your face looks kinda stupid.",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "He, he.",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "...",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "Aren't you gonna say anything?",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "...",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "Are you a mute?",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "Or just retarded?",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "...",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "Hey, why do you stare me like that!?",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "Stop staring!",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "...",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "I SAID STOP STARING!!",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "FREAK!!!",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+}
+],
+"melph_yells": [{
+	"textframe": [{
+			"text": "KYAA~!!",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+}
+],
+"locket_new": [{
+	"textframe": [{
+			"text": "[color=#DB5327]It's a locket.[/color]",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "[color=#DB5327]It's her locket...[/color]",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "[color=#DB5327]...[/color]",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+}
+],
+"alku_demo_ver_2": [{
+	"textframe": [{
+			"text": "Do you ever feel lonely?",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "It's been a while...",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "I'm ...",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "God I miss you.",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "Please come.",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "I'm waiting for you.",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "Please hurry.",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+}
+],
+"second_enemy": [{
+	"textframe": [{
+			"text": "[color=#a0cc00]Oh don't be shy[/color]",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "[color=#a0cc00]This is what I do with my friends in bathrooms all the time[/color]",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "[color=#a0cc00]Now let me wipe that for you[/color]",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+}
+],
+"third_enemy": [{
+	"textframe": [{
+			"text": "[color=#a0cc00]I just wanted to sleep with her[/color]",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "[color=#a0cc00]THAT'S NOT WRONG[/color]",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "[color=#a0cc00]I'm a good guy![/color]",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+}
+]
+}
