@@ -16,6 +16,7 @@ const FLOOR_RAY_END = Vector3(0.0,-100.0,0.0)
 
 var stop_player = false
 var interacting = false
+var looking_at_interactable = null
 
 func _ready():
 	height = global_transform.origin.y
@@ -76,6 +77,18 @@ func _physics_process(delta):
 	if !stop_player and player_on_floor:
 		var move = (move_dir*walk_speed).cross(collision.normal)
 		move_and_slide(move, Vector3.UP, true)
+	
+	##########################
+	## LOOKING AT SOMETHING ##
+	##########################
+	if $rotation_helper/RayCast.is_colliding():
+		var result = $rotation_helper/RayCast.get_collider()
+		if result.is_in_group("interactable"):
+			looking_at_interactable = result
+		else:
+			looking_at_interactable = null
+	else:
+		looking_at_interactable = null
 
 func drop_player(fall_max, delta):
 	var fall_step = gravity*delta
@@ -89,3 +102,6 @@ func drop_player(fall_max, delta):
 func disable_input(val):
 	set_process_input(!val)
 	stop_player = val
+
+func clibm_to_ladder():
+	pass

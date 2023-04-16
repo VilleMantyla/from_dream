@@ -14,12 +14,6 @@ config/name="from Dream"
 run/main_scene="res://main.tscn"
 config/icon="res://icon.png"
 
-[display]
-
-window/size/width=1920
-window/size/height=1080
-window/size/fullscreen=true
-
 [global]
 
 layer=false
@@ -61,6 +55,7 @@ interact={
 3d_physics/layer_1="walls and floor"
 3d_physics/layer_2="player"
 3d_physics/layer_3="enemies"
+3d_physics/layer_4="interactable"
 
 [physics]
 
