@@ -12,11 +12,24 @@ var gravity = -6.5
 var drop_limit = -0.2
 var walk_speed = 3
 const FLOOR_RAY_START = Vector3(0.0,1.5,0.0)
-const FLOOR_RAY_END = Vector3(0.0,-100.0,0.0)
+const FLOOR_RAY_END = Vector3(0.0,-1000.0,0.0)
 
 var stop_player = false
-var interacting = false
+
+enum {IDLE, WALK, LADDER}
+var state = null
+
+signal show_context_msg
+signal hide_context_msg
+signal next_chat_text
+var chatting = false
 var looking_at_interactable = null
+
+var active_ladder = null
+var climb_speed = 1.2
+#var ladder_bottom = null
+
+
 
 func _ready():
 	height = global_transform.origin.y
@@ -44,39 +57,61 @@ func _process(delta):
 		move_input.y = 1
 	
 	if move_input != Vector2.ZERO:
-		#walk
-		move_dir = (transform.basis*Vector3(move_input.x, 0, -move_input.y)).normalized()
+		if state == LADDER:
+			climb_ladder(-1*move_input.x, delta)
+		else:
+			#walk
+			move_dir = (transform.basis*Vector3(move_input.x, 0, -move_input.y)).normalized()
 	else:
 		#idle
 		move_dir = Vector3.ZERO
+	
+	if Input.is_action_just_pressed("interact"):
+		if state == LADDER:
+			try_exit_ladder()
+		elif chatting:
+			emit_signal("next_chat_text")
+		elif looking_at_interactable:
+			if looking_at_interactable.is_in_group("ladder"):
+				set_active_ladder(looking_at_interactable)
+				climb_to_ladder()
 
 func _physics_process(delta):
 	var space_state = get_world().direct_space_state
 	#####################
 	## gravity raycast ##
 	#####################
-	var ray_start = global_transform.origin+FLOOR_RAY_START
-	var ray_end = global_transform.origin+FLOOR_RAY_END
-	var collision = space_state.intersect_ray(ray_start, ray_end, [self])
-	var fall_distance = 0
-	if collision:
-		if (collision.position - global_transform.origin).y + height < drop_limit:
-			#player falls
-			player_on_floor = false
-			fall_distance = (collision.position - global_transform.origin).y + height
-		elif player_on_floor:
-			translation.y = collision.position.y+height
+	if state == LADDER:
+		pass
+#		if !ladder_bottom:
+#			var ray_start = global_transform.origin+FLOOR_RAY_START
+#			var ray_end = global_transform.origin+FLOOR_RAY_END
+#			var collision = space_state.intersect_ray(ray_start, ray_end, [self])
+#			ladder_bottom = collision.position.y + height
 	else:
-		#no floor collision, player falls
-		player_on_floor = false
-		fall_distance = -100
+		#state walk/walking abled
+		var ray_start = global_transform.origin+FLOOR_RAY_START
+		var ray_end = global_transform.origin+FLOOR_RAY_END
+		var collision = space_state.intersect_ray(ray_start, ray_end, [self])
+		var fall_distance = 0
+		if collision:
+			if (collision.position - global_transform.origin).y + height < drop_limit:
+				#player falls
+				player_on_floor = false
+				fall_distance = (collision.position - global_transform.origin).y + height
+			elif player_on_floor:
+				translation.y = collision.position.y+height
+		else:
+			#no floor collision, player falls
+			player_on_floor = false
+			fall_distance = -100
 	
-	if !player_on_floor:
-		player_on_floor = drop_player(fall_distance, delta)
+		if !player_on_floor:
+			player_on_floor = drop_player(fall_distance, delta)
 
-	if !stop_player and player_on_floor:
-		var move = (move_dir*walk_speed).cross(collision.normal)
-		move_and_slide(move, Vector3.UP, true)
+		if !stop_player and player_on_floor:
+			var move = (move_dir*walk_speed).cross(collision.normal)
+			move_and_slide(move, Vector3.UP, true)
 	
 	##########################
 	## LOOKING AT SOMETHING ##
@@ -85,10 +120,17 @@ func _physics_process(delta):
 		var result = $rotation_helper/RayCast.get_collider()
 		if result.is_in_group("interactable"):
 			looking_at_interactable = result
+			if result.is_in_group("ladder"):
+				print("ladder")
+#				emit_signal("show_context_msg", "ladder")
+#			else:
+#				emit_signal("hide_context_msg")
 		else:
 			looking_at_interactable = null
+			#emit_signal("hide_context_msg")
 	else:
 		looking_at_interactable = null
+		#emit_signal("hide_context_msg")
 
 func drop_player(fall_max, delta):
 	var fall_step = gravity*delta
@@ -103,5 +145,65 @@ func disable_input(val):
 	set_process_input(!val)
 	stop_player = val
 
-func clibm_to_ladder():
-	pass
+func climb_to_ladder():
+	state = LADDER
+	
+	var climb_to_point = active_ladder.climb_offset
+	climb_to_point.y = get_global_transform().origin.y
+	var location_tween = create_tween()
+	location_tween.tween_property(self, "global_transform:origin",
+	climb_to_point, 1.0).set_trans(Tween.EASE_IN_OUT)
+
+func try_exit_ladder():
+	if translation.y == active_ladder.btm_max + height:
+		exit_ladder(null)
+	elif active_ladder.get_next_floor_point(translation.y): #translation.y == active_ladder.top_max:
+		exit_ladder(active_ladder.get_next_floor_point(translation.y))
+		
+
+func exit_ladder(exit_to_pos):
+	state = null
+	if exit_to_pos:
+		exit_to_pos.y += height
+		#translation = ladder_climb_off_point
+		var location_tween = create_tween()
+		location_tween.tween_property(self, "global_transform:origin",
+		exit_to_pos, 1.8).set_trans(Tween.EASE_IN_OUT)
+		
+		var target_rot_y = -90
+		var current_rot = rad2deg(global_rotation.y)
+		var target_rot = target_rot_y
+		if global_rotation.y < 0:
+			current_rot = rad2deg(abs(global_rotation.y)+PI)
+		if target_rot_y < 0:
+			target_rot = abs(target_rot_y)+180
+		print("current_rot " + str(current_rot) + " target_rot " + str(target_rot))
+		var rot_sign = fmod((target_rot-current_rot+540),360)-180
+		
+		var new_rot_y
+		if rot_sign < 0:
+			new_rot_y = Vector3(0,deg2rad(-90),0)
+		else:
+			new_rot_y = Vector3(0,deg2rad(270),0)
+		var roty_tween = create_tween()
+		roty_tween.tween_property(self, "global_rotation", new_rot_y, 1.8).set_trans(Tween.EASE_IN_OUT)
+		var new_rot_x = Vector3(deg2rad(-45),0,0)
+		var rotx_tween = create_tween()
+		rotx_tween.tween_property($rotation_helper, "rotation", new_rot_x, 1.8).set_trans(Tween.EASE_IN_OUT)
+
+func climb_ladder(move_dir, delta):
+	var on_top_limit = translation.y + delta*move_dir*climb_speed < active_ladder.top_max
+	var on_bottom_limit = translation.y + delta*move_dir*climb_speed > active_ladder.btm_max + height
+	if on_bottom_limit and on_top_limit:
+		translation.y += delta*move_dir*climb_speed
+	elif !on_bottom_limit:
+		translation.y = active_ladder.btm_max + height
+		print("player on ladder bottom")
+	elif !on_top_limit:
+		translation.y = active_ladder.top_max
+		print("player on ladder TOP")
+		
+
+func set_active_ladder(l):
+	active_ladder = l
+

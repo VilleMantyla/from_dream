@@ -1,6 +1,6 @@
 extends RichTextLabel
 
-signal end_chat
+signal chat_ended
 
 var timer_enabled = false
 var timer_wait = 1.3

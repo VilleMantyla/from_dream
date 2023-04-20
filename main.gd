@@ -1,36 +1,51 @@
 extends Spatial
 
+var interactables = {
+	"ladder" : "press space to cilmb"
+}
+
 func _ready():
-	$Chat.connect("end_chat", self, "chat_ended")
+	$Chat.connect("chat_ended", self, "end_chat")
+	$Player.connect("show_context_msg", self, "show_context_msg")
+	$Player.connect("next_chat_text", self, "read_next_chat")
 
 var flip_open = true
-func _process(delta):
-	if Input.is_action_just_pressed("interact"):
-		if $Player.looking_at_interactable:
-			if $Player.looking_at_interactable.is_in_group("ladder"):
-				$Player.clibm_to_ladder()
-				
-#		if flip_open:
-#			var location_tween = create_tween()
-#			location_tween.tween_property($Player, "global_transform:origin", $door_test_spot.global_transform.origin, 1.8).set_trans(Tween.EASE_IN_OUT)
-#			var target_rot_y = deg2rad(180)
-#			var new_rot
-#			if target_rot_y - $Player.global_rotation.y < PI:
-#				new_rot = Vector3(0,deg2rad(180),0)
-#			else:
-#				new_rot = Vector3(0,deg2rad(-180),0)
-#			var rot_tween = create_tween()
-#			rot_tween.tween_property($Player, "global_rotation", new_rot, 1.8).set_trans(Tween.EASE_IN_OUT)
-#			$house_floor2/AnimationPlayer.play("open",-1,0.45)
-#		else:
-#			$house_floor2/AnimationPlayer.play("close",-1,0.45)
-#		flip_open = !flip_open
-		if $Player.interacting:
-			$Chat.try_reading_next_paragraph()
+#func _process(delta):
+#	if $Player.looking_at_interactable:
+#		if $Player.looking_at_interactable.is_in_group("ladder"):
+#			$context_msg.text = "press space to climb"
+#	if Input.is_action_just_pressed("interact"):
+#		if $Player.looking_at_interactable:
+#			if $Player.looking_at_interactable.is_in_group("ladder"):
+#				$Player.climb_to_ladder()
+#
+##		if flip_open:
+##			var location_tween = create_tween()
+##			location_tween.tween_property($Player, "global_transform:origin", $door_test_spot.global_transform.origin, 1.8).set_trans(Tween.EASE_IN_OUT)
+##			var target_rot_y = deg2rad(180)
+##			var new_rot
+##			if target_rot_y - $Player.global_rotation.y < PI:
+##				new_rot = Vector3(0,deg2rad(180),0)
+##			else:
+##				new_rot = Vector3(0,deg2rad(-180),0)
+##			var rot_tween = create_tween()
+##			rot_tween.tween_property($Player, "global_rotation", new_rot, 1.8).set_trans(Tween.EASE_IN_OUT)
+##			$house_floor2/AnimationPlayer.play("open",-1,0.45)
+##		else:
+##			$house_floor2/AnimationPlayer.play("close",-1,0.45)
+##		flip_open = !flip_open
+#		if $Player.interacting:
+#			$Chat.try_reading_next_paragraph()
 
-func chat_ended():
+func end_chat():
 	$Chat.hide()
 	$Player.disable_input(false)
+
+func show_context_msg(key):
+	$context_msg.text = interactables[key]
+
+func read_next_chat():
+	$Chat.try_reading_next_paragraph()
 
 func interact_with_world_object(node_pos, object_text, focus, enemy):
 	$Chat.show()
