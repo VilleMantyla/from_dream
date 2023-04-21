@@ -44,6 +44,9 @@ func _input(event):
 		#$rotation_helper.rotate_x(deg2rad(event.relative.y * MOUSE_SENSITIVITY * -1))
 		
 		self.rotate_y(deg2rad(event.relative.x * MOUSE_SENSITIVITY * -1))
+	
+	if Input.is_action_pressed("ui_cancel"):
+		get_parent().get_node("glitch_suckers").hide()
 
 func _process(delta):
 	move_input = Vector2.ZERO

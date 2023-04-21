@@ -8,6 +8,10 @@ func _ready():
 	$Chat.connect("chat_ended", self, "end_chat")
 	$Player.connect("show_context_msg", self, "show_context_msg")
 	$Player.connect("next_chat_text", self, "read_next_chat")
+	
+	for gs in $glitch_suckers.get_children():
+		gs.get_node("AnimationPlayer").get_animation("twiggle_normal").set_loop(true)
+		gs.get_node("AnimationPlayer").play("twiggle_normal",-1,1.5)
 
 var flip_open = true
 #func _process(delta):
