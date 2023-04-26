@@ -14,10 +14,6 @@ config/name="from Dream"
 run/main_scene="res://main.tscn"
 config/icon="res://icon.png"
 
-[display]
-
-window/size/fullscreen=true
-
 [global]
 
 layer=false

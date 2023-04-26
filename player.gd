@@ -27,9 +27,8 @@ var looking_at_interactable = null
 
 var active_ladder = null
 var climb_speed = 1.2
+var ladder_exit_range = 0.5 #+ and -
 #var ladder_bottom = null
-
-
 
 func _ready():
 	height = global_transform.origin.y
@@ -44,9 +43,6 @@ func _input(event):
 		#$rotation_helper.rotate_x(deg2rad(event.relative.y * MOUSE_SENSITIVITY * -1))
 		
 		self.rotate_y(deg2rad(event.relative.x * MOUSE_SENSITIVITY * -1))
-	
-	if Input.is_action_pressed("ui_cancel"):
-		get_parent().get_node("glitch_suckers").hide()
 
 func _process(delta):
 	move_input = Vector2.ZERO
@@ -76,8 +72,8 @@ func _process(delta):
 			emit_signal("next_chat_text")
 		elif looking_at_interactable:
 			if looking_at_interactable.is_in_group("ladder"):
-				set_active_ladder(looking_at_interactable)
-				climb_to_ladder()
+				var floor_n = set_active_ladder(looking_at_interactable)
+				climb_to_ladder(floor_n)
 
 func _physics_process(delta):
 	var space_state = get_world().direct_space_state
@@ -86,11 +82,6 @@ func _physics_process(delta):
 	#####################
 	if state == LADDER:
 		pass
-#		if !ladder_bottom:
-#			var ray_start = global_transform.origin+FLOOR_RAY_START
-#			var ray_end = global_transform.origin+FLOOR_RAY_END
-#			var collision = space_state.intersect_ray(ray_start, ray_end, [self])
-#			ladder_bottom = collision.position.y + height
 	else:
 		#state walk/walking abled
 		var ray_start = global_transform.origin+FLOOR_RAY_START
@@ -124,7 +115,7 @@ func _physics_process(delta):
 		if result.is_in_group("interactable"):
 			looking_at_interactable = result
 			if result.is_in_group("ladder"):
-				print("ladder")
+				pass
 #				emit_signal("show_context_msg", "ladder")
 #			else:
 #				emit_signal("hide_context_msg")
@@ -148,27 +139,30 @@ func disable_input(val):
 	set_process_input(!val)
 	stop_player = val
 
-func climb_to_ladder():
+func climb_to_ladder(floor_n):
 	state = LADDER
 	
 	var climb_to_point = active_ladder.climb_offset
-	climb_to_point.y = get_global_transform().origin.y
+	climb_to_point.y = active_ladder.get_enter_height(floor_n, translation.y-height, translation.y)
 	var location_tween = create_tween()
 	location_tween.tween_property(self, "global_transform:origin",
 	climb_to_point, 1.0).set_trans(Tween.EASE_IN_OUT)
 
 func try_exit_ladder():
-	if translation.y == active_ladder.btm_max + height:
-		exit_ladder(null)
-	elif active_ladder.get_next_floor_point(translation.y): #translation.y == active_ladder.top_max:
-		exit_ladder(active_ladder.get_next_floor_point(translation.y))
-		
+	var exit_data = active_ladder.get_next_exit_pos(translation.y-height,
+	translation.y, ladder_exit_range)
+	if exit_data:
+		print("got exit data")
+		exit_ladder(exit_data[0], exit_data[1])
 
-func exit_ladder(exit_to_pos):
+func exit_ladder(exit_to_pos, exit_dir):
 	state = null
-	if exit_to_pos:
+	if exit_dir == Vector2(0,0):
+		#bottom
+		pass
+	elif exit_dir == Vector2(1,0):
+		#exit to the right
 		exit_to_pos.y += height
-		#translation = ladder_climb_off_point
 		var location_tween = create_tween()
 		location_tween.tween_property(self, "global_transform:origin",
 		exit_to_pos, 1.8).set_trans(Tween.EASE_IN_OUT)
@@ -205,8 +199,7 @@ func climb_ladder(move_dir, delta):
 	elif !on_top_limit:
 		translation.y = active_ladder.top_max
 		print("player on ladder TOP")
-		
 
-func set_active_ladder(l):
-	active_ladder = l
-
+func set_active_ladder(ladder_floor_area):
+	active_ladder = ladder_floor_area.get_parent()
+	return ladder_floor_area.floor_number

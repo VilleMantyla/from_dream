@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://player.gd" type="Script" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://tv/belt.material" type="Material" id=13]
 [ext_resource path="res://tv/collar.material" type="Material" id=14]
 [ext_resource path="res://level_models/glitch_sucker_ver2.glb" type="PackedScene" id=15]
+[ext_resource path="res://level_mechanics/floor_number.gd" type="Script" id=16]
 
 [sub_resource type="CylinderShape" id=1]
 height = 0.873814
@@ -177,15 +178,30 @@ text = "this is a test"
 [node name="two_floor_house" parent="." instance=ExtResource( 11 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.82285, 0, 0 )
 
-[node name="Ladder" type="Area" parent="." groups=["interactable", "ladder"]]
+[node name="Ladder" type="Spatial" parent="." groups=["interactable", "ladder"]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.11565, 0.92315, 9.44833 )
+script = ExtResource( 10 )
+top_max = NodePath("floor_point")
+
+[node name="bottom_floor" type="Area" parent="Ladder" groups=["interactable", "ladder"]]
 collision_layer = 4
 collision_mask = 2
-script = ExtResource( 10 )
+script = ExtResource( 16 )
+floor_number = 0
 
-[node name="CollisionShape" type="CollisionShape" parent="Ladder"]
+[node name="climb_to" type="CollisionShape" parent="Ladder/bottom_floor"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.260207, -0.834584, 0.0660753 )
 shape = SubResource( 10 )
+
+[node name="second_floor" type="Area" parent="Ladder" groups=["interactable", "ladder"]]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource( 16 )
+floor_number = 1
+
+[node name="climb_to" type="CollisionShape" parent="Ladder/second_floor"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.19851, 12.7925, -0.466756 )
+shape = SubResource( 12 )
 
 [node name="floor_point" type="Spatial" parent="Ladder"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.05646, 12.2768, -0.66279 )
@@ -193,12 +209,8 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.05646, 12.2768, -0.66279 )
 [node name="climb_offset" type="Spatial" parent="Ladder"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.259528, 0, -0.192699 )
 
-[node name="CollisionShape2" type="CollisionShape" parent="Ladder"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.19851, 12.7925, -0.466756 )
-shape = SubResource( 12 )
-
 [node name="btm_floor" type="Spatial" parent="Ladder"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.92315, -0.339787 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14393, -1.92315, -0.339787 )
 
 [node name="glitch_suckers" type="Spatial" parent="."]
 
