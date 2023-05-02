@@ -1,5 +1,10 @@
 extends Spatial
 
+enum cutscenes {IN_TREE}
+var current_scene = cutscenes.IN_TREE
+
+var tv
+
 var interactables = {
 	"ladder" : "press space to cilmb"
 }
@@ -11,10 +16,31 @@ func _ready():
 	
 	for gs in $glitch_suckers.get_children():
 		gs.get_node("AnimationPlayer").get_animation("twiggle_normal").set_loop(true)
-		gs.get_node("AnimationPlayer").play("twiggle_normal",-1,1.5)
+		gs.get_node("AnimationPlayer").play("twiggle_normal",-1,1)
+	
+	
+	tv = $tv_ver2
+	if current_scene == cutscenes.IN_TREE:
+		tv_in_tree()
+		tv.get_node("AnimationPlayer").connect("animation_finished", self, "tv_in_tree_anims")
+
+func tv_in_tree():
+	tv.get_node("AnimationPlayer").get_animation("on_the_noose").set_loop(true)
+	tv.get_node("AnimationPlayer").play("on_the_noose",-1,2)
+
+func start_cutscene(cutscene_name):
+	if cutscene_name == cutscenes.IN_TREE:
+		tv.global_transform.origin.y = 0
+		tv.get_node("AnimationPlayer").play("getting_up",-1,1.2)
+		get_node("AudioStreamPlayer2D").play()
+		get_node("Camera2").current = true
 
 var flip_open = true
 #func _process(delta):
+#	$Camera.translation.y -= delta*0.5
+#	print("asdfsadfsda")
+#	if $Camera.translation.y <= 1.5:
+#		set_process(false)
 #	if $Player.looking_at_interactable:
 #		if $Player.looking_at_interactable.is_in_group("ladder"):
 #			$context_msg.text = "press space to climb"
@@ -44,6 +70,9 @@ var flip_open = true
 func end_chat():
 	$Chat.hide()
 	$Player.disable_input(false)
+	$Player.chatting = false
+	
+	check_if_cutscene_continues()
 
 func show_context_msg(key):
 	$context_msg.text = interactables[key]
@@ -55,7 +84,7 @@ func interact_with_world_object(node_pos, object_text, focus, enemy):
 	$Chat.show()
 	$Chat.start_chat("res://texts/chat.json", object_text)
 	$Player.disable_input(true)
-	$Player.interacting = true
+	$Player.chatting = true
 	
 	if focus:
 		focus_on_node(node_pos)
@@ -80,3 +109,39 @@ func focus_on_node(node_pos):
 	c_tween.tween_property($Player/rotation_helper, "global_transform:basis:y", new_basis_for_helper.y, 1).set_trans(Tween.EASE_IN_OUT)
 	var v_tween = create_tween()
 	v_tween.tween_property($Player, "global_rotation", new_player_rot, 1).set_trans(Tween.EASE_IN_OUT)
+
+func check_if_cutscene_continues():
+	if current_scene == cutscenes.IN_TREE:
+		remove_child(tv)
+		$Path/PathFollow.add_child(tv)
+		tv.global_transform.origin = Vector3.ZERO
+		$Path.start_a_path()
+		$Sprite.hide()
+	else:
+		return false
+
+func tv_in_tree_anims(anim):
+	if anim == "getting_up":
+		tv.global_rotation.y = deg2rad(-22.5)
+		tv.get_node("AnimationPlayer").play("stand_rise")
+		
+		$Player.global_transform.origin = Vector3(113,1.6,-25)
+		$Player.global_rotation.y = deg2rad(-22.5)
+		$Player/rotation_helper.global_rotation.x = deg2rad(-10)
+		$Player/rotation_helper/Camera.current = true
+	
+	if anim == "stand_rise":
+		tv.get_node("AnimationPlayer").play("to_taunting")
+	
+	if anim == "to_taunting":
+		tv.get_node("AnimationPlayer").get_animation("taunting_idle").set_loop(true)
+		tv.get_node("AnimationPlayer").play("taunting_idle",-1,1.2)
+		
+		$Sprite.show()
+		interact_with_world_object(null, "melph_tree_first", false, false)
+
+
+func _on_teleport_forest(body):
+	$Player.global_transform.origin = Vector3(0,1.6,-5.5)
+	$Player.global_rotation.y = deg2rad(-90)
+	pass # Replace with function body.

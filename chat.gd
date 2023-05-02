@@ -230,7 +230,7 @@ class End:
 	func enter():
 		parent.state_name = parent.END
 		parent.visible_characters = 0
-		parent.emit_signal("end_chat")
+		parent.emit_signal("chat_ended")
 		return self
 	
 	func update(delta):

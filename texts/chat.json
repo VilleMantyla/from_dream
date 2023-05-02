@@ -1207,5 +1207,102 @@
 		}
 	]
 }
+],
+"melph_tree_first": [{
+	"textframe": [{
+			"text": "I DID NOT NEED YOUR HELP!!",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "and I saw you looking under my skirt pervert!",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "...",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "aren't you gonna say something?",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "...",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "lol are you a mute?",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "hahahaha",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "ahh...",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "look, I don't have time *chatting* with you",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "heh",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "I'm after the guy who hanged me up in that tree",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "so so long, mute retard",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+}
 ]
 }

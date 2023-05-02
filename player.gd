@@ -74,6 +74,9 @@ func _process(delta):
 			if looking_at_interactable.is_in_group("ladder"):
 				var floor_n = set_active_ladder(looking_at_interactable)
 				climb_to_ladder(floor_n)
+			elif looking_at_interactable.is_in_group("cutscene"):
+				get_parent().start_cutscene(looking_at_interactable.cutscene_name)
+				
 
 func _physics_process(delta):
 	var space_state = get_world().direct_space_state
