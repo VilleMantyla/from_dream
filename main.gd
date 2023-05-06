@@ -5,6 +5,8 @@ var current_scene = cutscenes.IN_TREE
 
 var tv
 
+var battle_on_hold = null
+
 var interactables = {
 	"ladder" : "press space to cilmb"
 }
@@ -13,6 +15,8 @@ func _ready():
 	$Chat.connect("chat_ended", self, "end_chat")
 	$Player.connect("show_context_msg", self, "show_context_msg")
 	$Player.connect("next_chat_text", self, "read_next_chat")
+	
+
 	
 	for gs in $glitch_suckers.get_children():
 		gs.get_node("AnimationPlayer").get_animation("twiggle_normal").set_loop(true)
@@ -73,6 +77,17 @@ func end_chat():
 	$Player.chatting = false
 	
 	check_if_cutscene_continues()
+	if battle_on_hold:
+		enter_battle(battle_on_hold)
+
+func enter_battle(enemy):
+	battle_on_hold = null
+	
+	$Player.activate(false)
+	$Player/rotation_helper/Camera.clear_current(false)
+	
+	$Battle.start_battle(enemy)
+
 
 func show_context_msg(key):
 	$context_msg.text = interactables[key]
@@ -80,26 +95,29 @@ func show_context_msg(key):
 func read_next_chat():
 	$Chat.try_reading_next_paragraph()
 
-func interact_with_world_object(node_pos, object_text, focus, enemy):
-	$Chat.show()
-	$Chat.start_chat("res://texts/chat.json", object_text)
-	$Player.disable_input(true)
-	$Player.chatting = true
-	
-	if focus:
-		focus_on_node(node_pos)
+func interact_with_world_object(chat, focus_point, enemy):
+	if chat:
+		$Chat.show()
+		$Chat.start_chat("res://texts/chat.json", chat)
+		$Player.chatting = true
+	if focus_point:
+		focus_on_point(focus_point)
 	if enemy:
-		#start_battle_after_chat = enemy
-		pass
+		if chat:
+			battle_on_hold = enemy
+		else:
+			enter_battle(enemy)
+		
+	$Player.disable_input(true)
 
-func focus_on_node(node_pos):
+func focus_on_point(focus_point):
 	var original_rot = $Player/rotation_helper.global_rotation
-	$Player/rotation_helper.look_at(node_pos, Vector3.UP)
+	$Player/rotation_helper.look_at(focus_point, Vector3.UP)
 	var new_basis_for_helper =  $Player/rotation_helper.global_transform.basis
 	$Player/rotation_helper.global_rotation = original_rot
 	
 	original_rot = $Player.global_rotation
-	$Player.look_at(node_pos, Vector3.UP)
+	$Player.look_at(focus_point, Vector3.UP)
 	var new_player_rot = $Player.global_rotation
 	$Player.global_rotation = original_rot
 	new_player_rot.x = 0
@@ -138,10 +156,13 @@ func tv_in_tree_anims(anim):
 		tv.get_node("AnimationPlayer").play("taunting_idle",-1,1.2)
 		
 		$Sprite.show()
-		interact_with_world_object(null, "melph_tree_first", false, false)
+		interact_with_world_object("melph_tree_first", false, false)
 
 
 func _on_teleport_forest(body):
 	$Player.global_transform.origin = Vector3(0,1.6,-5.5)
 	$Player.global_rotation.y = deg2rad(-90)
 	pass # Replace with function body.
+
+func end_battle():
+	$Battle.hide()

@@ -34,6 +34,10 @@ func _ready():
 	height = global_transform.origin.y
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
+func activate(val):
+	set_process(val)
+	set_physics_process(val)
+
 func _input(event):
 	if event is InputEventMouseMotion:# and !stop_mouse_rot:
 		

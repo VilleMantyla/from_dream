@@ -85,5 +85,5 @@ func _on_enemy_trigger_body_entered(body):
 		enemy = null
 	else:
 		enemy = get_node(enemy)
-	get_parent().interact_with_world_object(global_transform.origin, chat, true, enemy)
+	get_parent().interact_with_world_object(chat, global_transform.origin, enemy)
 	#remove()

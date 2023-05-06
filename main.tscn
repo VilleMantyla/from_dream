@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=2]
+[gd_scene load_steps=74 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://player.gd" type="Script" id=2]
@@ -34,6 +34,12 @@
 [ext_resource path="res://level_models/rope_003.material" type="Material" id=32]
 [ext_resource path="res://level_models/rope_005.material" type="Material" id=33]
 [ext_resource path="res://level_models/rope.material" type="Material" id=34]
+[ext_resource path="res://level_mechanics/enemy_trigger.tscn" type="PackedScene" id=35]
+[ext_resource path="res://battle/weapons.gd" type="Script" id=36]
+[ext_resource path="res://enemies/maggots/maggots.tscn" type="PackedScene" id=37]
+[ext_resource path="res://sounds/pistol_fire_2.wav" type="AudioStream" id=38]
+[ext_resource path="res://battle.gd" type="Script" id=39]
+[ext_resource path="res://battle/message_box.png" type="Texture" id=40]
 
 [sub_resource type="CylinderShape" id=1]
 height = 0.873814
@@ -47,6 +53,50 @@ font_data = ExtResource( 20 )
 default_font = SubResource( 15 )
 
 [sub_resource type="CircleShape2D" id=7]
+
+[sub_resource type="DynamicFont" id=35]
+size = 50
+font_data = ExtResource( 20 )
+
+[sub_resource type="Theme" id=36]
+default_font = SubResource( 35 )
+
+[sub_resource type="DynamicFont" id=37]
+size = 42
+font_data = ExtResource( 20 )
+
+[sub_resource type="Theme" id=38]
+default_font = SubResource( 37 )
+
+[sub_resource type="Animation" id=41]
+resource_name = "message_off"
+tracks/0/type = "value"
+tracks/0/path = NodePath("msg_box:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 944, 120 ), Vector2( 944, -80 ) ]
+}
+
+[sub_resource type="Animation" id=40]
+resource_name = "message_pop"
+tracks/0/type = "value"
+tracks/0/path = NodePath("msg_box:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 944, -80 ), Vector2( 944, 120 ) ]
+}
 
 [sub_resource type="BoxShape" id=10]
 extents = Vector3( 0.268334, 0.95202, 0.187015 )
@@ -1705,6 +1755,18 @@ transform = Transform( 0.909809, 0.0395334, -0.41314, 0, 0.995453, 0.0952551, 0.
 [node name="Camera2" type="Camera" parent="."]
 transform = Transform( 0.807022, 0.0967321, -0.582545, 0, 0.986492, 0.163808, 0.590521, -0.132197, 0.796121, 112.904, 0.388913, -25.176 )
 
+[node name="context_msg" type="RichTextLabel" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -211.0
+margin_top = -147.0
+margin_right = 211.0
+margin_bottom = -100.0
+text = "this is a test"
+
 [node name="Chat" type="RichTextLabel" parent="."]
 margin_left = 789.0
 margin_top = 800.0
@@ -1715,16 +1777,21 @@ script = ExtResource( 4 )
 
 [node name="Battle" type="Node2D" parent="."]
 visible = false
+script = ExtResource( 39 )
 
 [node name="battle_arena" parent="Battle" instance=ExtResource( 8 )]
 
 [node name="Enemies" type="Node2D" parent="Battle"]
 
 [node name="Centipedes" parent="Battle/Enemies" instance=ExtResource( 6 )]
+visible = false
+
+[node name="maggots" parent="Battle/Enemies" instance=ExtResource( 37 )]
 
 [node name="battle_borders" parent="Battle" instance=ExtResource( 7 )]
 
 [node name="weapons" type="Node2D" parent="Battle"]
+script = ExtResource( 36 )
 
 [node name="pistol" type="Area2D" parent="Battle/weapons"]
 
@@ -1733,6 +1800,43 @@ texture = ExtResource( 9 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Battle/weapons/pistol"]
 shape = SubResource( 7 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Battle/weapons"]
+stream = ExtResource( 38 )
+volume_db = -22.0
+
+[node name="msg_box" type="Sprite" parent="Battle"]
+position = Vector2( 944, -80 )
+texture = ExtResource( 40 )
+
+[node name="messages" type="RichTextLabel" parent="Battle/msg_box"]
+margin_left = -272.0
+margin_top = -48.0
+margin_right = 312.0
+margin_bottom = 48.0
+theme = SubResource( 36 )
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+bbcode_enabled = true
+bbcode_text = "test test test"
+text = "test test test"
+scroll_active = false
+
+[node name="hp" type="RichTextLabel" parent="Battle"]
+margin_left = 832.0
+margin_top = 904.0
+margin_right = 1152.0
+margin_bottom = 960.0
+theme = SubResource( 38 )
+bbcode_text = "HP: XX"
+text = "HP: XX"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Battle"]
+anims/message_off = SubResource( 41 )
+anims/message_pop = SubResource( 40 )
+
+[node name="enemy_trigger" parent="." instance=ExtResource( 35 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.77412, 1.25135, -5.50789 )
+enemy = NodePath("../Battle/Enemies/maggots")
 
 [node name="void" parent="." instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.83014, 13.2923, 1.71042 )
@@ -1745,18 +1849,6 @@ visible = false
 
 [node name="tv_rigging" parent="." instance=ExtResource( 3 )]
 transform = Transform( -0.328705, 0, 0.169861, 0, 0.37, 0, -0.169861, 0, -0.328705, 11.4365, 14.2999, 18.9429 )
-
-[node name="context_msg" type="RichTextLabel" parent="."]
-visible = false
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-margin_left = -211.0
-margin_top = -147.0
-margin_right = 211.0
-margin_bottom = -100.0
-text = "this is a test"
 
 [node name="two_floor_house" parent="." instance=ExtResource( 11 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.82285, 0, 0 )

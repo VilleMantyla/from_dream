@@ -1,0 +1,84 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://enemies/maggots/maggot.tscn" type="PackedScene" id=1]
+[ext_resource path="res://enemies/maggots/maggots.gd" type="Script" id=2]
+
+[node name="maggots" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="maggot" parent="." instance=ExtResource( 1 )]
+position = Vector2( 999, 326 )
+rotation = 2.35619
+
+[node name="maggot2" parent="." instance=ExtResource( 1 )]
+position = Vector2( 878, 392 )
+rotation = 0.808839
+
+[node name="maggot3" parent="." instance=ExtResource( 1 )]
+position = Vector2( 786, 430 )
+rotation = 5.49778
+
+[node name="maggot4" parent="." instance=ExtResource( 1 )]
+position = Vector2( 794, 544 )
+rotation = 0.785397
+
+[node name="maggot5" parent="." instance=ExtResource( 1 )]
+position = Vector2( 952, 411 )
+rotation = -2.35619
+
+[node name="maggot6" parent="." instance=ExtResource( 1 )]
+position = Vector2( 896, 496 )
+rotation = 2.35619
+
+[node name="maggot7" parent="." instance=ExtResource( 1 )]
+position = Vector2( 901, 623 )
+rotation = 0.785397
+
+[node name="maggot8" parent="." instance=ExtResource( 1 )]
+position = Vector2( 1006, 494 )
+rotation = -0.785397
+
+[node name="maggot9" parent="." instance=ExtResource( 1 )]
+position = Vector2( 1182, 381 )
+rotation = 1.57079
+
+[node name="maggot10" parent="." instance=ExtResource( 1 )]
+position = Vector2( 1157, 439 )
+rotation = -1.57079
+
+[node name="maggot11" parent="." instance=ExtResource( 1 )]
+position = Vector2( 843, 592 )
+rotation = -2.35619
+
+[node name="maggot12" parent="." instance=ExtResource( 1 )]
+position = Vector2( 990, 595 )
+
+[node name="maggot13" parent="." instance=ExtResource( 1 )]
+position = Vector2( 1061, 431 )
+
+[node name="maggot14" parent="." instance=ExtResource( 1 )]
+position = Vector2( 1106, 574 )
+rotation = 2.09439
+
+[node name="maggot15" parent="." instance=ExtResource( 1 )]
+position = Vector2( 1144, 519 )
+rotation = -0.785397
+
+[node name="maggot16" parent="." instance=ExtResource( 1 )]
+position = Vector2( 807, 334 )
+rotation = 2.09439
+
+[node name="maggot17" parent="." instance=ExtResource( 1 )]
+position = Vector2( 1084, 639 )
+rotation = -1.08854
+
+[node name="maggot18" parent="." instance=ExtResource( 1 )]
+position = Vector2( 685, 400 )
+rotation = -2.35619
+
+[node name="maggot19" parent="." instance=ExtResource( 1 )]
+position = Vector2( 1096, 321 )
+
+[node name="maggot20" parent="." instance=ExtResource( 1 )]
+position = Vector2( 725, 481 )
+rotation = -4.18878

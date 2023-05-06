@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://enemies/flies/fly.png" type="Texture" id=1]
+[ext_resource path="res://enemies/select.gd" type="Script" id=2]
+[ext_resource path="res://enemies/flies/fly.gd" type="Script" id=3]
+
+[sub_resource type="Curve2D" id=1]
+_data = {
+"points": PoolVector2Array(  )
+}
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 36, 16 )
+
+[node name="fly" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource( 1 )
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+
+[node name="Area2D" type="Area2D" parent="Path2D/PathFollow2D"]
+script = ExtResource( 2 )
+scene_root = NodePath("../../..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Path2D/PathFollow2D/Area2D"]
+position = Vector2( -4, 0 )
+shape = SubResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="Path2D/PathFollow2D/Area2D"]
+texture = ExtResource( 1 )
