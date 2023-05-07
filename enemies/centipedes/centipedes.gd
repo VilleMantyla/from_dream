@@ -28,6 +28,7 @@ func take_damage(parts, dmg):
 func deactivate():
 	for c in get_children():
 		c.disable_collisionshape(true)
+	set_process(false)
 
 func damage_to_part(part, dmg):
 	print(str(part) + " took dmg: " + str(dmg) + " and it's hp's now: " + str(part.hp))

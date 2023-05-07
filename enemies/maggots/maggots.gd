@@ -15,6 +15,7 @@ func activate():
 		maggot.disable_collisionshape(false)
 	part_count = get_children().size()
 	dead = false
+	play_appear_anim()
 
 func deactivate():
 	for maggot in get_children():
@@ -44,3 +45,7 @@ func damage_to_part(part, dmg):
 		
 		emit_signal("enemy_died")
 		dead = true
+
+func play_appear_anim():
+	for m in get_children():
+		m.get_node("AnimationPlayer").play("appear",-1,1)

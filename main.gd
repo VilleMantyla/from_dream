@@ -16,6 +16,8 @@ func _ready():
 	$Player.connect("show_context_msg", self, "show_context_msg")
 	$Player.connect("next_chat_text", self, "read_next_chat")
 	
+	$Battle.connect("leave_battle", self, "exit_battle")
+	
 
 	
 	for gs in $glitch_suckers.get_children():
@@ -84,10 +86,14 @@ func enter_battle(enemy):
 	battle_on_hold = null
 	
 	$Player.activate(false)
-	$Player/rotation_helper/Camera.clear_current(false)
 	
 	$Battle.start_battle(enemy)
 
+func exit_battle():
+	$Battle.hide()
+	$Player.activate(true)
+	$Player.disable_input(false)
+	print("fix player activate and disable input logic")
 
 func show_context_msg(key):
 	$context_msg.text = interactables[key]
@@ -164,5 +170,4 @@ func _on_teleport_forest(body):
 	$Player.global_rotation.y = deg2rad(-90)
 	pass # Replace with function body.
 
-func end_battle():
-	$Battle.hide()
+

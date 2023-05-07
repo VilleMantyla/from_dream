@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/fly.png-4a3622587151d6f681cac271b4c2aac7.stex"
+path="res://.import/slime_big.png-7212483ad14901244c420ffadaecc70e.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://enemies/flies/fly.png"
-dest_files=[ "res://.import/fly.png-4a3622587151d6f681cac271b4c2aac7.stex" ]
+source_file="res://enemies/slime_duo/slime_big.png"
+dest_files=[ "res://.import/slime_big.png-7212483ad14901244c420ffadaecc70e.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

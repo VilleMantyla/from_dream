@@ -18,6 +18,11 @@ func activate(e):
 	set_process(true)
 	set_physics_process(true)
 
+func deactivate():
+	enemy = null
+	set_process(false)
+	set_physics_process(false)
+
 func _process(delta): #could be changed to input
 	position = get_global_mouse_position()
 
