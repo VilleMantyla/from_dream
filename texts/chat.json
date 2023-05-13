@@ -1274,7 +1274,7 @@
 },
 {
 	"textframe": [{
-			"text": "look, I don't have time *chatting* with you",
+			"text": "well, I don't have time *chatting* with you",
 			"speed": 50,
 			"sound" : 0
 		}
@@ -1282,7 +1282,7 @@
 },
 {
 	"textframe": [{
-			"text": "heh",
+			"text": "LOL",
 			"speed": 50,
 			"sound" : 0
 		}

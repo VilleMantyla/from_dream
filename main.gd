@@ -18,8 +18,6 @@ func _ready():
 	
 	$Battle.connect("leave_battle", self, "exit_battle")
 	
-
-	
 	for gs in $glitch_suckers.get_children():
 		gs.get_node("AnimationPlayer").get_animation("twiggle_normal").set_loop(true)
 		gs.get_node("AnimationPlayer").play("twiggle_normal",-1,1)

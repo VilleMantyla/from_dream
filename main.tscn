@@ -1,4 +1,4 @@
-[gd_scene load_steps=77 format=2]
+[gd_scene load_steps=102 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://player.gd" type="Script" id=2]
@@ -13,7 +13,7 @@
 [ext_resource path="res://level_models/two_floor_house.glb" type="PackedScene" id=11]
 [ext_resource path="res://tv/tv_roping.glb" type="PackedScene" id=12]
 [ext_resource path="res://level_models/Material_003.material" type="Material" id=13]
-[ext_resource path="res://tv/tv_face_angst.png" type="Texture" id=14]
+[ext_resource path="res://tv/tv_face_arsy_alt3.png" type="Texture" id=14]
 [ext_resource path="res://level_models/glitch_sucker_ver2.glb" type="PackedScene" id=15]
 [ext_resource path="res://level_mechanics/floor_number.gd" type="Script" id=16]
 [ext_resource path="res://level_models/tree.glb" type="PackedScene" id=17]
@@ -41,6 +41,18 @@
 [ext_resource path="res://battle.gd" type="Script" id=39]
 [ext_resource path="res://battle/message_box.png" type="Texture" id=40]
 [ext_resource path="res://enemies/flies/flies.tscn" type="PackedScene" id=41]
+[ext_resource path="res://enemies/slime_duo/slime_duo.tscn" type="PackedScene" id=42]
+[ext_resource path="res://battle/stats_frame.png" type="Texture" id=43]
+[ext_resource path="res://battle/battle_bg_poison.png" type="Texture" id=44]
+[ext_resource path="res://battle/gun_select.png" type="Texture" id=45]
+[ext_resource path="res://battle/biggun_select.png" type="Texture" id=46]
+[ext_resource path="res://tv/tv_face_trouble_trimmed.png" type="Texture" id=47]
+[ext_resource path="res://battle/grenade_ex_3.png" type="Texture" id=48]
+[ext_resource path="res://battle/grenade_ex_0.png" type="Texture" id=49]
+[ext_resource path="res://battle/grenade_ex_2.png" type="Texture" id=50]
+[ext_resource path="res://battle/grenade_laucnher_sight.png" type="Texture" id=51]
+[ext_resource path="res://battle/grenade_ex_1.png" type="Texture" id=52]
+[ext_resource path="res://battle/grenade_ex_4.png" type="Texture" id=53]
 
 [sub_resource type="CylinderShape" id=1]
 height = 0.873814
@@ -53,7 +65,93 @@ font_data = ExtResource( 20 )
 [sub_resource type="Theme" id=16]
 default_font = SubResource( 15 )
 
+[sub_resource type="Animation" id=48]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=49]
+resource_name = "poisoning"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="SpriteFrames" id=56]
+animations = [ {
+"frames": [ ExtResource( 49 ), ExtResource( 52 ), ExtResource( 50 ), ExtResource( 48 ), ExtResource( 53 ) ],
+"loop": true,
+"name": "default",
+"speed": 8.0
+} ]
+
 [sub_resource type="CircleShape2D" id=7]
+
+[sub_resource type="CircleShape2D" id=55]
+radius = 56.0
+
+[sub_resource type="Animation" id=50]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 2256, 440 ) ]
+}
+
+[sub_resource type="Animation" id=51]
+resource_name = "switch_in"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 2256, 440 ), Vector2( 680, 440 ) ]
+}
+
+[sub_resource type="Animation" id=52]
+resource_name = "switch_out"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 680, 440 ), Vector2( -344, 440 ) ]
+}
 
 [sub_resource type="DynamicFont" id=35]
 size = 50
@@ -63,7 +161,7 @@ font_data = ExtResource( 20 )
 default_font = SubResource( 35 )
 
 [sub_resource type="DynamicFont" id=37]
-size = 42
+size = 30
 font_data = ExtResource( 20 )
 
 [sub_resource type="Theme" id=38]
@@ -141,6 +239,26 @@ tracks/1/keys = {
 "update": 1,
 "values": [ true, false ]
 }
+
+[sub_resource type="StyleBoxFlat" id=44]
+bg_color = Color( 0.443137, 0, 0.67451, 1 )
+
+[sub_resource type="StyleBoxFlat" id=45]
+bg_color = Color( 0.333333, 0.333333, 0.333333, 1 )
+
+[sub_resource type="DynamicFont" id=46]
+size = 26
+font_data = ExtResource( 20 )
+
+[sub_resource type="Theme" id=47]
+default_font = SubResource( 46 )
+
+[sub_resource type="DynamicFont" id=53]
+size = 80
+font_data = ExtResource( 20 )
+
+[sub_resource type="Theme" id=54]
+default_font = SubResource( 53 )
 
 [sub_resource type="BoxShape" id=10]
 extents = Vector3( 0.268334, 0.95202, 0.187015 )
@@ -1774,7 +1892,7 @@ script = ExtResource( 1 )
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.5, 1.6, 13.5 )
 
 [node name="Player" type="KinematicBody" parent="."]
-transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 1.6, -5.5 )
+transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 112.599, 1.6, -18.4208 )
 collision_layer = 2
 collision_mask = 5
 script = ExtResource( 2 )
@@ -1825,33 +1943,70 @@ script = ExtResource( 39 )
 
 [node name="battle_arena" parent="Battle" instance=ExtResource( 8 )]
 
+[node name="poison_bg" type="Sprite" parent="Battle"]
+modulate = Color( 1, 1, 1, 0 )
+position = Vector2( 960, 467 )
+texture = ExtResource( 44 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Battle/poison_bg"]
+anims/RESET = SubResource( 48 )
+anims/poisoning = SubResource( 49 )
+
 [node name="Enemies" type="Node2D" parent="Battle"]
 
 [node name="Centipedes" parent="Battle/Enemies" instance=ExtResource( 6 )]
-visible = false
 
 [node name="maggots" parent="Battle/Enemies" instance=ExtResource( 37 )]
-visible = false
 
 [node name="flies" parent="Battle/Enemies" instance=ExtResource( 41 )]
-visible = false
+
+[node name="slime_duo" parent="Battle/Enemies" instance=ExtResource( 42 )]
 
 [node name="battle_borders" parent="Battle" instance=ExtResource( 7 )]
+
+[node name="gl_explode" type="AnimatedSprite" parent="Battle"]
+visible = false
+frames = SubResource( 56 )
 
 [node name="weapons" type="Node2D" parent="Battle"]
 script = ExtResource( 36 )
 
 [node name="pistol" type="Area2D" parent="Battle/weapons"]
+visible = false
 
 [node name="Sprite" type="Sprite" parent="Battle/weapons/pistol"]
 texture = ExtResource( 9 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Battle/weapons/pistol"]
 shape = SubResource( 7 )
+disabled = true
+
+[node name="grenade_launcher" type="Area2D" parent="Battle/weapons"]
+visible = false
+
+[node name="Sprite" type="Sprite" parent="Battle/weapons/grenade_launcher"]
+texture = ExtResource( 51 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Battle/weapons/grenade_launcher"]
+shape = SubResource( 55 )
+disabled = true
+
+[node name="load_bar" type="ProgressBar" parent="Battle/weapons"]
+margin_left = -50.0
+margin_top = 35.0
+margin_right = 50.0
+margin_bottom = 49.0
+value = 100.0
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Battle/weapons"]
 stream = ExtResource( 38 )
 volume_db = -22.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Battle/weapons"]
+root_node = NodePath("../../tv_gun_select")
+anims/RESET = SubResource( 50 )
+anims/switch_in = SubResource( 51 )
+anims/switch_out = SubResource( 52 )
 
 [node name="pop_msg" type="Sprite" parent="Battle"]
 position = Vector2( 944, 120 )
@@ -1889,13 +2044,29 @@ text = "test test test"
 scroll_active = false
 
 [node name="hp" type="RichTextLabel" parent="Battle"]
-margin_left = 832.0
-margin_top = 904.0
-margin_right = 1152.0
-margin_bottom = 960.0
+margin_left = 834.0
+margin_top = 871.0
+margin_right = 1154.0
+margin_bottom = 927.0
 theme = SubResource( 38 )
+bbcode_enabled = true
 bbcode_text = "HP: XX"
 text = "HP: XX"
+
+[node name="gp" type="RichTextLabel" parent="Battle"]
+margin_left = 834.0
+margin_top = 913.0
+margin_right = 1154.0
+margin_bottom = 969.0
+theme = SubResource( 38 )
+bbcode_enabled = true
+bbcode_text = "GP: XX"
+text = "GP: XX"
+
+[node name="frame3" type="Sprite" parent="Battle"]
+position = Vector2( 975, 953 )
+scale = Vector2( 2, 1 )
+texture = ExtResource( 43 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Battle"]
 anims/RESET = SubResource( 43 )
@@ -1903,9 +2074,78 @@ anims/message_off = SubResource( 41 )
 anims/message_pop = SubResource( 40 )
 anims/message_stop = SubResource( 42 )
 
+[node name="poison_meter" type="ProgressBar" parent="Battle"]
+margin_left = 835.0
+margin_top = 822.0
+margin_right = 1091.0
+margin_bottom = 846.0
+custom_styles/fg = SubResource( 44 )
+custom_styles/bg = SubResource( 45 )
+percent_visible = false
+
+[node name="poison_label" type="RichTextLabel" parent="Battle"]
+margin_left = 913.0
+margin_top = 819.0
+margin_right = 1233.0
+margin_bottom = 875.0
+theme = SubResource( 47 )
+bbcode_enabled = true
+bbcode_text = "POISON"
+text = "POISON"
+
+[node name="frame" type="Sprite" parent="Battle"]
+visible = false
+position = Vector2( 976, 924 )
+scale = Vector2( 2, 1 )
+texture = ExtResource( 43 )
+
+[node name="frame2" type="Sprite" parent="Battle"]
+visible = false
+position = Vector2( 976, 888 )
+scale = Vector2( 2, 1 )
+texture = ExtResource( 43 )
+
+[node name="gun" type="Sprite" parent="Battle"]
+position = Vector2( 767, 1018 )
+scale = Vector2( 0.9, 0.9 )
+texture = ExtResource( 45 )
+
+[node name="biggun" type="Sprite" parent="Battle"]
+position = Vector2( 1119, 1019 )
+scale = Vector2( 0.9, 0.9 )
+texture = ExtResource( 46 )
+
+[node name="ColorRect" type="ColorRect" parent="Battle"]
+visible = false
+margin_right = 1920.0
+margin_bottom = 1080.0
+color = Color( 0, 0, 0, 0.478431 )
+
+[node name="tv_gun_select" type="Sprite" parent="Battle"]
+position = Vector2( 2256, 440 )
+scale = Vector2( 0.8, 0.8 )
+texture = ExtResource( 47 )
+
+[node name="tv_gun_text" type="RichTextLabel" parent="Battle"]
+visible = false
+margin_left = 1032.0
+margin_top = 360.0
+margin_right = 1816.0
+margin_bottom = 568.0
+theme = SubResource( 54 )
+text = "I'M READY FOR YOU SENPAI"
+
 [node name="enemy_trigger" parent="." instance=ExtResource( 35 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.77412, 1.25135, -5.50789 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 20.7291, 1.25135, -15.0046 )
 enemy = NodePath("../Battle/Enemies/flies")
+
+[node name="enemy_trigger2" parent="." instance=ExtResource( 35 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.60327, 1.28163, 13.066 )
+enemy = NodePath("../Battle/Enemies/maggots")
+
+[node name="enemy_trigger3" parent="." instance=ExtResource( 35 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.752338, 14.5574, 13.066 )
+enemy = NodePath("../Battle/Enemies/slime_duo")
 
 [node name="void" parent="." instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.83014, 13.2923, 1.71042 )
@@ -2222,7 +2462,6 @@ shape = SubResource( 25 )
 [node name="Sprite" type="Sprite" parent="."]
 visible = false
 position = Vector2( 1552, 743 )
-scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 14 )
 
 [node name="Area" type="Area" parent="." groups=["cutscene", "interactable"]]

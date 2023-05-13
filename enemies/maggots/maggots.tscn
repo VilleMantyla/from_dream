@@ -1,7 +1,37 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://enemies/maggots/maggot.tscn" type="PackedScene" id=1]
 [ext_resource path="res://enemies/maggots/maggots.gd" type="Script" id=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Node2D
+
+export var hp = 1
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+func disable_collisionshape(val):
+	$Area2D/CollisionShape2D.disabled = val
+"
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends Node2D
+
+export var hp = 1
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+func disable_collisionshape(val):
+	$Area2D/CollisionShape2D.disabled = val
+"
 
 [node name="maggots" type="Node2D"]
 script = ExtResource( 2 )
@@ -9,10 +39,12 @@ script = ExtResource( 2 )
 [node name="maggot" parent="." instance=ExtResource( 1 )]
 position = Vector2( 999, 326 )
 rotation = 2.35619
+script = SubResource( 1 )
 
 [node name="maggot2" parent="." instance=ExtResource( 1 )]
 position = Vector2( 878, 392 )
 rotation = 0.808839
+script = SubResource( 2 )
 
 [node name="maggot3" parent="." instance=ExtResource( 1 )]
 position = Vector2( 786, 430 )

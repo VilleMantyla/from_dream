@@ -30,9 +30,10 @@ func take_damage(parts, dmg):
 func damage_to_part(part, dmg):
 	part.hp -= dmg
 	if part.hp <= 0:
-		part.hide()
+		part.get_node("AnimationPlayer").play("die",-1,2.3)
 		part.disable_collisionshape(true)
 		part_count -= 1
+		part.get_node("Area2D/AnimatedSprite").stop()
 	
 	if part_count <= 5 and !dead:
 		for maggot in get_children():

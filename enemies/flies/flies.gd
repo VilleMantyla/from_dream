@@ -81,6 +81,8 @@ func damage_to_part(part, dmg):
 func start_attack():
 	var fly = get_random_fly()
 	flies.erase(fly)
+	move_child(fly, get_children().size()-1)
+	print("fix fly postion")
 	
 	var sprite = fly.get_node("Path2D/PathFollow2D/Area2D/Sprite")
 	sprite.set_texture(load("res://enemies/flies/fly_attacking.png"))
