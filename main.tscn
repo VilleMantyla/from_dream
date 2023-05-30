@@ -2,25 +2,19 @@
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://player.gd" type="Script" id=2]
-[ext_resource path="res://tv/tv_rigging.glb" type="PackedScene" id=3]
+[ext_resource path="res://level_models/house_entrance.glb" type="PackedScene" id=3]
 [ext_resource path="res://chat.gd" type="Script" id=4]
-[ext_resource path="res://void/void.glb" type="PackedScene" id=5]
 [ext_resource path="res://enemies/centipedes/centipedes.tscn" type="PackedScene" id=6]
 [ext_resource path="res://battle/battle_borders.tscn" type="PackedScene" id=7]
 [ext_resource path="res://battle/battle_arena.tscn" type="PackedScene" id=8]
 [ext_resource path="res://battle/pistol_sight.png" type="Texture" id=9]
 [ext_resource path="res://level_mechanics/ladder.gd" type="Script" id=10]
-[ext_resource path="res://level_models/two_floor_house.glb" type="PackedScene" id=11]
-[ext_resource path="res://tv/tv_roping.glb" type="PackedScene" id=12]
 [ext_resource path="res://level_models/Material_003.material" type="Material" id=13]
 [ext_resource path="res://tv/tv_face_arsy_alt3.png" type="Texture" id=14]
 [ext_resource path="res://level_models/glitch_sucker_ver2.glb" type="PackedScene" id=15]
 [ext_resource path="res://level_mechanics/floor_number.gd" type="Script" id=16]
-[ext_resource path="res://level_models/tree.glb" type="PackedScene" id=17]
-[ext_resource path="res://level_models/tree2.glb" type="PackedScene" id=18]
 [ext_resource path="res://sounds/tv_drop.wav" type="AudioStream" id=19]
 [ext_resource path="res://fonts/RobotoCondensed-Regular.ttf" type="DynamicFontData" id=20]
-[ext_resource path="res://level_models/tree5.glb" type="PackedScene" id=21]
 [ext_resource path="res://level_mechanics/tv_paths.gd" type="Script" id=22]
 [ext_resource path="res://tv/tv_ver2.glb" type="PackedScene" id=23]
 [ext_resource path="res://level_mechanics/cutscene.gd" type="Script" id=24]
@@ -53,6 +47,9 @@
 [ext_resource path="res://battle/grenade_laucnher_sight.png" type="Texture" id=51]
 [ext_resource path="res://battle/grenade_ex_1.png" type="Texture" id=52]
 [ext_resource path="res://battle/grenade_ex_4.png" type="Texture" id=53]
+[ext_resource path="res://battle/battle_bg_green.png" type="Texture" id=54]
+[ext_resource path="res://shaders/2d_colorer.shader" type="Shader" id=55]
+[ext_resource path="res://level_models/house_build_ver2.glb" type="PackedScene" id=57]
 
 [sub_resource type="CylinderShape" id=1]
 height = 0.873814
@@ -259,6 +256,65 @@ font_data = ExtResource( 20 )
 
 [sub_resource type="Theme" id=54]
 default_font = SubResource( 53 )
+
+[sub_resource type="ShaderMaterial" id=57]
+shader = ExtResource( 55 )
+shader_param/flash_color = Color( 1, 0, 0, 1 )
+shader_param/flash_modifier = 1.0
+
+[sub_resource type="Animation" id=58]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0.627451 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:material:shader_param/flash_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 1 ) ]
+}
+
+[sub_resource type="Animation" id=59]
+resource_name = "damage"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0.627451 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:material:shader_param/flash_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 1 ) ]
+}
 
 [sub_resource type="BoxShape" id=10]
 extents = Vector3( 0.268334, 0.95202, 0.187015 )
@@ -1888,11 +1944,17 @@ extents = Vector3( 8.05617, 2.24743, 1 )
 [node name="Main" type="Spatial"]
 script = ExtResource( 1 )
 
+[node name="house_entrance" parent="." instance=ExtResource( 3 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0 )
+
+[node name="house_build_ver2" parent="." instance=ExtResource( 57 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -120, 0, 0 )
+
 [node name="door_test_spot" type="Spatial" parent="."]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.5, 1.6, 13.5 )
 
 [node name="Player" type="KinematicBody" parent="."]
-transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 112.599, 1.6, -18.4208 )
+transform = Transform( 1, 0, 2.38419e-07, 0, 1, 0, -2.38419e-07, 0, 1, -103.555, 1.6, 4.00003 )
 collision_layer = 2
 collision_mask = 5
 script = ExtResource( 2 )
@@ -1930,6 +1992,7 @@ margin_bottom = -100.0
 text = "this is a test"
 
 [node name="Chat" type="RichTextLabel" parent="."]
+visible = false
 margin_left = 789.0
 margin_top = 800.0
 margin_right = 1163.0
@@ -2135,68 +2198,66 @@ margin_bottom = 568.0
 theme = SubResource( 54 )
 text = "I'M READY FOR YOU SENPAI"
 
+[node name="damage_to_player" type="Sprite" parent="Battle"]
+visible = false
+modulate = Color( 1, 1, 1, 0.627451 )
+material = SubResource( 57 )
+scale = Vector2( 1, 1.66667 )
+texture = ExtResource( 54 )
+centered = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Battle/damage_to_player"]
+anims/RESET = SubResource( 58 )
+anims/damage = SubResource( 59 )
+
 [node name="enemy_trigger" parent="." instance=ExtResource( 35 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 20.7291, 1.25135, -15.0046 )
-enemy = NodePath("../Battle/Enemies/flies")
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -89.8901, 1.251, -7.42932 )
+enemy = NodePath("../Battle/Enemies/slime_duo")
 
 [node name="enemy_trigger2" parent="." instance=ExtResource( 35 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.60327, 1.28163, 13.066 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -101.676, 1.28163, 13.3205 )
 enemy = NodePath("../Battle/Enemies/maggots")
 
 [node name="enemy_trigger3" parent="." instance=ExtResource( 35 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.752338, 14.5574, 13.066 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -100.553, 30.4451, 19.2652 )
 enemy = NodePath("../Battle/Enemies/slime_duo")
 
-[node name="void" parent="." instance=ExtResource( 5 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.83014, 13.2923, 1.71042 )
-
-[node name="tv_roping" parent="." instance=ExtResource( 12 )]
-transform = Transform( -0.328705, 0, 0.169861, 0, 0.37, 0, -0.169861, 0, -0.328705, 11.4365, 14.2999, 18.9429 )
-
-[node name="tree" parent="tv_roping" index="3"]
-visible = false
-
-[node name="tv_rigging" parent="." instance=ExtResource( 3 )]
-transform = Transform( -0.328705, 0, 0.169861, 0, 0.37, 0, -0.169861, 0, -0.328705, 11.4365, 14.2999, 18.9429 )
-
-[node name="two_floor_house" parent="." instance=ExtResource( 11 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.82285, 0, 0 )
-
 [node name="Ladder" type="Spatial" parent="." groups=["interactable", "ladder"]]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.11565, 0.92315, 9.44833 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -103.5, 1, 9.5 )
 script = ExtResource( 10 )
 top_max = NodePath("floor_point")
 
 [node name="bottom_floor" type="Area" parent="Ladder" groups=["interactable", "ladder"]]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.300003, 0, 0 )
 collision_layer = 4
 collision_mask = 2
 script = ExtResource( 16 )
 floor_number = 0
 
 [node name="climb_to" type="CollisionShape" parent="Ladder/bottom_floor"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.260207, -0.834584, 0.0660753 )
 shape = SubResource( 10 )
 
 [node name="second_floor" type="Area" parent="Ladder" groups=["interactable", "ladder"]]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.300003, 29.2691, 0 )
 collision_layer = 4
 collision_mask = 2
 script = ExtResource( 16 )
 floor_number = 1
 
 [node name="climb_to" type="CollisionShape" parent="Ladder/second_floor"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.19851, 12.7925, -0.466756 )
 shape = SubResource( 12 )
 
 [node name="floor_point" type="Spatial" parent="Ladder"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.05646, 12.2768, -0.66279 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6, 28.7, -0.513079 )
 
 [node name="climb_offset" type="Spatial" parent="Ladder"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.259528, 0, -0.192699 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0, -0.19 )
 
 [node name="btm_floor" type="Spatial" parent="Ladder"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14393, -1.92315, -0.339787 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0 )
 
 [node name="glitch_suckers" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -111.085, 0, 0 )
 
 [node name="glitch_sucker_ver2" parent="glitch_suckers" instance=ExtResource( 15 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.66619, 0, 6.12789 )
@@ -2206,17 +2267,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.54085, 0, 6.47448 )
 
 [node name="glitch_sucker_ver4" parent="glitch_suckers" instance=ExtResource( 15 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.91185, 0, 6.47448 )
-
-[node name="tree6" parent="." instance=ExtResource( 21 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12.4355, 13.1982, 19.2344 )
-
-[node name="tree2" parent="." instance=ExtResource( 18 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.14656, 13.1982, 19.2747 )
-visible = false
-
-[node name="tree" parent="." instance=ExtResource( 17 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.834102, 13.1982, 19.2747 )
-visible = false
 
 [node name="forest" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 94.1577, 0, 0 )
@@ -2497,6 +2547,4 @@ shape = SubResource( 34 )
 
 [connection signal="body_entered" from="teleport" to="." method="_on_teleport_forest"]
 
-[editable path="tv_roping"]
-[editable path="tv_rigging"]
 [editable path="glitch_suckers/glitch_sucker_ver2"]

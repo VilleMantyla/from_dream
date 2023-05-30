@@ -108,4 +108,4 @@ func attack(fly):
 	attacking_fly = null
 	damage_to_part(fly, 1000000)
 	
-	emit_signal("attack", attack_dmg)
+	emit_signal("attack", EnemyStuff.attack_types.NORMAL, attack_dmg)

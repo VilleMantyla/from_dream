@@ -110,6 +110,9 @@ func hurt_player(attack_type, dmg):
 		$hp.bbcode_text = "HP: " + str(hp)
 		show_message("you took " + str(dmg) + " damage")
 		set_message_to_be_cleared()
+		
+		$damage_to_player.show()
+		$damage_to_player/AnimationPlayer.play("damage", -1, 1)
 	elif attack_type == EnemyStuff.attack_types.POISON:
 		try_poisoning(dmg)
 
