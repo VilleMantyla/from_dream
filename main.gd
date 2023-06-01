@@ -144,11 +144,11 @@ func check_if_cutscene_continues():
 
 func tv_in_tree_anims(anim):
 	if anim == "getting_up":
-		tv.global_rotation.y = deg2rad(-22.5)
+		tv.global_rotation.y = deg2rad(148)
 		tv.get_node("AnimationPlayer").play("stand_rise")
 		
-		$Player.global_transform.origin = Vector3(113,1.6,-25)
-		$Player.global_rotation.y = deg2rad(-22.5)
+		$Player.global_transform.origin = Vector3(-3.475,1.6,-10.2)
+		$Player.global_rotation.y = deg2rad(148)
 		$Player/rotation_helper.global_rotation.x = deg2rad(-10)
 		$Player/rotation_helper/Camera.current = true
 	
