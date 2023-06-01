@@ -1,5 +1,7 @@
 extends KinematicBody
 
+const PLAYER_HEIGHT = 1.6
+
 var MOUSE_SENSITIVITY = 0.06
 var rotation_x_limit = Vector2(deg2rad(60), deg2rad(-60))
 
@@ -81,6 +83,8 @@ func _process(delta):
 				climb_to_ladder(floor_n)
 			elif looking_at_interactable.is_in_group("cutscene"):
 				get_parent().start_cutscene(looking_at_interactable.cutscene_name)
+			elif looking_at_interactable.is_in_group("area_switch"):
+				switch_area(looking_at_interactable)
 				
 
 func _physics_process(delta):
@@ -211,3 +215,10 @@ func climb_ladder(move_dir, delta):
 func set_active_ladder(ladder_floor_area):
 	active_ladder = ladder_floor_area.get_parent()
 	return ladder_floor_area.floor_number
+
+func switch_area(new_area):
+	var new_pos = new_area.target_pos
+	new_pos.y += PLAYER_HEIGHT
+	
+	global_transform.origin = new_pos
+	global_rotation.y = deg2rad(-90)

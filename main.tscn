@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=2]
+[gd_scene load_steps=75 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://player.gd" type="Script" id=2]
@@ -10,6 +10,8 @@
 [ext_resource path="res://battle/battle_arena.tscn" type="PackedScene" id=8]
 [ext_resource path="res://battle/pistol_sight.png" type="Texture" id=9]
 [ext_resource path="res://level_mechanics/ladder.gd" type="Script" id=10]
+[ext_resource path="res://level_mechanics/area_switch.gd" type="Script" id=11]
+[ext_resource path="res://level_models/house_outside.glb" type="PackedScene" id=12]
 [ext_resource path="res://tv/tv_face_arsy_alt3.png" type="Texture" id=14]
 [ext_resource path="res://level_models/glitch_sucker_ver2.glb" type="PackedScene" id=15]
 [ext_resource path="res://level_mechanics/floor_number.gd" type="Script" id=16]
@@ -41,8 +43,8 @@
 [ext_resource path="res://level_models/house_build_ver2.glb" type="PackedScene" id=57]
 
 [sub_resource type="CylinderShape" id=1]
-height = 0.873814
-radius = 0.361784
+height = 0.487519
+radius = 0.265161
 
 [sub_resource type="DynamicFont" id=15]
 size = 30
@@ -317,8 +319,14 @@ radius = 0.534091
 [sub_resource type="BoxShape" id=26]
 extents = Vector3( 0.27212, 0.266913, 0.165761 )
 
+[sub_resource type="BoxShape" id=60]
+extents = Vector3( 0.523584, 1.15461, 0.0702549 )
+
 [node name="Main" type="Spatial"]
 script = ExtResource( 1 )
+
+[node name="tv_3" parent="." instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -104.5, 0, 6.66711 )
 
 [node name="tv_ver2" parent="." instance=ExtResource( 5 )]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -4.222, 1.3, -9.025 )
@@ -333,7 +341,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -120, 0, 0 )
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.5, 1.6, 13.5 )
 
 [node name="Player" type="KinematicBody" parent="."]
-transform = Transform( -1, 0, -3.89414e-07, 0, 1, 0, 3.89414e-07, 0, -1, -3.47481, 1.6, -12.7929 )
+transform = Transform( -1, 0, -8.66252e-07, 0, 1, 0, 8.66252e-07, 0, -1, -4.91368, 1.6, 0.843139 )
 collision_layer = 2
 collision_mask = 5
 script = ExtResource( 2 )
@@ -349,7 +357,7 @@ collision_mask = 4
 collide_with_areas = true
 
 [node name="CollisionShape" type="CollisionShape" parent="Player"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.957218, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.833201, 0 )
 shape = SubResource( 1 )
 
 [node name="context_msg" type="RichTextLabel" parent="."]
@@ -631,6 +639,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0 )
 
 [node name="glitch_suckers" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -111.085, 0, 0 )
+visible = false
 
 [node name="glitch_sucker_ver2" parent="glitch_suckers" instance=ExtResource( 15 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.66619, 0, 6.12789 )
@@ -655,13 +664,13 @@ visible = false
 position = Vector2( 1552, 743 )
 texture = ExtResource( 14 )
 
-[node name="Area" type="Area" parent="." groups=["cutscene", "interactable"]]
+[node name="untie_tv" type="Area" parent="." groups=["cutscene", "interactable"]]
 transform = Transform( 0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -3.07739, 1.21057, -8.87235 )
 collision_layer = 4
 collision_mask = 2
 script = ExtResource( 24 )
 
-[node name="CollisionShape" type="CollisionShape" parent="Area"]
+[node name="CollisionShape" type="CollisionShape" parent="untie_tv"]
 shape = SubResource( 26 )
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
@@ -677,5 +686,30 @@ loop = false
 
 [node name="Camera2" type="Camera" parent="."]
 transform = Transform( -0.720721, -0.232886, 0.652937, 0, 0.941882, 0.335945, -0.693226, 0.242122, -0.678833, -3.25941, 0.400006, -10.2315 )
+
+[node name="entrance_door" type="Area" parent="." groups=["area_switch", "interactable"]]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 1.15, 6 )
+collision_layer = 4
+collision_mask = 2
+script = ExtResource( 11 )
+
+[node name="CollisionShape" type="CollisionShape" parent="entrance_door"]
+shape = SubResource( 60 )
+
+[node name="roof_door" type="Area" parent="." groups=["area_switch", "interactable"]]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -104.5, 30.8609, -10 )
+collision_layer = 4
+collision_mask = 2
+script = ExtResource( 11 )
+target_pos = Vector3( -53.8, 0, 4 )
+
+[node name="CollisionShape" type="CollisionShape" parent="roof_door"]
+shape = SubResource( 60 )
+
+[node name="Spatial" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -112.5, 0, -5.5 )
+
+[node name="house_outside" parent="." instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -53.7977, 0, 0 )
 
 [editable path="glitch_suckers/glitch_sucker_ver2"]

@@ -27,6 +27,10 @@ func _ready():
 	if current_scene == cutscenes.IN_TREE:
 		tv_in_tree()
 		tv.get_node("AnimationPlayer").connect("animation_finished", self, "tv_in_tree_anims")
+	
+	$tv_3/AnimationPlayer.get_animation("banging_door").set_loop(true)
+	$tv_3/AnimationPlayer.play("banging_door",-1,2)
+	
 
 func tv_in_tree():
 	tv.get_node("AnimationPlayer").get_animation("on_the_noose").set_loop(true)
@@ -161,11 +165,3 @@ func tv_in_tree_anims(anim):
 		
 		$Sprite.show()
 		interact_with_world_object("melph_tree_first", false, false)
-
-
-func _on_teleport_forest(body):
-	$Player.global_transform.origin = Vector3(0,1.6,-5.5)
-	$Player.global_rotation.y = deg2rad(-90)
-	pass # Replace with function body.
-
-

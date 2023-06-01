@@ -3,7 +3,7 @@ extends Path
 var tv
 
 var first_path_curve
-var start_rotation_of_the_first_path = deg2rad(157.816) #hard coded from blender for every path begin
+var start_rotation_of_the_first_path = deg2rad(-18.1) #hard coded from blender for every path begin
 
 func _ready():
 	first_path_curve = Curve3D.new()
@@ -27,7 +27,15 @@ func start_a_path():
 	tween.tween_property($PathFollow/tv_ver2, "global_rotation:y", start_rotation_of_the_first_path, 0.3)#.set_trans(Tween.EASE_IN_OUT)
 
 	set_process(true)
-	
 
+var trigger = true
 func _process(delta):
 	$PathFollow.set_offset($PathFollow.get_offset()+3.5*delta)
+	
+	if $PathFollow.get_unit_offset() > 0.89 and trigger:
+		trigger = false
+		get_parent().get_node("house_entrance/outsidedoor").global_rotation.y = deg2rad(90)
+	
+	if $PathFollow.get_unit_offset() == 1:
+		get_parent().get_node("house_entrance/outsidedoor").global_rotation.y = deg2rad(180)
+		set_process(false)
