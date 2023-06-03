@@ -1,4 +1,4 @@
-[gd_scene load_steps=75 format=2]
+[gd_scene load_steps=76 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://player.gd" type="Script" id=2]
@@ -42,7 +42,7 @@
 [ext_resource path="res://shaders/2d_colorer.shader" type="Shader" id=55]
 [ext_resource path="res://level_models/house_build_ver2.glb" type="PackedScene" id=57]
 
-[sub_resource type="CylinderShape" id=1]
+[sub_resource type="CylinderShape" id=61]
 height = 0.487519
 radius = 0.265161
 
@@ -91,7 +91,7 @@ animations = [ {
 "speed": 8.0
 } ]
 
-[sub_resource type="CircleShape2D" id=7]
+[sub_resource type="CircleShape2D" id=62]
 
 [sub_resource type="CircleShape2D" id=55]
 radius = 56.0
@@ -307,20 +307,23 @@ tracks/1/keys = {
 "values": [ Color( 1, 0, 0, 1 ) ]
 }
 
-[sub_resource type="BoxShape" id=10]
+[sub_resource type="BoxShape" id=63]
 extents = Vector3( 0.268334, 0.95202, 0.187015 )
 
-[sub_resource type="BoxShape" id=12]
+[sub_resource type="BoxShape" id=64]
 extents = Vector3( 0.365203, 0.579616, 0.303117 )
 
 [sub_resource type="CylinderShape" id=25]
 radius = 0.534091
 
+[sub_resource type="BoxShape" id=60]
+extents = Vector3( 0.523584, 1.15461, 0.0702549 )
+
 [sub_resource type="BoxShape" id=26]
 extents = Vector3( 0.27212, 0.266913, 0.165761 )
 
-[sub_resource type="BoxShape" id=60]
-extents = Vector3( 0.523584, 1.15461, 0.0702549 )
+[sub_resource type="BoxShape" id=65]
+extents = Vector3( 0.133303, 0.198729, 0.0481385 )
 
 [node name="Main" type="Spatial"]
 script = ExtResource( 1 )
@@ -358,7 +361,7 @@ collide_with_areas = true
 
 [node name="CollisionShape" type="CollisionShape" parent="Player"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.833201, 0 )
-shape = SubResource( 1 )
+shape = SubResource( 61 )
 
 [node name="context_msg" type="RichTextLabel" parent="."]
 visible = false
@@ -422,7 +425,7 @@ visible = false
 texture = ExtResource( 9 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Battle/weapons/pistol"]
-shape = SubResource( 7 )
+shape = SubResource( 62 )
 disabled = true
 
 [node name="grenade_launcher" type="Area2D" parent="Battle/weapons"]
@@ -616,7 +619,7 @@ script = ExtResource( 16 )
 floor_number = 0
 
 [node name="climb_to" type="CollisionShape" parent="Ladder/bottom_floor"]
-shape = SubResource( 10 )
+shape = SubResource( 63 )
 
 [node name="second_floor" type="Area" parent="Ladder" groups=["interactable", "ladder"]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.300003, 29.2691, 0 )
@@ -626,7 +629,7 @@ script = ExtResource( 16 )
 floor_number = 1
 
 [node name="climb_to" type="CollisionShape" parent="Ladder/second_floor"]
-shape = SubResource( 12 )
+shape = SubResource( 64 )
 
 [node name="floor_point" type="Spatial" parent="Ladder"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6, 28.7, -0.513079 )
@@ -664,15 +667,6 @@ visible = false
 position = Vector2( 1552, 743 )
 texture = ExtResource( 14 )
 
-[node name="untie_tv" type="Area" parent="." groups=["cutscene", "interactable"]]
-transform = Transform( 0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -3.07739, 1.21057, -8.87235 )
-collision_layer = 4
-collision_mask = 2
-script = ExtResource( 24 )
-
-[node name="CollisionShape" type="CollisionShape" parent="untie_tv"]
-shape = SubResource( 26 )
-
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 19 )
 
@@ -686,6 +680,9 @@ loop = false
 
 [node name="Camera2" type="Camera" parent="."]
 transform = Transform( -0.720721, -0.232886, 0.652937, 0, 0.941882, 0.335945, -0.693226, 0.242122, -0.678833, -3.25941, 0.400006, -10.2315 )
+
+[node name="Camera3" type="Camera" parent="."]
+transform = Transform( -0.987595, 0.0306252, -0.154005, 0, 0.980796, 0.195039, 0.157021, 0.19262, -0.968629, -105, 1.44268, 5.17382 )
 
 [node name="entrance_door" type="Area" parent="." groups=["area_switch", "interactable"]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 1.15, 6 )
@@ -711,5 +708,25 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -112.5, 0, -5.5 )
 
 [node name="house_outside" parent="." instance=ExtResource( 12 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -53.7977, 0, 0 )
+
+[node name="in_tree_cutscene" type="Area" parent="." groups=["cutscene", "interactable"]]
+transform = Transform( 0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -3.07739, 1.21057, -8.87235 )
+collision_layer = 4
+collision_mask = 2
+script = ExtResource( 24 )
+
+[node name="CollisionShape" type="CollisionShape" parent="in_tree_cutscene"]
+shape = SubResource( 26 )
+
+[node name="banging_elevator_cutscene" type="Area" parent="." groups=["cutscene", "interactable"]]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -105.711, 1.30073, 7.0586 )
+collision_layer = 4
+collision_mask = 2
+script = ExtResource( 24 )
+cutscene_name = 1
+
+[node name="CollisionShape" type="CollisionShape" parent="banging_elevator_cutscene"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.191667 )
+shape = SubResource( 65 )
 
 [editable path="glitch_suckers/glitch_sucker_ver2"]

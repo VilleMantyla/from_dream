@@ -1,5 +1,5 @@
 extends Area
 
-enum cutscenes {IN_TREE}
+enum cutscenes {FROM_TREE, BANGING_ELEVATOR}
 
 export (cutscenes) var cutscene_name

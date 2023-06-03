@@ -1,7 +1,7 @@
 extends Spatial
 
-enum cutscenes {IN_TREE}
-var current_scene = cutscenes.IN_TREE
+enum cutscenes {FROM_TREE, BANGING_ELEVATOR}
+var current_scene = cutscenes.FROM_TREE
 
 var tv
 
@@ -24,24 +24,39 @@ func _ready():
 	
 	
 	tv = $tv_ver2
-	if current_scene == cutscenes.IN_TREE:
-		tv_in_tree()
-		tv.get_node("AnimationPlayer").connect("animation_finished", self, "tv_in_tree_anims")
+	if current_scene == cutscenes.FROM_TREE:
+		tv_FROM_TREE()
+		tv.get_node("AnimationPlayer").connect("animation_finished", self, "tv_FROM_TREE_anims")
 	
 	$tv_3/AnimationPlayer.get_animation("banging_door").set_loop(true)
 	$tv_3/AnimationPlayer.play("banging_door",-1,2)
+	$tv_3/AnimationPlayer.get_animation("stuck").set_loop(true)
+	$tv_3/AnimationPlayer.connect("animation_finished", self, "BANGING_ELEVATOR_anims")
 	
 
-func tv_in_tree():
+func tv_FROM_TREE():
 	tv.get_node("AnimationPlayer").get_animation("on_the_noose").set_loop(true)
 	tv.get_node("AnimationPlayer").play("on_the_noose",-1,2)
 
 func start_cutscene(cutscene_name):
-	if cutscene_name == cutscenes.IN_TREE:
+	if cutscene_name == cutscenes.FROM_TREE:
 		tv.global_transform.origin.y = 0
 		tv.get_node("AnimationPlayer").play("getting_up",-1,1.2)
 		get_node("AudioStreamPlayer2D").play()
 		get_node("Camera2").current = true
+	if cutscene_name == cutscenes.BANGING_ELEVATOR:
+		$Camera3.current = true
+		
+		
+		var left = $house_build_ver2/elevatordoorbottom1
+		var right = $house_build_ver2/elevatordoorbottom2
+		var left_target = left.global_transform.origin.x + 0.07
+		var right_target = right.global_transform.origin.x - 0.07
+		var tween1 = create_tween()
+		tween1.tween_property(left, "global_transform:origin:x", left_target, 0.25)
+		var tween2 = create_tween()
+		tween2.tween_property(right, "global_transform:origin:x", right_target, 0.25)
+		tween2.connect("finished", self, "BANGING_ELEVATOR_anims", ["doors"])
 
 var flip_open = true
 #func _process(delta):
@@ -137,7 +152,7 @@ func focus_on_point(focus_point):
 	v_tween.tween_property($Player, "global_rotation", new_player_rot, 1).set_trans(Tween.EASE_IN_OUT)
 
 func check_if_cutscene_continues():
-	if current_scene == cutscenes.IN_TREE:
+	if current_scene == cutscenes.FROM_TREE:
 		remove_child(tv)
 		$Path/PathFollow.add_child(tv)
 		tv.global_transform.origin = Vector3.ZERO
@@ -146,7 +161,7 @@ func check_if_cutscene_continues():
 	else:
 		return false
 
-func tv_in_tree_anims(anim):
+func tv_FROM_TREE_anims(anim):
 	if anim == "getting_up":
 		tv.global_rotation.y = deg2rad(148)
 		tv.get_node("AnimationPlayer").play("stand_rise")
@@ -165,3 +180,12 @@ func tv_in_tree_anims(anim):
 		
 		$Sprite.show()
 		interact_with_world_object("melph_tree_first", false, false)
+
+func BANGING_ELEVATOR_anims(anim):
+	if anim == "doors":
+		$tv_3/AnimationPlayer.play("fall_to_stuck")
+		var trgt = $tv_3.global_transform.origin.z + 0.15
+		var tween = create_tween()
+		tween.tween_property($tv_3, "global_transform:origin:z", trgt, 0.8)
+	if anim == "fall_to_stuck":
+		$tv_3/AnimationPlayer.play("stuck")
