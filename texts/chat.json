@@ -1304,5 +1304,39 @@
 		}
 	]
 }
+],
+"TV_bangging": [{
+	"textframe": [{
+			"text": "Open up you idiot!",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "I saw you get in.",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "I'm gonna kill you!",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+}
+],
+"TV_fall_scream": [{
+	"textframe": [{
+			"text": "KYAA~!!",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+}
 ]
 }

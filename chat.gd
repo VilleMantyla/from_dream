@@ -3,7 +3,7 @@ extends RichTextLabel
 signal chat_ended
 
 var timer_enabled = false
-var timer_wait = 1.3
+var timer_wait = 1
 
 var wait
 var write
@@ -42,6 +42,14 @@ func start_chat(chat_path, dialog_key):
 	first_text = true
 	wait.set_dialog_key(dialog_key)
 	state = wait.enter()
+
+func start_chat_timed(chat_path, dialog_key):
+	letter = read_json_file(chat_path)
+	set_process(true)
+	first_text = true
+	wait.set_dialog_key(dialog_key)
+	state = wait.enter()
+	timer_enabled = true
 
 func try_reading_next_paragraph():
 	print("state is " + str(state_name))

@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=2]
+[gd_scene load_steps=80 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://player.gd" type="Script" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://level_mechanics/ladder.gd" type="Script" id=10]
 [ext_resource path="res://level_mechanics/area_switch.gd" type="Script" id=11]
 [ext_resource path="res://level_models/house_outside.glb" type="PackedScene" id=12]
+[ext_resource path="res://level_mechanics/chat_interaction.gd" type="Script" id=13]
 [ext_resource path="res://tv/tv_face_arsy_alt3.png" type="Texture" id=14]
 [ext_resource path="res://level_models/glitch_sucker_ver2.glb" type="PackedScene" id=15]
 [ext_resource path="res://level_mechanics/floor_number.gd" type="Script" id=16]
@@ -313,6 +314,36 @@ extents = Vector3( 0.268334, 0.95202, 0.187015 )
 [sub_resource type="BoxShape" id=64]
 extents = Vector3( 0.365203, 0.579616, 0.303117 )
 
+[sub_resource type="Animation" id=66]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( -111.085, -10, 0 ) ]
+}
+
+[sub_resource type="Animation" id=67]
+resource_name = "rise"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( -111.085, -1.69578, 0 ), Vector3( -111.085, 0, 0 ) ]
+}
+
 [sub_resource type="CylinderShape" id=25]
 radius = 0.534091
 
@@ -324,6 +355,10 @@ extents = Vector3( 0.27212, 0.266913, 0.165761 )
 
 [sub_resource type="BoxShape" id=65]
 extents = Vector3( 0.133303, 0.198729, 0.0481385 )
+
+[sub_resource type="CylinderShape" id=68]
+height = 1.45982
+radius = 0.389801
 
 [node name="Main" type="Spatial"]
 script = ExtResource( 1 )
@@ -641,8 +676,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0, -0.19 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0 )
 
 [node name="glitch_suckers" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -111.085, 0, 0 )
-visible = false
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -111.085, -10, 0 )
 
 [node name="glitch_sucker_ver2" parent="glitch_suckers" instance=ExtResource( 15 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.66619, 0, 6.12789 )
@@ -652,6 +686,11 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.54085, 0, 6.47448 )
 
 [node name="glitch_sucker_ver4" parent="glitch_suckers" instance=ExtResource( 15 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.91185, 0, 6.47448 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../glitch_suckers")
+anims/RESET = SubResource( 66 )
+anims/rise = SubResource( 67 )
 
 [node name="tv_tree_col" type="StaticBody" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.18583, 1.27868, -9.40177 )
@@ -682,7 +721,7 @@ loop = false
 transform = Transform( -0.720721, -0.232886, 0.652937, 0, 0.941882, 0.335945, -0.693226, 0.242122, -0.678833, -3.25941, 0.400006, -10.2315 )
 
 [node name="Camera3" type="Camera" parent="."]
-transform = Transform( -0.987595, 0.0306252, -0.154005, 0, 0.980796, 0.195039, 0.157021, 0.19262, -0.968629, -105, 1.44268, 5.17382 )
+transform = Transform( -0.987595, 0.0306253, -0.154006, 0, 0.980796, 0.195039, 0.157021, 0.19262, -0.968629, -105.199, 1.43465, 5.24628 )
 
 [node name="entrance_door" type="Area" parent="." groups=["area_switch", "interactable"]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 1.15, 6 )
@@ -728,5 +767,15 @@ cutscene_name = 1
 [node name="CollisionShape" type="CollisionShape" parent="banging_elevator_cutscene"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.191667 )
 shape = SubResource( 65 )
+
+[node name="StaticBody" type="StaticBody" parent="." groups=["chat", "interactable"]]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -104.5, 1.01637, 6.6664 )
+collision_layer = 4
+collision_mask = 2
+script = ExtResource( 13 )
+chat_key = "TV_bangging"
+
+[node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
+shape = SubResource( 68 )
 
 [editable path="glitch_suckers/glitch_sucker_ver2"]

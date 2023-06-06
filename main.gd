@@ -1,7 +1,7 @@
 extends Spatial
 
 enum cutscenes {FROM_TREE, BANGING_ELEVATOR}
-var current_scene = cutscenes.FROM_TREE
+var current_scene = null
 
 var tv
 
@@ -19,14 +19,14 @@ func _ready():
 	$Battle.connect("leave_battle", self, "exit_battle")
 	
 	for gs in $glitch_suckers.get_children():
-		gs.get_node("AnimationPlayer").get_animation("twiggle_normal").set_loop(true)
-		gs.get_node("AnimationPlayer").play("twiggle_normal",-1,1)
+		gs.get_node("AnimationPlayer").get_animation("s_twiggle2_alt").set_loop(true)
+		gs.get_node("AnimationPlayer").play("s_twiggle2_alt",-1,1.5)
 	
 	
 	tv = $tv_ver2
-	if current_scene == cutscenes.FROM_TREE:
-		tv_FROM_TREE()
-		tv.get_node("AnimationPlayer").connect("animation_finished", self, "tv_FROM_TREE_anims")
+	tv.get_node("AnimationPlayer").get_animation("on_the_noose").set_loop(true)
+	tv.get_node("AnimationPlayer").play("on_the_noose",-1,2)
+	tv.get_node("AnimationPlayer").connect("animation_finished", self, "tv_FROM_TREE_anims")
 	
 	$tv_3/AnimationPlayer.get_animation("banging_door").set_loop(true)
 	$tv_3/AnimationPlayer.play("banging_door",-1,2)
@@ -34,18 +34,19 @@ func _ready():
 	$tv_3/AnimationPlayer.connect("animation_finished", self, "BANGING_ELEVATOR_anims")
 	
 
-func tv_FROM_TREE():
-	tv.get_node("AnimationPlayer").get_animation("on_the_noose").set_loop(true)
-	tv.get_node("AnimationPlayer").play("on_the_noose",-1,2)
 
 func start_cutscene(cutscene_name):
+	current_scene = cutscene_name
 	if cutscene_name == cutscenes.FROM_TREE:
 		tv.global_transform.origin.y = 0
 		tv.get_node("AnimationPlayer").play("getting_up",-1,1.2)
 		get_node("AudioStreamPlayer2D").play()
 		get_node("Camera2").current = true
 	if cutscene_name == cutscenes.BANGING_ELEVATOR:
-		$Camera3.current = true
+		
+		$Player.global_transform.origin = Vector3(-105.1,1.6,5.25)
+		$Player.global_rotation.y = deg2rad(-160)
+		$Player/rotation_helper.global_rotation.x = deg2rad(-19)
 		
 		
 		var left = $house_build_ver2/elevatordoorbottom1
@@ -57,6 +58,9 @@ func start_cutscene(cutscene_name):
 		var tween2 = create_tween()
 		tween2.tween_property(right, "global_transform:origin:x", right_target, 0.25)
 		tween2.connect("finished", self, "BANGING_ELEVATOR_anims", ["doors"])
+
+func end_cutscene():
+	current_scene = null
 
 var flip_open = true
 #func _process(delta):
@@ -95,7 +99,7 @@ func end_chat():
 	$Player.disable_input(false)
 	$Player.chatting = false
 	
-	check_if_cutscene_continues()
+	check_for_cutscene()
 	if battle_on_hold:
 		enter_battle(battle_on_hold)
 
@@ -151,7 +155,7 @@ func focus_on_point(focus_point):
 	var v_tween = create_tween()
 	v_tween.tween_property($Player, "global_rotation", new_player_rot, 1).set_trans(Tween.EASE_IN_OUT)
 
-func check_if_cutscene_continues():
+func check_for_cutscene():
 	if current_scene == cutscenes.FROM_TREE:
 		remove_child(tv)
 		$Path/PathFollow.add_child(tv)
@@ -187,5 +191,9 @@ func BANGING_ELEVATOR_anims(anim):
 		var trgt = $tv_3.global_transform.origin.z + 0.15
 		var tween = create_tween()
 		tween.tween_property($tv_3, "global_transform:origin:z", trgt, 0.8)
+		$Chat.show()
+		$Chat.start_chat_timed("res://texts/chat.json", "TV_fall_scream")
+		#$Sprite.show()
 	if anim == "fall_to_stuck":
 		$tv_3/AnimationPlayer.play("stuck")
+		$AnimationPlayer.play("rise")
