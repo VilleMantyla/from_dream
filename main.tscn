@@ -1,4 +1,4 @@
-[gd_scene load_steps=80 format=2]
+[gd_scene load_steps=81 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://player.gd" type="Script" id=2]
@@ -350,6 +350,9 @@ radius = 0.534091
 [sub_resource type="BoxShape" id=60]
 extents = Vector3( 0.523584, 1.15461, 0.0702549 )
 
+[sub_resource type="BoxShape" id=69]
+extents = Vector3( 0.531918, 1.31285, 0.0164095 )
+
 [sub_resource type="BoxShape" id=26]
 extents = Vector3( 0.27212, 0.266913, 0.165761 )
 
@@ -379,7 +382,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -120, 0, 0 )
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.5, 1.6, 13.5 )
 
 [node name="Player" type="KinematicBody" parent="."]
-transform = Transform( -1, 0, -8.66252e-07, 0, 1, 0, 8.66252e-07, 0, -1, -4.91368, 1.6, 0.843139 )
+transform = Transform( -1, 0, -8.66252e-07, 0, 1, 0, 8.66252e-07, 0, -1, -1.64966, 1.6, -20.7791 )
 collision_layer = 2
 collision_mask = 5
 script = ExtResource( 2 )
@@ -728,6 +731,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 1.15, 6 )
 collision_layer = 4
 collision_mask = 2
 script = ExtResource( 11 )
+target_rot = Vector3( 0, -90, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="entrance_door"]
 shape = SubResource( 60 )
@@ -741,6 +745,18 @@ target_pos = Vector3( -53.8, 0, 4 )
 
 [node name="CollisionShape" type="CollisionShape" parent="roof_door"]
 shape = SubResource( 60 )
+
+[node name="hole_to_forest" type="Area" parent="." groups=["area_switch", "interactable"]]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.66442, 1.4603, -18.4051 )
+collision_layer = 4
+collision_mask = 2
+script = ExtResource( 11 )
+target_pos = Vector3( -2.85, 0, -17.4 )
+target_rot = Vector3( 0, -180, 0 )
+slide_to_pos = true
+
+[node name="CollisionShape" type="CollisionShape" parent="hole_to_forest"]
+shape = SubResource( 69 )
 
 [node name="Spatial" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -112.5, 0, -5.5 )
@@ -758,7 +774,7 @@ script = ExtResource( 24 )
 shape = SubResource( 26 )
 
 [node name="banging_elevator_cutscene" type="Area" parent="." groups=["cutscene", "interactable"]]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -105.711, 1.30073, 7.0586 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -105.711, 1.2288, 7.0586 )
 collision_layer = 4
 collision_mask = 2
 script = ExtResource( 24 )

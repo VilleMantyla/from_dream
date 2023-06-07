@@ -88,7 +88,17 @@ func _process(delta):
 			elif looking_at_interactable.is_in_group("chat"):
 				var chat_key = looking_at_interactable.chat_key
 				get_parent().interact_with_world_object(chat_key, null, null)
-				
+
+	#################
+	# FOR DEMO ONLY #
+	#################
+	if Input.is_action_just_pressed("ui_cancel"):
+		get_parent().get_node("house_build_ver2/fake_lift").hide()
+		get_parent().get_node("tv_3").hide()
+		get_parent().get_node("StaticBody/CollisionShape").disabled = true
+		get_parent().get_node("glitch_suckers").hide()
+		get_parent().get_node("house_build_ver2/elevatordoorbottom1").hide()
+		get_parent().get_node("house_build_ver2/elevatordoorbottom2").hide()
 
 func _physics_process(delta):
 	var space_state = get_world().direct_space_state
@@ -220,8 +230,15 @@ func set_active_ladder(ladder_floor_area):
 	return ladder_floor_area.floor_number
 
 func switch_area(new_area):
-	var new_pos = new_area.target_pos
-	new_pos.y += PLAYER_HEIGHT
+	if new_area.slide_to_pos:
+		var new_pos = new_area.target_pos
+		new_pos.y += PLAYER_HEIGHT
+		var tween1 = create_tween()
+		tween1.tween_property(self, "global_transform:origin", new_pos, 0.75).set_trans(Tween.EASE_OUT)
+	else:
+		var new_pos = new_area.target_pos
+		new_pos.y += PLAYER_HEIGHT
+		global_transform.origin = new_pos
 	
-	global_transform.origin = new_pos
-	global_rotation.y = deg2rad(-90)
+		var new_rot_y = new_area.target_rot.y
+		global_rotation.y = deg2rad(new_rot_y)
