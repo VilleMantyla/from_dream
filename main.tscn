@@ -382,7 +382,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -120, 0, 0 )
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.5, 1.6, 13.5 )
 
 [node name="Player" type="KinematicBody" parent="."]
-transform = Transform( -1, 0, -8.66252e-07, 0, 1, 0, 8.66252e-07, 0, -1, -1.64966, 1.6, -20.7791 )
+transform = Transform( -1, 0, -8.66252e-07, 0, 1, 0, 8.66252e-07, 0, -1, 15, 1.6, -39 )
 collision_layer = 2
 collision_mask = 5
 script = ExtResource( 2 )
