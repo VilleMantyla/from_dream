@@ -7,6 +7,5 @@ export var hp = 1
 func _ready():
 	pass # Replace with function body.
 
-
 func disable_collisionshape(val):
 	$Area2D/CollisionShape2D.disabled = val

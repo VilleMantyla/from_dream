@@ -19,6 +19,8 @@ var msg_time_attack = 1
 
 var poison_dmg_timer
 
+var temp_timer
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	for enemy in $Enemies.get_children():
@@ -48,7 +50,13 @@ func _ready():
 	
 	set_process_input(false)
 	
+	temp_timer = Timer.new()
+	temp_timer.wait_time = 1
+	temp_timer.one_shot = true
+	temp_timer.connect("timeout", self, "on_noise_timeout")
+	add_child(temp_timer)
 	
+	$noise_screen/AnimationPlayer.connect("animation_finished", self, "noise_done")
 	#$poison_bg/AnimationPlayer.get_animation("poisoning").set_loop(true)
 
 func _input(event):
@@ -63,15 +71,26 @@ func start_battle(e):
 	show()
 	set_process_input(true)
 	$weapons.activate(enemy)
-	enemy.activate()
+	#enemy.activate()
 	enemy.show()
 	var msg = EnemyStuff.fetc_message(enemy.name, EnemyStuff.types.BEGIN)
 	show_pop_message(msg)
 	$hp.bbcode_text = "HP: " + str(hp)
+	
+	$noise_screen.show()
+	get_node("battle_ready/AnimationPlayer").play("show_up2",-1,2)
+	get_node("battle_ready/AnimationPlayer").seek(0.6)
+	temp_timer.start()
+
+func on_noise_timeout():
+	#$noise_screen.hide()
+	#noise_done(null)
+	$noise_screen/AnimationPlayer.play("fade_off",-1,5)
 
 func show_pop_message(message):
 	$pop_msg/message.bbcode_text = message
 	$AnimationPlayer.play("message_pop",-1,2.5)
+	$pop_msg.hide()
 	#msg_timer.start()
 
 func clear_pop_message():
@@ -147,3 +166,7 @@ func add_gp(val):
 	if gp == 10:
 		$weapons/AnimationPlayer.play("switch_in",-1,1.85)
 		get_node("ColorRect").show()
+
+func noise_done(anim):
+	enemy.activate()
+	pass

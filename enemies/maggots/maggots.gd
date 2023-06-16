@@ -1,19 +1,29 @@
 extends Node2D
 
+signal appear_finished
 signal enemy_died
+signal attack_message
+signal clear_message
+signal attack
+signal gp
 
 var part_count = 0
+var appear_count = 0
 
 var dead = true
 
 func _ready():
 	deactivate()
+	for maggot in get_children():
+		var ap = maggot.get_node("AnimationPlayer")
+		ap.connect("animation_finished", self, "on_animation_finished", [maggot])
 
 func activate():
 	for maggot in get_children():
-		maggot.get_node("Area2D/AnimatedSprite").play()
+		#maggot.get_node("Area2D/AnimatedSprite").play()
 		maggot.disable_collisionshape(false)
 	part_count = get_children().size()
+	appear_count = part_count
 	dead = false
 	play_appear_anim()
 
@@ -48,5 +58,24 @@ func damage_to_part(part, dmg):
 		dead = true
 
 func play_appear_anim():
+	#get ready text
+	#get_parent().get_parent().get_node("battle_ready/AnimationPlayer").play("show_up",-1,2)
+	#get_parent().get_parent().get_node("battle_ready/AnimationPlayer").seek(0.6)
 	for m in get_children():
-		m.get_node("AnimationPlayer").play("appear",-1,1)
+		m.get_node("AnimationPlayer").play("appear",-1,1.5)
+
+func on_animation_finished(anim, maggot):
+	if anim == "appear":
+		appear_count -= 1
+		if appear_count == 0:
+			for maggot in get_children():
+				maggot.get_node("Area2D/AnimatedSprite").play()
+			emit_signal("appear_finished")
+			get_parent().get_parent().get_node("battle_ready/AnimationPlayer").connect("animation_finished", self,"on_text_anim_finished")
+			get_parent().get_parent().get_node("battle_ready/AnimationPlayer").play("idle",-1,1.5)
+			#get_parent().get_parent().get_node("battle_ready/AnimationPlayer").play("go_away",-1,5)
+			
+
+func on_text_anim_finished(anim):
+	if anim == "idle":
+		get_parent().get_parent().get_node("battle_ready/AnimationPlayer").play("go_away",-1,2)
