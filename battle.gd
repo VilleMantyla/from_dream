@@ -220,7 +220,7 @@ func noise_done(anim):
 	pass
 
 func on_bulletshooter_finished():
-	show_player_turn_label()
+	#show_player_turn_label()
 	$weapons.reload()
-	$black_arena/AnimationPlayer.play("fade_out")
+	$black_arena/AnimationPlayer.play("fade_out",-1,1.2)
 	$dodge_arena.hide()
