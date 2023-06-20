@@ -23,8 +23,21 @@ var temp_timer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$weapons.connect("player_turn_completed", self, "switch_to_enemy_turn")
+	$battle_start_label/AnimationPlayer.connect("animation_finished", \
+	self, "on_battle_start_label_anim_finished")
+	
+	$turn_labels/AnimationPlayer.connect("animation_finished", \
+	self, "on_turn_label_anim_finished")
+	
+	$black_arena/AnimationPlayer.connect("animation_finished", \
+	self, "activate_tamagotchi")
+	
+	$bulletshooter.connect("bulletshooter_finished", \
+	self, "on_bulletshooter_finished")
+	
 	for enemy in $Enemies.get_children():
-		enemy.connect("appear_finished", self, "clear_pop_message")
+		enemy.connect("appear_finished", self, "on_enemy_appear_anim_finished")
 		enemy.connect("enemy_died", self, "end_battle")
 		enemy.connect("attack", self, "hurt_player")
 		enemy.connect("attack_message", self, "show_message")
@@ -78,23 +91,60 @@ func start_battle(e):
 	$hp.bbcode_text = "HP: " + str(hp)
 	
 	$noise_screen.show()
-	get_node("battle_ready/AnimationPlayer").play("show_up2",-1,2)
-	get_node("battle_ready/AnimationPlayer").seek(0.6)
+	$battle_start_label/AnimationPlayer.play("show_up2",-1,2)
+	$battle_start_label/AnimationPlayer.seek(0.6)
 	temp_timer.start()
 
+func switch_to_player_turn():
+	pass
+
+func switch_to_enemy_turn():
+	$black_arena/AnimationPlayer.play("fade_in",-1,1.2)
+	#$turn_labels/AnimationPlayer.play("enemy_turn",-1,2)
+	#$black_arena/AnimationPlayer.play("fade_in",-1,2)
+
+func activate_tamagotchi(anim):
+	if anim == "fade_in":
+		get_node("tamagotchi").activate()
+		get_node("bulletshooter").activate()
+
 func on_noise_timeout():
-	#$noise_screen.hide()
-	#noise_done(null)
 	$noise_screen/AnimationPlayer.play("fade_off",-1,5)
+
+func on_enemy_appear_anim_finished():
+	$AnimationPlayer.play("message_off",-1,4.5)
+	
+	$battle_start_label/AnimationPlayer.play("idle",-1,1.5)
+
+func on_battle_start_label_anim_finished(anim):
+	if anim == "idle":
+		$battle_start_label/AnimationPlayer.play("go_away",-1,2)
+#	elif anim == "go_away":
+#		$turn_labels/AnimationPlayer.play("player_turn")
+
+func show_player_turn_label():
+	$turn_labels/AnimationPlayer.play("player_turn",-1,1)
+
+#func show_enemy_turn_label():
+#	#$turn_labels/AnimationPlayer.play("enemy_turn",-1,0.9)
+#	pass
+
+func on_turn_label_anim_finished(anim):
+	pass
+#	if anim == "player_turn":
+#		print("activate gun and show sight (maybe a flashing animation for it too)")
+	if anim == "enemy_turn":
+		pass
+		#$black_arena/AnimationPlayer.play("fade_in",-1,1.5)
+#		get_node("tamagotchi").activate()
+#		get_node("dodge_arena").show()
+#		get_node("bulletshooter").activate()
 
 func show_pop_message(message):
 	$pop_msg/message.bbcode_text = message
 	$AnimationPlayer.play("message_pop",-1,2.5)
 	$pop_msg.hide()
 	#msg_timer.start()
-
-func clear_pop_message():
-	$AnimationPlayer.play("message_off",-1,4.5)
 
 func show_message(message):
 	$message_box/message.bbcode_text = message
@@ -113,6 +163,8 @@ func end_battle():
 	enemy = null
 	leave_battle = true
 	print("battle ended")
+	
+	$battle_win.show()
 
 func leave_battle():
 	leave_battle = false
@@ -162,11 +214,13 @@ func on_animation_finished(anim):
 func add_gp(val):
 	gp += val
 	$gp.text = "GP: " + str(gp)
-	
-	if gp == 10:
-		$weapons/AnimationPlayer.play("switch_in",-1,1.85)
-		get_node("ColorRect").show()
 
 func noise_done(anim):
 	enemy.activate()
 	pass
+
+func on_bulletshooter_finished():
+	show_player_turn_label()
+	$weapons.reload()
+	$black_arena/AnimationPlayer.play("fade_out")
+	$dodge_arena.hide()

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/biggun_select.png-c1bf0478c2b2cb08ad8827c89369640b.stex"
+path="res://.import/bullet_sprite.png-42c40bc406b971b6918f0c13eb881c86.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://battle/biggun_select.png"
-dest_files=[ "res://.import/biggun_select.png-c1bf0478c2b2cb08ad8827c89369640b.stex" ]
+source_file="res://battle/bullet_sprite.png"
+dest_files=[ "res://.import/bullet_sprite.png-42c40bc406b971b6918f0c13eb881c86.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

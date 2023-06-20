@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/biggun_select.png-c1bf0478c2b2cb08ad8827c89369640b.stex"
+path="res://.import/tamagotchi3.png-0af8227fc7ddbf1aab455a5ebf2f00e9.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://battle/biggun_select.png"
-dest_files=[ "res://.import/biggun_select.png-c1bf0478c2b2cb08ad8827c89369640b.stex" ]
+source_file="res://battle/tamagotchi3.png"
+dest_files=[ "res://.import/tamagotchi3.png-0af8227fc7ddbf1aab455a5ebf2f00e9.stex" ]
 
 [params]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=99 format=2]
+[gd_scene load_steps=118 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://player.gd" type="Script" id=2]
@@ -27,6 +27,13 @@
 [ext_resource path="res://battle/noise_5.png" type="Texture" id=25]
 [ext_resource path="res://battle/noise_4.png" type="Texture" id=26]
 [ext_resource path="res://battle/noise_3.png" type="Texture" id=27]
+[ext_resource path="res://battle/bullet_sprite.png" type="Texture" id=28]
+[ext_resource path="res://battle/tamagotchi0.png" type="Texture" id=29]
+[ext_resource path="res://battle/tamagotchi.gd" type="Script" id=30]
+[ext_resource path="res://battle/tamagotchi3.png" type="Texture" id=31]
+[ext_resource path="res://battle/battle_btm_layer_black.png" type="Texture" id=32]
+[ext_resource path="res://battle/dodge_area.png" type="Texture" id=33]
+[ext_resource path="res://battle/bulletshooter.gd" type="Script" id=34]
 [ext_resource path="res://level_mechanics/enemy_trigger.tscn" type="PackedScene" id=35]
 [ext_resource path="res://battle/weapons.gd" type="Script" id=36]
 [ext_resource path="res://enemies/maggots/maggots.tscn" type="PackedScene" id=37]
@@ -39,7 +46,6 @@
 [ext_resource path="res://battle/battle_bg_poison.png" type="Texture" id=44]
 [ext_resource path="res://battle/gun_select.png" type="Texture" id=45]
 [ext_resource path="res://battle/biggun_select.png" type="Texture" id=46]
-[ext_resource path="res://tv/tv_face_trouble_trimmed.png" type="Texture" id=47]
 [ext_resource path="res://battle/grenade_ex_3.png" type="Texture" id=48]
 [ext_resource path="res://battle/grenade_ex_0.png" type="Texture" id=49]
 [ext_resource path="res://battle/grenade_ex_2.png" type="Texture" id=50]
@@ -48,7 +54,12 @@
 [ext_resource path="res://battle/grenade_ex_4.png" type="Texture" id=53]
 [ext_resource path="res://battle/battle_bg_green.png" type="Texture" id=54]
 [ext_resource path="res://shaders/2d_colorer.shader" type="Shader" id=55]
+[ext_resource path="res://enemies/maggots/maggot0.png" type="Texture" id=56]
 [ext_resource path="res://level_models/house_build_ver2.glb" type="PackedScene" id=57]
+[ext_resource path="res://battle/battle_win_text.png" type="Texture" id=58]
+[ext_resource path="res://battle/shoot.png" type="Texture" id=59]
+[ext_resource path="res://battle/reloading.png" type="Texture" id=60]
+[ext_resource path="res://battle/bullet.gd" type="Script" id=61]
 
 [sub_resource type="CylinderShape" id=61]
 height = 0.487519
@@ -103,51 +114,6 @@ animations = [ {
 
 [sub_resource type="CircleShape2D" id=55]
 radius = 56.0
-
-[sub_resource type="Animation" id=50]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 2256, 440 ) ]
-}
-
-[sub_resource type="Animation" id=51]
-resource_name = "switch_in"
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 2256, 440 ), Vector2( 680, 440 ) ]
-}
-
-[sub_resource type="Animation" id=52]
-resource_name = "switch_out"
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 680, 440 ), Vector2( -344, 440 ) ]
-}
 
 [sub_resource type="DynamicFont" id=35]
 size = 50
@@ -315,6 +281,411 @@ tracks/1/keys = {
 "values": [ Color( 1, 0, 0, 1 ) ]
 }
 
+[sub_resource type="Animation" id=88]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../tamagotchi:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 976, 840 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("../dodge_arena:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("../dodge_arena:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("../turn_labels:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("../turn_labels:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=89]
+resource_name = "fade_in"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0.196078 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../tamagotchi:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 1.2, 1.7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 976, 840 ), Vector2( 976, 510 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("../dodge_arena:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 1.7, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 1, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("../dodge_arena:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 1.7 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("../turn_labels:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 1.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("../turn_labels:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 1.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("../turn_labels:texture")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 60 ) ]
+}
+
+[sub_resource type="Animation" id=94]
+resource_name = "fade_out"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../tamagotchi:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 976, 510 ), Vector2( 976, 840 ) ]
+}
+
+[sub_resource type="SpriteFrames" id=87]
+animations = [ {
+"frames": [ ExtResource( 29 ), ExtResource( 31 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="Shader" id=90]
+code = "shader_type canvas_item;
+
+uniform float amplitude : hint_range(0.0, 1.0);
+uniform float rate : hint_range(0.0, 720.0);
+
+void fragment(){
+	float offset_dir = step(sin(UV.x * rate), 0.0) * 2.0;
+	float final_offset = ((offset_dir - 1.0) * (amplitude/1.0));
+	COLOR = texture(TEXTURE, vec2(UV.x, UV.y + final_offset));
+	//color.a *= clamp(1. - offset/fade, 0., 1.)
+}"
+
+[sub_resource type="ShaderMaterial" id=91]
+shader = SubResource( 90 )
+shader_param/amplitude = 0.0
+shader_param/rate = 720.0
+
+[sub_resource type="Animation" id=84]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ ExtResource( 59 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 960, 512 ) ]
+}
+
+[sub_resource type="Animation" id=85]
+resource_name = "enemy_turn"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 60 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 960, 512 ) ]
+}
+
+[sub_resource type="Animation" id=86]
+resource_name = "player_turn"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 59 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 960, 528 ) ]
+}
+
 [sub_resource type="SpriteFrames" id=79]
 animations = [ {
 "frames": [ ExtResource( 18 ), ExtResource( 21 ), ExtResource( 23 ), ExtResource( 27 ), ExtResource( 26 ), ExtResource( 25 ) ],
@@ -448,6 +819,20 @@ tracks/1/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
+tracks/2/type = "method"
+tracks/2/path = NodePath("..")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "show_player_turn_label"
+} ]
+}
 
 [sub_resource type="Animation" id=76]
 resource_name = "idle"
@@ -509,6 +894,12 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
+
+[sub_resource type="RectangleShape2D" id=92]
+extents = Vector2( 32, 72 )
+
+[sub_resource type="RectangleShape2D" id=93]
+extents = Vector2( 1024, 608 )
 
 [sub_resource type="BoxShape" id=63]
 extents = Vector3( 0.268334, 0.95202, 0.187015 )
@@ -689,12 +1080,6 @@ value = 100.0
 stream = ExtResource( 38 )
 volume_db = -22.0
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Battle/weapons"]
-root_node = NodePath("../../tv_gun_select")
-anims/RESET = SubResource( 50 )
-anims/switch_in = SubResource( 51 )
-anims/switch_out = SubResource( 52 )
-
 [node name="pop_msg" type="Sprite" parent="Battle"]
 position = Vector2( 944, 120 )
 texture = ExtResource( 40 )
@@ -731,27 +1116,27 @@ text = "test test test"
 scroll_active = false
 
 [node name="hp" type="RichTextLabel" parent="Battle"]
-margin_left = 834.0
-margin_top = 871.0
-margin_right = 1154.0
-margin_bottom = 927.0
+margin_left = 848.0
+margin_top = 888.0
+margin_right = 1168.0
+margin_bottom = 944.0
 theme = SubResource( 38 )
 bbcode_enabled = true
 bbcode_text = "HP: XX"
 text = "HP: XX"
 
 [node name="gp" type="RichTextLabel" parent="Battle"]
-margin_left = 834.0
-margin_top = 913.0
-margin_right = 1154.0
-margin_bottom = 969.0
+margin_left = 1016.0
+margin_top = 888.0
+margin_right = 1336.0
+margin_bottom = 944.0
 theme = SubResource( 38 )
 bbcode_enabled = true
-bbcode_text = "GP: XX"
-text = "GP: XX"
+bbcode_text = "GP: $0"
+text = "GP: $0"
 
 [node name="frame3" type="Sprite" parent="Battle"]
-position = Vector2( 975, 953 )
+position = Vector2( 975, 937 )
 scale = Vector2( 2, 1 )
 texture = ExtResource( 43 )
 
@@ -762,6 +1147,7 @@ anims/message_pop = SubResource( 40 )
 anims/message_stop = SubResource( 42 )
 
 [node name="poison_meter" type="ProgressBar" parent="Battle"]
+visible = false
 margin_left = 835.0
 margin_top = 822.0
 margin_right = 1091.0
@@ -771,6 +1157,7 @@ custom_styles/bg = SubResource( 45 )
 percent_visible = false
 
 [node name="poison_label" type="RichTextLabel" parent="Battle"]
+visible = false
 margin_left = 913.0
 margin_top = 819.0
 margin_right = 1233.0
@@ -808,11 +1195,6 @@ margin_right = 1920.0
 margin_bottom = 1080.0
 color = Color( 0, 0, 0, 0.478431 )
 
-[node name="tv_gun_select" type="Sprite" parent="Battle"]
-position = Vector2( 2256, 440 )
-scale = Vector2( 0.8, 0.8 )
-texture = ExtResource( 47 )
-
 [node name="tv_gun_text" type="RichTextLabel" parent="Battle"]
 visible = false
 margin_left = 1032.0
@@ -834,10 +1216,74 @@ centered = false
 anims/RESET = SubResource( 58 )
 anims/damage = SubResource( 59 )
 
+[node name="bullets" type="Node2D" parent="Battle"]
+
+[node name="bullet0" type="Sprite" parent="Battle/bullets"]
+position = Vector2( 64, 88 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 28 )
+
+[node name="bullet1" type="Sprite" parent="Battle/bullets"]
+position = Vector2( 120, 88 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 28 )
+
+[node name="bullet2" type="Sprite" parent="Battle/bullets"]
+position = Vector2( 176, 88 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 28 )
+
+[node name="bullet3" type="Sprite" parent="Battle/bullets"]
+position = Vector2( 232, 88 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 28 )
+
+[node name="bullet4" type="Sprite" parent="Battle/bullets"]
+position = Vector2( 288, 88 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 28 )
+
+[node name="black_arena" type="Sprite" parent="Battle"]
+visible = false
+modulate = Color( 1, 1, 1, 0 )
+texture = ExtResource( 32 )
+centered = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Battle/black_arena"]
+anims/RESET = SubResource( 88 )
+anims/fade_in = SubResource( 89 )
+anims/fade_out = SubResource( 94 )
+
+[node name="tamagotchi" type="KinematicBody2D" parent="Battle"]
+position = Vector2( 976, 840 )
+script = ExtResource( 30 )
+
+[node name="animated_sprite" type="AnimatedSprite" parent="Battle/tamagotchi"]
+scale = Vector2( 4, 4 )
+frames = SubResource( 87 )
+frame = 1
+speed_scale = 0.2
+playing = true
+
+[node name="to_position_ap" type="AnimationPlayer" parent="Battle/tamagotchi"]
+
+[node name="turn_labels" type="Sprite" parent="Battle"]
+visible = false
+material = SubResource( 91 )
+position = Vector2( 960, 512 )
+scale = Vector2( 5, 5 )
+texture = ExtResource( 59 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Battle/turn_labels"]
+anims/RESET = SubResource( 84 )
+anims/enemy_turn = SubResource( 85 )
+anims/player_turn = SubResource( 86 )
+
 [node name="noise_screen" type="AnimatedSprite" parent="Battle"]
+visible = false
 scale = Vector2( 7.5, 5.625 )
 frames = SubResource( 79 )
-frame = 5
+frame = 4
 speed_scale = 6.0
 playing = true
 centered = false
@@ -846,19 +1292,83 @@ centered = false
 anims/RESET = SubResource( 80 )
 anims/fade_off = SubResource( 81 )
 
-[node name="battle_ready" type="Sprite" parent="Battle"]
+[node name="battle_start_label" type="Sprite" parent="Battle"]
 material = SubResource( 78 )
 position = Vector2( 936, 512 )
 scale = Vector2( 5, 5 )
 texture = ExtResource( 17 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Battle/battle_ready"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Battle/battle_start_label"]
 anims/RESET = SubResource( 70 )
 anims/go_away = SubResource( 73 )
 anims/idle = SubResource( 76 )
 anims/show_up = SubResource( 72 )
 anims/show_up2 = SubResource( 74 )
 anims/show_up3 = SubResource( 75 )
+
+[node name="dodge_arena" type="Sprite" parent="Battle"]
+visible = false
+position = Vector2( 960, 560 )
+texture = ExtResource( 33 )
+
+[node name="battle_win" type="Sprite" parent="Battle"]
+visible = false
+position = Vector2( 960, 504 )
+scale = Vector2( 3, 3 )
+texture = ExtResource( 58 )
+
+[node name="bulletshooter" type="Node2D" parent="Battle"]
+script = ExtResource( 34 )
+
+[node name="bullet0" type="Area2D" parent="Battle/bulletshooter"]
+position = Vector2( 952, -208 )
+collision_layer = 2
+collision_mask = 4
+script = ExtResource( 61 )
+
+[node name="sprite" type="Sprite" parent="Battle/bulletshooter/bullet0"]
+rotation = 3.14159
+scale = Vector2( 4, 4 )
+texture = ExtResource( 56 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Battle/bulletshooter/bullet0"]
+shape = SubResource( 92 )
+
+[node name="bullet1" type="Area2D" parent="Battle/bulletshooter"]
+position = Vector2( 816, -528 )
+collision_layer = 2
+collision_mask = 4
+script = ExtResource( 61 )
+
+[node name="sprite" type="Sprite" parent="Battle/bulletshooter/bullet1"]
+rotation = 3.14159
+scale = Vector2( 4, 4 )
+texture = ExtResource( 56 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Battle/bulletshooter/bullet1"]
+shape = SubResource( 92 )
+
+[node name="bullet2" type="Area2D" parent="Battle/bulletshooter"]
+position = Vector2( 1056, -776 )
+collision_layer = 2
+collision_mask = 4
+script = ExtResource( 61 )
+
+[node name="sprite" type="Sprite" parent="Battle/bulletshooter/bullet2"]
+rotation = 3.14159
+scale = Vector2( 4, 4 )
+texture = ExtResource( 56 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Battle/bulletshooter/bullet2"]
+shape = SubResource( 92 )
+
+[node name="bullet_area" type="Area2D" parent="Battle"]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Battle/bullet_area"]
+position = Vector2( 960, 544 )
+shape = SubResource( 93 )
 
 [node name="enemy_trigger" parent="." instance=ExtResource( 35 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14.8665, 1.251, -37.0566 )
@@ -1021,5 +1531,7 @@ chat_key = "TV_bangging"
 
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
 shape = SubResource( 68 )
+
+[connection signal="area_exited" from="Battle/bullet_area" to="Battle/bulletshooter" method="_on_bullet_area_area_exited"]
 
 [editable path="glitch_suckers/glitch_sucker_ver2"]

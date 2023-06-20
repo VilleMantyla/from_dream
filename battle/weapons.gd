@@ -1,5 +1,7 @@
 extends Node2D
 
+signal player_turn_completed
+
 var weapon
 enum weapons {PISTOL, GRENADE_LAUCNHER}
 var weapon_node
@@ -9,9 +11,11 @@ var gl_explode
 
 var enemy = null
 
-var weapon_change_timer
-
 var battle_player
+
+var turn_label_timer
+
+var bullets_left = 5
 
 func _ready():
 	weapon_node = $pistol
@@ -23,14 +27,11 @@ func _ready():
 	set_process(false)
 	set_physics_process(false)
 	
-	weapon_change_timer = Timer.new()
-	weapon_change_timer.wait_time = 2.5
-	weapon_change_timer.one_shot = true
-	weapon_change_timer.connect("timeout", self, "switch_out")
-	add_child(weapon_change_timer)
-	$AnimationPlayer.connect("animation_finished", self, "switch_anim_finished")
+
 	
 	battle_player = get_parent()
+	
+
 
 func activate(e):
 	enemy = e
@@ -52,12 +53,14 @@ func _process(delta): #could be changed to input
 	if Input.is_action_just_pressed("one"):
 		change_weapon(weapons.PISTOL)
 	elif Input.is_action_just_pressed("two"):
-		#$AnimationPlayer.play("switch_in",-1,1.85)
-		#get_parent().get_node("ColorRect").show()
 		change_weapon(weapons.GRENADE_LAUCNHER)
+		get_parent().get_node("Enemies/maggots").money -= 50
+		get_parent().get_node("gp").text = "GP: $" + str(get_parent().get_node("Enemies/maggots").money)
 
 func _physics_process(delta):
-	if Input.is_action_just_pressed("fire"):
+	if Input.is_action_just_pressed("fire") and bullets_left > 0:
+		spend_bullet()
+		
 		var space = get_world_2d().direct_space_state
 		
 		var targets = null
@@ -154,13 +157,23 @@ func gl_exploded():
 	gl_explode.stop()
 	#gl_explode.set_frame(0)
 
-func switch_out():
-	$AnimationPlayer.play("switch_out",-1,2.5)
-	get_parent().get_node("tv_gun_text").hide()
+func spend_bullet():
+	bullets_left -= 1
+	get_parent().get_node("bullets").get_child(bullets_left).hide()
+	
+	if bullets_left == 0:
+		emit_signal("player_turn_completed")
 
-func switch_anim_finished(anim):
-	if anim == "switch_in":
-		weapon_change_timer.start()
-		get_parent().get_node("tv_gun_text").show()
-	elif anim == "switch_out":
-		get_parent().get_node("ColorRect").hide()
+func reload():
+	for b in get_parent().get_node("bullets").get_children():
+		b.show()
+		bullets_left += 1
+
+
+
+
+func bulletshooter_done():
+		get_parent().get_node("turn_labels/AnimationPlayer").play("player_turn_fade_in")
+		reload()
+		get_parent().get_node("black_arena/AnimationPlayer").play_backwards("fade_in")
+		get_parent().get_node("dodge_arena").hide()

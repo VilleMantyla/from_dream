@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/biggun_select.png-c1bf0478c2b2cb08ad8827c89369640b.stex"
+path="res://.import/dodge_area.png-71c47478b3d113a205cded996cb4859b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://battle/biggun_select.png"
-dest_files=[ "res://.import/biggun_select.png-c1bf0478c2b2cb08ad8827c89369640b.stex" ]
+source_file="res://battle/dodge_area.png"
+dest_files=[ "res://.import/dodge_area.png-71c47478b3d113a205cded996cb4859b.stex" ]
 
 [params]
 

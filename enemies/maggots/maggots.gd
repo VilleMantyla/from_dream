@@ -37,6 +37,7 @@ func take_damage(parts, dmg):
 	for part in parts:
 		damage_to_part(part, dmg)
 
+var money = 0
 func damage_to_part(part, dmg):
 	part.hp -= dmg
 	if part.hp <= 0:
@@ -44,6 +45,8 @@ func damage_to_part(part, dmg):
 		part.disable_collisionshape(true)
 		part_count -= 1
 		part.get_node("Area2D/AnimatedSprite").stop()
+		money += 10
+		get_parent().get_parent().get_node("gp").text = "GP: $" + str(money)
 	
 	if part_count <= 5 and !dead:
 		for maggot in get_children():
@@ -71,11 +74,3 @@ func on_animation_finished(anim, maggot):
 			for maggot in get_children():
 				maggot.get_node("Area2D/AnimatedSprite").play()
 			emit_signal("appear_finished")
-			get_parent().get_parent().get_node("battle_ready/AnimationPlayer").connect("animation_finished", self,"on_text_anim_finished")
-			get_parent().get_parent().get_node("battle_ready/AnimationPlayer").play("idle",-1,1.5)
-			#get_parent().get_parent().get_node("battle_ready/AnimationPlayer").play("go_away",-1,5)
-			
-
-func on_text_anim_finished(anim):
-	if anim == "idle":
-		get_parent().get_parent().get_node("battle_ready/AnimationPlayer").play("go_away",-1,2)
