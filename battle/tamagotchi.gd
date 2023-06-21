@@ -1,5 +1,7 @@
 extends Area2D
 
+export var god_mode = false
+
 var speed = 300
 var move_input = Vector2.ZERO
 var move_dir = Vector2.ZERO
@@ -55,6 +57,10 @@ func move(delta, dir):
 	position = new_pos
 
 func _on_tamagotchi_area_entered(area):
-	get_parent().get_node("hp_count/point0").hide()
+	if god_mode:
+		return
 	$AnimationPlayer.play("hit",-1,4.5)
-	area.hide()
+	area.hide() #disable collision too
+	get_parent().get_node("hp_count/point0").hide()
+	
+	get_parent().get_node("noise_screen/AnimationPlayer").play("fade_in",-1,1.5)

@@ -164,7 +164,8 @@ func end_battle():
 	leave_battle = true
 	print("battle ended")
 	
-	$battle_win.show()
+	$win.show()
+	$win_text.show()
 
 func leave_battle():
 	leave_battle = false
@@ -216,8 +217,8 @@ func add_gp(val):
 	$gp.text = "GP: " + str(gp)
 
 func noise_done(anim):
-	enemy.activate()
-	pass
+	if anim == "fade_off":
+		enemy.activate()
 
 func on_bulletshooter_finished():
 	#show_player_turn_label()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=122 format=2]
+[gd_scene load_steps=125 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://player.gd" type="Script" id=2]
@@ -61,6 +61,8 @@
 [ext_resource path="res://battle/shoot.png" type="Texture" id=59]
 [ext_resource path="res://battle/reloading.png" type="Texture" id=60]
 [ext_resource path="res://battle/bullet.gd" type="Script" id=61]
+[ext_resource path="res://battle/game_over_text.png" type="Texture" id=62]
+[ext_resource path="res://battle/white.png" type="Texture" id=63]
 
 [sub_resource type="CylinderShape" id=61]
 height = 0.487519
@@ -746,6 +748,12 @@ tracks/3/keys = {
 "values": [ Vector2( 960, 528 ) ]
 }
 
+[sub_resource type="RectangleShape2D" id=92]
+extents = Vector2( 32, 72 )
+
+[sub_resource type="RectangleShape2D" id=93]
+extents = Vector2( 1024, 608 )
+
 [sub_resource type="SpriteFrames" id=79]
 animations = [ {
 "frames": [ ExtResource( 18 ), ExtResource( 21 ), ExtResource( 23 ), ExtResource( 27 ), ExtResource( 26 ), ExtResource( 25 ) ],
@@ -767,6 +775,58 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../gameover:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=98]
+resource_name = "fade_in"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 2, 2.1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ Color( 1, 1, 1, 0.392157 ), Color( 1, 1, 1, 0.392157 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../gameover:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
 }
 
 [sub_resource type="Animation" id=81]
@@ -954,12 +1014,6 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
-
-[sub_resource type="RectangleShape2D" id=92]
-extents = Vector2( 32, 72 )
-
-[sub_resource type="RectangleShape2D" id=93]
-extents = Vector2( 1024, 608 )
 
 [sub_resource type="BoxShape" id=63]
 extents = Vector3( 0.268334, 0.95202, 0.187015 )
@@ -1326,6 +1380,7 @@ position = Vector2( 976, 840 )
 collision_layer = 16
 collision_mask = 2
 script = ExtResource( 30 )
+god_mode = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Battle/tamagotchi"]
 position = Vector2( -5, 7 )
@@ -1334,7 +1389,6 @@ shape = SubResource( 95 )
 [node name="animated_sprite" type="AnimatedSprite" parent="Battle/tamagotchi"]
 scale = Vector2( 4, 4 )
 frames = SubResource( 87 )
-frame = 1
 speed_scale = 0.2
 playing = true
 
@@ -1354,33 +1408,6 @@ anims/RESET = SubResource( 84 )
 anims/enemy_turn = SubResource( 85 )
 anims/player_turn = SubResource( 86 )
 
-[node name="noise_screen" type="AnimatedSprite" parent="Battle"]
-visible = false
-scale = Vector2( 7.5, 5.625 )
-frames = SubResource( 79 )
-frame = 1
-speed_scale = 6.0
-playing = true
-centered = false
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Battle/noise_screen"]
-anims/RESET = SubResource( 80 )
-anims/fade_off = SubResource( 81 )
-
-[node name="battle_start_label" type="Sprite" parent="Battle"]
-material = SubResource( 78 )
-position = Vector2( 936, 512 )
-scale = Vector2( 5, 5 )
-texture = ExtResource( 17 )
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Battle/battle_start_label"]
-anims/RESET = SubResource( 70 )
-anims/go_away = SubResource( 73 )
-anims/idle = SubResource( 76 )
-anims/show_up = SubResource( 72 )
-anims/show_up2 = SubResource( 74 )
-anims/show_up3 = SubResource( 75 )
-
 [node name="dodge_arena" type="Sprite" parent="Battle"]
 visible = false
 position = Vector2( 960, 560 )
@@ -1393,12 +1420,6 @@ position = Vector2( 688, 328 )
 [node name="dodge_limit_1" type="Node2D" parent="Battle"]
 visible = false
 position = Vector2( 1243, 687 )
-
-[node name="battle_win" type="Sprite" parent="Battle"]
-visible = false
-position = Vector2( 960, 504 )
-scale = Vector2( 3, 3 )
-texture = ExtResource( 58 )
 
 [node name="bulletshooter" type="Node2D" parent="Battle"]
 script = ExtResource( 34 )
@@ -1452,6 +1473,50 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Battle/bullet_area"]
 position = Vector2( 960, 544 )
 shape = SubResource( 93 )
+
+[node name="noise_screen" type="AnimatedSprite" parent="Battle"]
+scale = Vector2( 7.5, 5.625 )
+frames = SubResource( 79 )
+frame = 2
+speed_scale = 6.0
+playing = true
+centered = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Battle/noise_screen"]
+anims/RESET = SubResource( 80 )
+anims/fade_in = SubResource( 98 )
+anims/fade_off = SubResource( 81 )
+
+[node name="win_text" type="Sprite" parent="Battle"]
+visible = false
+position = Vector2( 960, 504 )
+scale = Vector2( 3, 3 )
+texture = ExtResource( 58 )
+
+[node name="win" type="Sprite" parent="Battle"]
+visible = false
+texture = ExtResource( 63 )
+centered = false
+
+[node name="battle_start_label" type="Sprite" parent="Battle"]
+material = SubResource( 78 )
+position = Vector2( 936, 512 )
+scale = Vector2( 5, 5 )
+texture = ExtResource( 17 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Battle/battle_start_label"]
+anims/RESET = SubResource( 70 )
+anims/go_away = SubResource( 73 )
+anims/idle = SubResource( 76 )
+anims/show_up = SubResource( 72 )
+anims/show_up2 = SubResource( 74 )
+anims/show_up3 = SubResource( 75 )
+
+[node name="gameover" type="Sprite" parent="Battle"]
+visible = false
+position = Vector2( 944, 496 )
+scale = Vector2( 5, 5 )
+texture = ExtResource( 62 )
 
 [node name="enemy_trigger" parent="." instance=ExtResource( 35 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14.8665, 1.251, -37.0566 )
