@@ -1,4 +1,4 @@
-[gd_scene load_steps=118 format=2]
+[gd_scene load_steps=122 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://player.gd" type="Script" id=2]
@@ -46,6 +46,7 @@
 [ext_resource path="res://battle/battle_bg_poison.png" type="Texture" id=44]
 [ext_resource path="res://battle/gun_select.png" type="Texture" id=45]
 [ext_resource path="res://battle/biggun_select.png" type="Texture" id=46]
+[ext_resource path="res://battle/hp.png" type="Texture" id=47]
 [ext_resource path="res://battle/grenade_ex_3.png" type="Texture" id=48]
 [ext_resource path="res://battle/grenade_ex_0.png" type="Texture" id=49]
 [ext_resource path="res://battle/grenade_ex_2.png" type="Texture" id=50]
@@ -532,6 +533,9 @@ tracks/4/keys = {
 "values": [ Vector2( 1, 1 ), Vector2( 0, 0 ) ]
 }
 
+[sub_resource type="CircleShape2D" id=95]
+radius = 16.0
+
 [sub_resource type="SpriteFrames" id=87]
 animations = [ {
 "frames": [ ExtResource( 29 ), ExtResource( 31 ) ],
@@ -539,6 +543,37 @@ animations = [ {
 "name": "default",
 "speed": 5.0
 } ]
+
+[sub_resource type="Animation" id=96]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("animated_sprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=97]
+resource_name = "hit"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("animated_sprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6, 0.9, 1.2, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false, true, false, true ]
+}
 
 [sub_resource type="Shader" id=90]
 code = "shader_type canvas_item;
@@ -1140,16 +1175,6 @@ bbcode_text = "test test test"
 text = "test test test"
 scroll_active = false
 
-[node name="hp" type="RichTextLabel" parent="Battle"]
-margin_left = 848.0
-margin_top = 888.0
-margin_right = 1168.0
-margin_bottom = 944.0
-theme = SubResource( 38 )
-bbcode_enabled = true
-bbcode_text = "HP: XX"
-text = "HP: XX"
-
 [node name="gp" type="RichTextLabel" parent="Battle"]
 margin_left = 1016.0
 margin_top = 888.0
@@ -1279,17 +1304,43 @@ anims/RESET = SubResource( 88 )
 anims/fade_in = SubResource( 89 )
 anims/fade_out = SubResource( 94 )
 
-[node name="tamagotchi" type="KinematicBody2D" parent="Battle"]
+[node name="hp_count" type="Node2D" parent="Battle"]
+
+[node name="point0" type="Sprite" parent="Battle/hp_count"]
+position = Vector2( 912, 905 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 47 )
+
+[node name="hp" type="RichTextLabel" parent="Battle"]
+margin_left = 848.0
+margin_top = 888.0
+margin_right = 1168.0
+margin_bottom = 944.0
+theme = SubResource( 38 )
+bbcode_enabled = true
+bbcode_text = "HP:"
+text = "HP:"
+
+[node name="tamagotchi" type="Area2D" parent="Battle"]
 position = Vector2( 976, 840 )
+collision_layer = 16
+collision_mask = 2
 script = ExtResource( 30 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Battle/tamagotchi"]
+position = Vector2( -5, 7 )
+shape = SubResource( 95 )
 
 [node name="animated_sprite" type="AnimatedSprite" parent="Battle/tamagotchi"]
 scale = Vector2( 4, 4 )
 frames = SubResource( 87 )
+frame = 1
 speed_scale = 0.2
 playing = true
 
-[node name="to_position_ap" type="AnimationPlayer" parent="Battle/tamagotchi"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Battle/tamagotchi"]
+anims/RESET = SubResource( 96 )
+anims/hit = SubResource( 97 )
 
 [node name="turn_labels" type="Sprite" parent="Battle"]
 visible = false
@@ -1307,7 +1358,7 @@ anims/player_turn = SubResource( 86 )
 visible = false
 scale = Vector2( 7.5, 5.625 )
 frames = SubResource( 79 )
-frame = 2
+frame = 1
 speed_scale = 6.0
 playing = true
 centered = false
@@ -1334,6 +1385,14 @@ anims/show_up3 = SubResource( 75 )
 visible = false
 position = Vector2( 960, 560 )
 texture = ExtResource( 33 )
+
+[node name="dodge_limit_0" type="Node2D" parent="Battle"]
+visible = false
+position = Vector2( 688, 328 )
+
+[node name="dodge_limit_1" type="Node2D" parent="Battle"]
+visible = false
+position = Vector2( 1243, 687 )
 
 [node name="battle_win" type="Sprite" parent="Battle"]
 visible = false
@@ -1556,6 +1615,7 @@ chat_key = "TV_bangging"
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
 shape = SubResource( 68 )
 
+[connection signal="area_entered" from="Battle/tamagotchi" to="Battle/tamagotchi" method="_on_tamagotchi_area_entered"]
 [connection signal="area_exited" from="Battle/bullet_area" to="Battle/bulletshooter" method="_on_bullet_area_area_exited"]
 
 [editable path="glitch_suckers/glitch_sucker_ver2"]

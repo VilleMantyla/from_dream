@@ -6,11 +6,14 @@ var alive_bullets = []
 
 func _ready():
 	set_process(false)
+#	for bullet in get_children():
+#		bullet.connect("body_entered", self, "do_damage")
 
 func activate():
 	alive_bullets = get_children().size()
 	for bullet in get_children():
 		bullet.global_position = bullet.origanal_pos
+		bullet.show()
 	set_process(true)
 
 func _process(delta):
@@ -22,3 +25,6 @@ func _on_bullet_area_area_exited(area):
 	if alive_bullets == 0:
 		emit_signal("bulletshooter_finished")
 		set_process(false)
+
+func do_damage(player):
+	pass

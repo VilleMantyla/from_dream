@@ -1,16 +1,24 @@
-extends KinematicBody2D
+extends Area2D
 
 var speed = 300
 var move_input = Vector2.ZERO
 var move_dir = Vector2.ZERO
 
+var limit_min
+var limit_max
+
 func _ready():
 	set_process(false)
 	set_physics_process(false)
+	
+	limit_min = get_parent().get_node("dodge_limit_0").global_position
+	limit_max = get_parent().get_node("dodge_limit_1").global_position
 
 func activate():
 	set_process(true)
-	set_physics_process(true)
+
+func deactivate():
+	set_process(false)
 
 func _process(delta):
 	move_input = Vector2.ZERO
@@ -24,6 +32,29 @@ func _process(delta):
 		move_input.x = 1
 	
 	move_dir = move_input.normalized()
+	
+	move(delta, move_dir)
 
-func _physics_process(delta):
-	move_and_slide(move_dir*speed)
+func move(delta, dir):
+	var step = dir*delta*speed
+	var new_pos = position + step
+	
+	var step_x_min = new_pos.x > limit_min.x
+	var step_x_max = new_pos.x < limit_max.x
+	
+	if new_pos.x < limit_min.x:
+		new_pos.x = limit_min.x
+	elif new_pos.x > limit_max.x:
+		new_pos.x = limit_max.x
+	
+	if new_pos.y < limit_min.y:
+		new_pos.y = limit_min.y
+	elif new_pos.y > limit_max.y:
+		new_pos.y = limit_max.y
+	
+	position = new_pos
+
+func _on_tamagotchi_area_entered(area):
+	get_parent().get_node("hp_count/point0").hide()
+	$AnimationPlayer.play("hit",-1,4.5)
+	area.hide()

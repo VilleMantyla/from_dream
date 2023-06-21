@@ -88,7 +88,7 @@ func start_battle(e):
 	enemy.show()
 	var msg = EnemyStuff.fetc_message(enemy.name, EnemyStuff.types.BEGIN)
 	show_pop_message(msg)
-	$hp.bbcode_text = "HP: " + str(hp)
+	#$hp.bbcode_text = "HP: " + str(hp)
 	
 	$noise_screen.show()
 	$battle_start_label/AnimationPlayer.play("show_up2",-1,2)
@@ -221,6 +221,7 @@ func noise_done(anim):
 
 func on_bulletshooter_finished():
 	#show_player_turn_label()
+	$tamagotchi.deactivate()
 	$weapons.reload()
 	$black_arena/AnimationPlayer.play("fade_out",-1,1.2)
 	$dodge_arena.hide()

@@ -168,12 +168,3 @@ func reload():
 	for b in get_parent().get_node("bullets").get_children():
 		b.show()
 		bullets_left += 1
-
-
-
-
-func bulletshooter_done():
-		get_parent().get_node("turn_labels/AnimationPlayer").play("player_turn_fade_in")
-		reload()
-		get_parent().get_node("black_arena/AnimationPlayer").play_backwards("fade_in")
-		get_parent().get_node("dodge_arena").hide()
