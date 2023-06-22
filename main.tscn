@@ -1,4 +1,4 @@
-[gd_scene load_steps=125 format=2]
+[gd_scene load_steps=129 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://player.gd" type="Script" id=2]
@@ -30,7 +30,7 @@
 [ext_resource path="res://battle/bullet_sprite.png" type="Texture" id=28]
 [ext_resource path="res://battle/tamagotchi0.png" type="Texture" id=29]
 [ext_resource path="res://battle/tamagotchi.gd" type="Script" id=30]
-[ext_resource path="res://battle/tamagotchi3.png" type="Texture" id=31]
+[ext_resource path="res://battle/tamagotchi_alt.png" type="Texture" id=31]
 [ext_resource path="res://battle/battle_btm_layer_black.png" type="Texture" id=32]
 [ext_resource path="res://battle/dodge_area.png" type="Texture" id=33]
 [ext_resource path="res://battle/bulletshooter.gd" type="Script" id=34]
@@ -57,7 +57,6 @@
 [ext_resource path="res://shaders/2d_colorer.shader" type="Shader" id=55]
 [ext_resource path="res://enemies/maggots/maggot0.png" type="Texture" id=56]
 [ext_resource path="res://level_models/house_build_ver2.glb" type="PackedScene" id=57]
-[ext_resource path="res://battle/battle_win_text.png" type="Texture" id=58]
 [ext_resource path="res://battle/shoot.png" type="Texture" id=59]
 [ext_resource path="res://battle/reloading.png" type="Texture" id=60]
 [ext_resource path="res://battle/bullet.gd" type="Script" id=61]
@@ -789,8 +788,23 @@ tracks/1/keys = {
 "values": [ false ]
 }
 
+[sub_resource type="Animation" id=81]
+resource_name = "fade_off"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
 [sub_resource type="Animation" id=98]
-resource_name = "fade_in"
+resource_name = "game_over"
 length = 3.0
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:visible")
@@ -829,19 +843,58 @@ tracks/2/keys = {
 "values": [ true ]
 }
 
-[sub_resource type="Animation" id=81]
-resource_name = "fade_off"
+[sub_resource type="DynamicFontData" id=99]
+font_path = "res://fonts/RobotoCondensed-Regular.ttf"
+
+[sub_resource type="DynamicFont" id=100]
+size = 28
+font_data = SubResource( 99 )
+
+[sub_resource type="Theme" id=101]
+default_font = SubResource( 100 )
+
+[sub_resource type="Animation" id=103]
+length = 0.001
 tracks/0/type = "value"
-tracks/0/path = NodePath(".:modulate")
+tracks/0/path = NodePath("gp_left:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=102]
+resource_name = "silly_money_to_bank_anim"
+tracks/0/type = "method"
+tracks/0/path = NodePath("..")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "move_money_to_bank"
+} ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("gp_left:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true, false, true ]
 }
 
 [sub_resource type="Shader" id=77]
@@ -1236,8 +1289,8 @@ margin_right = 1336.0
 margin_bottom = 944.0
 theme = SubResource( 38 )
 bbcode_enabled = true
-bbcode_text = "GP: $0"
-text = "GP: $0"
+bbcode_text = "¥0"
+text = "¥0"
 
 [node name="frame3" type="Sprite" parent="Battle"]
 position = Vector2( 975, 937 )
@@ -1380,7 +1433,6 @@ position = Vector2( 976, 840 )
 collision_layer = 16
 collision_mask = 2
 script = ExtResource( 30 )
-god_mode = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Battle/tamagotchi"]
 position = Vector2( -5, 7 )
@@ -1475,28 +1527,43 @@ position = Vector2( 960, 544 )
 shape = SubResource( 93 )
 
 [node name="noise_screen" type="AnimatedSprite" parent="Battle"]
+visible = false
 scale = Vector2( 7.5, 5.625 )
 frames = SubResource( 79 )
-frame = 2
+frame = 4
 speed_scale = 6.0
 playing = true
 centered = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Battle/noise_screen"]
 anims/RESET = SubResource( 80 )
-anims/fade_in = SubResource( 98 )
 anims/fade_off = SubResource( 81 )
-
-[node name="win_text" type="Sprite" parent="Battle"]
-visible = false
-position = Vector2( 960, 504 )
-scale = Vector2( 3, 3 )
-texture = ExtResource( 58 )
+anims/game_over = SubResource( 98 )
 
 [node name="win" type="Sprite" parent="Battle"]
 visible = false
 texture = ExtResource( 63 )
 centered = false
+
+[node name="gp_left" type="Label" parent="Battle/win"]
+margin_left = 832.0
+margin_top = 664.0
+margin_right = 1055.0
+margin_bottom = 697.0
+theme = SubResource( 101 )
+text = "LEFT FROM BATTLE: 0"
+
+[node name="bank" type="Label" parent="Battle/win"]
+margin_left = 832.0
+margin_top = 720.0
+margin_right = 1055.0
+margin_bottom = 753.0
+theme = SubResource( 101 )
+text = "BANK: 0"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Battle/win"]
+anims/RESET = SubResource( 103 )
+anims/silly_money_to_bank_anim = SubResource( 102 )
 
 [node name="battle_start_label" type="Sprite" parent="Battle"]
 material = SubResource( 78 )

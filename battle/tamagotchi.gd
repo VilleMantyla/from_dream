@@ -63,4 +63,4 @@ func _on_tamagotchi_area_entered(area):
 	area.hide() #disable collision too
 	get_parent().get_node("hp_count/point0").hide()
 	
-	get_parent().get_node("noise_screen/AnimationPlayer").play("fade_in",-1,1.5)
+	get_parent().get_node("noise_screen/AnimationPlayer").play("game_over",-1,1.5)

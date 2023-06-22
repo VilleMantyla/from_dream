@@ -53,9 +53,9 @@ func _process(delta): #could be changed to input
 	if Input.is_action_just_pressed("one"):
 		change_weapon(weapons.PISTOL)
 	elif Input.is_action_just_pressed("two"):
-		change_weapon(weapons.GRENADE_LAUCNHER)
-		get_parent().get_node("Enemies/maggots").money -= 50
-		get_parent().get_node("gp").text = "GP: $" + str(get_parent().get_node("Enemies/maggots").money)
+		if get_parent().gp >= 500:
+			change_weapon(weapons.GRENADE_LAUCNHER)
+			get_parent().on_gp_drop(-500)
 
 func _physics_process(delta):
 	if Input.is_action_just_pressed("fire") and bullets_left > 0:

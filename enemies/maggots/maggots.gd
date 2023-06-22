@@ -5,7 +5,9 @@ signal enemy_died
 signal attack_message
 signal clear_message
 signal attack
-signal gp
+signal gp_dropped
+
+var gp_value = 100
 
 var part_count = 0
 var appear_count = 0
@@ -37,7 +39,6 @@ func take_damage(parts, dmg):
 	for part in parts:
 		damage_to_part(part, dmg)
 
-var money = 0
 func damage_to_part(part, dmg):
 	part.hp -= dmg
 	if part.hp <= 0:
@@ -45,8 +46,7 @@ func damage_to_part(part, dmg):
 		part.disable_collisionshape(true)
 		part_count -= 1
 		part.get_node("Area2D/AnimatedSprite").stop()
-		money += 10
-		get_parent().get_parent().get_node("gp").text = "GP: $" + str(money)
+		emit_signal("gp_dropped", gp_value)
 	
 	if part_count <= 5 and !dead:
 		for maggot in get_children():

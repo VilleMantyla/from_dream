@@ -42,7 +42,7 @@ func _ready():
 		enemy.connect("attack", self, "hurt_player")
 		enemy.connect("attack_message", self, "show_message")
 		enemy.connect("clear_message", self, "set_message_to_be_cleared")
-		enemy.connect("gp", self, "add_gp")
+		enemy.connect("gp_dropped", self, "on_gp_drop")
 		
 		enemy.hide()
 	
@@ -165,7 +165,12 @@ func end_battle():
 	print("battle ended")
 	
 	$win.show()
-	$win_text.show()
+	$win/gp_left.text = "Left: ¥" + str(gp)
+	$win/AnimationPlayer.play("silly_money_to_bank_anim",-1,0.5)
+
+func move_money_to_bank():
+	$win/gp_left.text = "Left: ¥0"
+	$win/bank.text = "BANK: ¥" + str(gp)
 
 func leave_battle():
 	leave_battle = false
@@ -212,9 +217,14 @@ func check_statuses(delta):
 func on_animation_finished(anim):
 	pass
 
-func add_gp(val):
+func on_gp_drop(val):
 	gp += val
-	$gp.text = "GP: " + str(gp)
+	if gp >= 1000 and gp < 10000:
+		$gp.text = "¥" + str(gp).insert(1,",")
+	elif gp >= 10000 and gp < 100000:
+		$gp.text = "¥" + str(gp).insert(2,",")
+	else:
+		$gp.text = "¥" + str(gp)
 
 func noise_done(anim):
 	if anim == "fade_off":
