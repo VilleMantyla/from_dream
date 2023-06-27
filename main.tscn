@@ -1270,7 +1270,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -120, 0, 0 )
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.5, 1.6, 13.5 )
 
 [node name="Player" type="KinematicBody" parent="."]
-transform = Transform( -1, 0, -8.66252e-07, 0, 1, 0, 8.66252e-07, 0, -1, -3.03491, 1.6, -14.9713 )
+transform = Transform( -1, 0, -8.66252e-07, 0, 1, 0, 8.66252e-07, 0, -1, -3.51511, 1.6, -13.7951 )
 collision_layer = 2
 collision_mask = 5
 script = ExtResource( 2 )
@@ -1602,7 +1602,6 @@ shape = SubResource( 95 )
 [node name="animated_sprite" type="AnimatedSprite" parent="Battle/tamagotchi"]
 scale = Vector2( 4, 4 )
 frames = SubResource( 87 )
-frame = 1
 speed_scale = 0.2
 playing = true
 
