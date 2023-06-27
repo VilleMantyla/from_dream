@@ -64,13 +64,6 @@ func end_cutscene():
 
 var flip_open = true
 #func _process(delta):
-#	$Camera.translation.y -= delta*0.5
-#	print("asdfsadfsda")
-#	if $Camera.translation.y <= 1.5:
-#		set_process(false)
-#	if $Player.looking_at_interactable:
-#		if $Player.looking_at_interactable.is_in_group("ladder"):
-#			$context_msg.text = "press space to climb"
 #	if Input.is_action_just_pressed("interact"):
 #		if $Player.looking_at_interactable:
 #			if $Player.looking_at_interactable.is_in_group("ladder"):
@@ -94,14 +87,43 @@ var flip_open = true
 #		if $Player.interacting:
 #			$Chat.try_reading_next_paragraph()
 
+func show_character(code):
+	if code == 1:
+		$TVsprite.texture = load("res://tv/tv_angry_yell.png")
+		$TVsprite.position = Vector2(1568, 1350)
+		var new_pos = Vector2(1568, 824)
+		var pop_up_tween = create_tween()
+		pop_up_tween.tween_property($TVsprite, \
+		"position", new_pos, 0.4).set_trans(Tween.EASE_OUT)
+		$TVsprite.show()
+		$TVsprite/AnimationPlayer.get_animation("decal_spin").set_loop(true)
+		$TVsprite/AnimationPlayer.play("decal_spin")
+	elif code == 2:
+		$TVsprite/decal0.hide()
+		$TVsprite/decal1.hide()
+		$TVsprite/decal2.show()
+		$TVsprite.texture = load("res://tv/tv_mocking_no_eye_sparkle.png")
+		$TVsprite/AnimationPlayer.get_animation("half_closed_sparkle_up_down").set_loop(true)
+		$TVsprite/AnimationPlayer.play("half_closed_sparkle_up_down",-1,5)
+		$TVsprite.position = Vector2(1720, 824)
+		var pop_up_tween = create_tween()
+		pop_up_tween.tween_property($TVsprite, \
+		"position", Vector2(1568, 824), 0.4).set_trans(Tween.EASE_OUT)
+		#$TVsprite/AnimationPlayer.play("pop_left",-1,2.5)
+
+
 func end_chat():
 	$Chat.hide()
 	$Player.disable_input(false)
 	$Player.chatting = false
+	$chat_bg.hide()
 	
 	check_for_cutscene()
 	if battle_on_hold:
 		enter_battle(battle_on_hold)
+	
+	#RESET TVspirte node and its children
+	$TVsprite.hide()
 
 func enter_battle(enemy):
 	battle_on_hold = null
@@ -125,6 +147,7 @@ func read_next_chat():
 func interact_with_world_object(chat, focus_point, enemy):
 	if chat:
 		$Chat.show()
+		$chat_bg.show()
 		$Chat.start_chat("res://texts/chat.json", chat)
 		$Player.chatting = true
 	if focus_point:
@@ -161,7 +184,6 @@ func check_for_cutscene():
 		$Path/PathFollow.add_child(tv)
 		tv.global_transform.origin = Vector3.ZERO
 		$Path.start_a_path()
-		$Sprite.hide()
 	else:
 		return false
 
@@ -182,7 +204,6 @@ func tv_FROM_TREE_anims(anim):
 		tv.get_node("AnimationPlayer").get_animation("taunting_idle").set_loop(true)
 		tv.get_node("AnimationPlayer").play("taunting_idle",-1,1.2)
 		
-		$Sprite.show()
 		interact_with_world_object("melph_tree_first", false, false)
 
 func BANGING_ELEVATOR_anims(anim):

@@ -219,12 +219,18 @@ func on_animation_finished(anim):
 
 func on_gp_drop(val):
 	gp += val
-	if gp >= 1000 and gp < 10000:
-		$gp.text = "¥" + str(gp).insert(1,",")
-	elif gp >= 10000 and gp < 100000:
-		$gp.text = "¥" + str(gp).insert(2,",")
-	else:
-		$gp.text = "¥" + str(gp)
+	var gp_as_string = str(gp)
+	if gp_as_string.length() > 3:
+		var first_comma = gp_as_string.length() - 3
+		gp_as_string = gp_as_string.insert(first_comma, ",")
+	
+	$gp.text = "¥" + gp_as_string
+#	if gp >= 1000 and gp < 10000:
+#		$gp.text = "¥" + str(gp).insert(1,",")
+#	elif gp >= 10000 and gp < 100000:
+#		$gp.text = "¥" + str(gp).insert(2,",")
+#	else:
+#		$gp.text = "¥" + str(gp)
 
 func noise_done(anim):
 	if anim == "fade_off":

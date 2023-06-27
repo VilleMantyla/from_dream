@@ -156,8 +156,8 @@ class Write:
 		current_sentence_sound = sentece_speed_sound["sound"]
 		time_to_next_char = current_sentence_speed
 		
-		if sentece_speed_sound.has("character"):
-			parent.get_parent().get_node(sentece_speed_sound["character"]).show()
+		if sentece_speed_sound.has("sprite-code"):
+			parent.get_parent().show_character(sentece_speed_sound["sprite-code"])
 	
 	func showChar():
 		var character = frame_bbcode_clean[visible_chars]

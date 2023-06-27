@@ -1212,7 +1212,8 @@
 	"textframe": [{
 			"text": "I DID NOT NEED YOUR HELP!!",
 			"speed": 50,
-			"sound" : 0
+			"sound" : 0,
+			"sprite-code" : 1
 		}
 	]
 },
@@ -1252,7 +1253,8 @@
 	"textframe": [{
 			"text": "lol are you a mute?",
 			"speed": 50,
-			"sound" : 0
+			"sound" : 0,
+			"sprite-code" : 2
 		}
 	]
 },
