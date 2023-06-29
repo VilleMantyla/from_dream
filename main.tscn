@@ -1,4 +1,4 @@
-[gd_scene load_steps=139 format=2]
+[gd_scene load_steps=142 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://player.gd" type="Script" id=2]
@@ -67,6 +67,8 @@
 [ext_resource path="res://tv/angry_decal_big.png" type="Texture" id=65]
 [ext_resource path="res://battle/text_bg.png" type="Texture" id=66]
 [ext_resource path="res://tv/eye_sparkle_small_decal.png" type="Texture" id=67]
+[ext_resource path="res://void/void.png" type="Texture" id=68]
+[ext_resource path="res://void/void_ver2.glb" type="PackedScene" id=69]
 
 [sub_resource type="CylinderShape" id=61]
 height = 0.487519
@@ -1251,6 +1253,10 @@ extents = Vector3( 0.133303, 0.198729, 0.0481385 )
 height = 1.45982
 radius = 0.389801
 
+[sub_resource type="SpatialMaterial" id=109]
+albedo_texture = ExtResource( 68 )
+metallic_specular = 0.0
+
 [node name="Main" type="Spatial"]
 script = ExtResource( 1 )
 
@@ -1270,7 +1276,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -120, 0, 0 )
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.5, 1.6, 13.5 )
 
 [node name="Player" type="KinematicBody" parent="."]
-transform = Transform( -1, 0, -8.66252e-07, 0, 1, 0, 8.66252e-07, 0, -1, -3.51511, 1.6, -13.7951 )
+transform = Transform( -1, 0, -8.66252e-07, 0, 1, 0, 8.66252e-07, 0, -1, -6.20519, 1.6, 2.09909 )
 collision_layer = 2
 collision_mask = 5
 script = ExtResource( 2 )
@@ -1903,7 +1909,17 @@ chat_key = "TV_bangging"
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
 shape = SubResource( 68 )
 
+[node name="void_ver3" parent="." instance=ExtResource( 69 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -47.6826, 6.22975, 5.31529 )
+
+[node name="void" parent="void_ver3" index="0"]
+material/0 = SubResource( 109 )
+
+[node name="sword" parent="void_ver3" index="2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.19792, 1.98054, -0.00671768 )
+
 [connection signal="area_entered" from="Battle/tamagotchi" to="Battle/tamagotchi" method="_on_tamagotchi_area_entered"]
 [connection signal="area_exited" from="Battle/bullet_area" to="Battle/bulletshooter" method="_on_bullet_area_area_exited"]
 
 [editable path="glitch_suckers/glitch_sucker_ver2"]
+[editable path="void_ver3"]
