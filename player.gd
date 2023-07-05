@@ -33,7 +33,7 @@ var ladder_exit_range = 0.5 #+ and -
 #var ladder_bottom = null
 
 func _ready():
-	height = global_transform.origin.y
+	height = PLAYER_HEIGHT#global_transform.origin.y
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func activate(val):

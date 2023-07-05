@@ -1,6 +1,6 @@
 extends Spatial
 
-enum cutscenes {FROM_TREE, BANGING_ELEVATOR}
+enum cutscenes {FROM_TREE, BANGING_ELEVATOR, KILLING_TV}
 var current_scene = null
 
 var tv
@@ -33,34 +33,13 @@ func _ready():
 	$tv_3/AnimationPlayer.get_animation("stuck").set_loop(true)
 	$tv_3/AnimationPlayer.connect("animation_finished", self, "BANGING_ELEVATOR_anims")
 	
+	$void2/AnimationPlayer.get_animation("holding_tv_idle").set_loop(true)
+	$void2/AnimationPlayer.play("holding_tv_idle")
+	$tv_ver3/AnimationPlayer.get_animation("let_me_go").set_loop(true)
+	$tv_ver3/AnimationPlayer.play("let_me_go",-1,1.5)
+	#$tv_ver3/AnimationPlayer.play("die_in_hand",-1,0.5)
+	
 
-
-func start_cutscene(cutscene_name):
-	current_scene = cutscene_name
-	if cutscene_name == cutscenes.FROM_TREE:
-		tv.global_transform.origin.y = 0
-		tv.get_node("AnimationPlayer").play("getting_up",-1,1.2)
-		get_node("AudioStreamPlayer2D").play()
-		get_node("Camera2").current = true
-	if cutscene_name == cutscenes.BANGING_ELEVATOR:
-		
-		$Player.global_transform.origin = Vector3(-105.1,1.6,5.25)
-		$Player.global_rotation.y = deg2rad(-160)
-		$Player/rotation_helper.global_rotation.x = deg2rad(-19)
-		
-		
-		var left = $house_build_ver2/elevatordoorbottom1
-		var right = $house_build_ver2/elevatordoorbottom2
-		var left_target = left.global_transform.origin.x + 0.07
-		var right_target = right.global_transform.origin.x - 0.07
-		var tween1 = create_tween()
-		tween1.tween_property(left, "global_transform:origin:x", left_target, 0.25)
-		var tween2 = create_tween()
-		tween2.tween_property(right, "global_transform:origin:x", right_target, 0.25)
-		tween2.connect("finished", self, "BANGING_ELEVATOR_anims", ["doors"])
-
-func end_cutscene():
-	current_scene = null
 
 var flip_open = true
 #func _process(delta):
@@ -118,12 +97,24 @@ func end_chat():
 	$Player.chatting = false
 	$chat_bg.hide()
 	
-	check_for_cutscene()
+	check_for_cutscene_after_chat()
+	
 	if battle_on_hold:
 		enter_battle(battle_on_hold)
 	
 	#RESET TVspirte node and its children
 	$TVsprite.hide()
+
+func check_for_cutscene_after_chat():
+	if current_scene == cutscenes.FROM_TREE:
+		remove_child(tv)
+		$Path/PathFollow.add_child(tv)
+		tv.global_transform.origin = Vector3.ZERO
+		$Path.start_a_path()
+	elif cutscene_chat == "tv_plead":
+		KILLING_TV("tv_plead")
+	else:
+		return false
 
 func enter_battle(enemy):
 	battle_on_hold = null
@@ -178,14 +169,41 @@ func focus_on_point(focus_point):
 	var v_tween = create_tween()
 	v_tween.tween_property($Player, "global_rotation", new_player_rot, 1).set_trans(Tween.EASE_IN_OUT)
 
-func check_for_cutscene():
-	if current_scene == cutscenes.FROM_TREE:
-		remove_child(tv)
-		$Path/PathFollow.add_child(tv)
-		tv.global_transform.origin = Vector3.ZERO
-		$Path.start_a_path()
-	else:
-		return false
+###############
+## CUTSCENES ##
+###############
+# variable that will be checked at the end of a chat if there's next shot 
+var cutscene_chat = null
+
+func start_cutscene(cutscene_name):
+	current_scene = cutscene_name
+	if cutscene_name == cutscenes.FROM_TREE:
+		tv.global_transform.origin.y = 0
+		tv.get_node("AnimationPlayer").play("getting_up",-1,1.2)
+		$cutscene_audio1.play()
+		get_node("Camera2").current = true
+	elif cutscene_name == cutscenes.BANGING_ELEVATOR:
+		
+		$Player.global_transform.origin = Vector3(-105.1,1.6,5.25)
+		$Player.global_rotation.y = deg2rad(-160)
+		$Player/rotation_helper.global_rotation.x = deg2rad(-19)
+		
+		
+		var left = $house_build_ver2/elevatordoorbottom1
+		var right = $house_build_ver2/elevatordoorbottom2
+		var left_target = left.global_transform.origin.x + 0.07
+		var right_target = right.global_transform.origin.x - 0.07
+		var tween1 = create_tween()
+		tween1.tween_property(left, "global_transform:origin:x", left_target, 0.25)
+		var tween2 = create_tween()
+		tween2.tween_property(right, "global_transform:origin:x", right_target, 0.25)
+		tween2.connect("finished", self, "BANGING_ELEVATOR_anims", ["doors"])
+	elif cutscene_name == cutscenes.KILLING_TV:
+		$Camera4.current = true
+		$Camera4/AnimationPlayer.play("floor_to_head",-1,0.4)
+
+func end_cutscene():
+	current_scene = null
 
 func tv_FROM_TREE_anims(anim):
 	if anim == "getting_up":
@@ -218,3 +236,19 @@ func BANGING_ELEVATOR_anims(anim):
 	if anim == "fall_to_stuck":
 		$tv_3/AnimationPlayer.play("stuck")
 		$AnimationPlayer.play("rise")
+
+func KILLING_TV(anim):
+	if anim == "floor_to_head":
+		$Camera5.current = true
+		cutscene_chat = "tv_plead"
+		$Chat.show()
+		$chat_bg.show()
+		$Chat.start_chat("res://texts/chat.json", "let_me_go")
+		$Player.chatting = true
+	elif anim == "tv_plead":
+		cutscene_chat = null
+		$Camera6.current = true
+		$Camera6/AnimationPlayer.play("show_knife",-1,0.33)
+	elif anim == "show_knife":
+		$Camera7.current = true
+		$void2/AnimationPlayer.play("knifing_tv_alt")

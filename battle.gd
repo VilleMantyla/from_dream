@@ -55,11 +55,11 @@ func _ready():
 	msg_timer.connect("timeout",self,"clear_message")
 	add_child(msg_timer)
 	
-	poison_dmg_timer = Timer.new()
-	poison_dmg_timer.wait_time = 1
-	poison_dmg_timer.one_shot = false
-	poison_dmg_timer.connect("timeout",self,"hurt_player",[EnemyStuff.attack_types.NORMAL, 1])
-	add_child(poison_dmg_timer)
+#	poison_dmg_timer = Timer.new()
+#	poison_dmg_timer.wait_time = 1
+#	poison_dmg_timer.one_shot = false
+#	poison_dmg_timer.connect("timeout",self,"hurt_player",[EnemyStuff.attack_types.NORMAL, 1])
+#	add_child(poison_dmg_timer)
 	
 	set_process_input(false)
 	
@@ -86,8 +86,8 @@ func start_battle(e):
 	$weapons.activate(enemy)
 	#enemy.activate()
 	enemy.show()
-	var msg = EnemyStuff.fetc_message(enemy.name, EnemyStuff.types.BEGIN)
-	show_pop_message(msg)
+#	var msg = EnemyStuff.fetc_message(enemy.name, EnemyStuff.types.BEGIN)
+#	show_pop_message(msg)
 	#$hp.bbcode_text = "HP: " + str(hp)
 	
 	$noise_screen.show()
@@ -158,8 +158,8 @@ func set_message_to_be_cleared():
 
 func end_battle():
 	#active_enemy.hide()
-	var msg = EnemyStuff.fetc_message(enemy.name, EnemyStuff.types.END)
-	show_pop_message(msg)
+#	var msg = EnemyStuff.fetc_message(enemy.name, EnemyStuff.types.END)
+#	show_pop_message(msg)
 	enemy = null
 	leave_battle = true
 	print("battle ended")
@@ -181,17 +181,14 @@ func leave_battle():
 func set_message():
 	pass
 
-func hurt_player(attack_type, dmg):
-	if attack_type == EnemyStuff.attack_types.NORMAL:
-		hp -= dmg
-		$hp.bbcode_text = "HP: " + str(hp)
-		show_message("you took " + str(dmg) + " damage")
-		set_message_to_be_cleared()
-		
-		$damage_to_player.show()
-		$damage_to_player/AnimationPlayer.play("damage", -1, 1)
-	elif attack_type == EnemyStuff.attack_types.POISON:
-		try_poisoning(dmg)
+func hurt_player(dmg):
+	hp -= dmg
+	$hp.bbcode_text = "HP: " + str(hp)
+	show_message("you took " + str(dmg) + " damage")
+	set_message_to_be_cleared()
+	
+	$damage_to_player.show()
+	$damage_to_player/AnimationPlayer.play("damage", -1, 1)
 
 func try_poisoning(val):
 	if status != statuses.POISONING or status != statuses.POISONED:

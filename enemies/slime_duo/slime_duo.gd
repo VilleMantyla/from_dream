@@ -90,8 +90,8 @@ func attack_update(delta):
 
 func ooze_poison(big_slime):
 	print("slime oozes poison")
-	emit_signal("attack_message", "slime oozes poison")
-	emit_signal("attack", EnemyStuff.attack_types.POISON, 0)
+	#emit_signal("attack_message", "slime oozes poison")
+	#emit_signal("attack", EnemyStuff.attack_types.POISON, 0)
 	big_slime.get_node("AnimationPlayer").play("ooze_poison_attack", -1, 2)
 
 func take_damage(parts, dmg):

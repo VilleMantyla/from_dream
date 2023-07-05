@@ -1340,5 +1340,22 @@
 		}
 	]
 }
+],
+"let_me_go": [{
+	"textframe": [{
+			"text": "I'm gonna kill you!",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "Let me go!!.",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+}
 ]
 }
