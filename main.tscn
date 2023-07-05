@@ -1285,6 +1285,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id=112]
 resource_name = "show_knife"
+length = 1.3
 tracks/0/type = "method"
 tracks/0/path = NodePath("..")
 tracks/0/interp = 1
@@ -1292,9 +1293,12 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 1 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0.8, 1.3 ),
+"transitions": PoolRealArray( 1, 1 ),
 "values": [ {
+"args": [ "to_knife_pos" ],
+"method": "KILLING_TV"
+}, {
 "args": [ "show_knife" ],
 "method": "KILLING_TV"
 } ]
@@ -1322,10 +1326,10 @@ radius = 0.389801
 script = ExtResource( 1 )
 
 [node name="void2" parent="." instance=ExtResource( 69 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -104.355, 29.879, 2.71191 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -104.45, 29.879, 2.71191 )
 
 [node name="tv_ver3" parent="." instance=ExtResource( 68 )]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -104.355, 30.1704, 3.39685 )
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -104.45, 30.1704, 3.39685 )
 
 [node name="tv_3" parent="." instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -104.5, 0, 6.66711 )
@@ -1675,7 +1679,6 @@ shape = SubResource( 95 )
 [node name="animated_sprite" type="AnimatedSprite" parent="Battle/tamagotchi"]
 scale = Vector2( 4, 4 )
 frames = SubResource( 87 )
-frame = 1
 speed_scale = 0.2
 playing = true
 
@@ -1983,7 +1986,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.191667 )
 shape = SubResource( 65 )
 
 [node name="killing_tv_cutscene" type="Area" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -104.476, 30.8246, 5.463 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -104.476, 30.8246, 5.85627 )
 collision_layer = 4
 collision_mask = 2
 script = ExtResource( 70 )

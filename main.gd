@@ -249,6 +249,7 @@ func KILLING_TV(anim):
 		cutscene_chat = null
 		$Camera6.current = true
 		$Camera6/AnimationPlayer.play("show_knife",-1,0.33)
-	elif anim == "show_knife":
+	elif anim == "to_knife_pos":
 		$Camera7.current = true
+	elif anim == "show_knife":
 		$void2/AnimationPlayer.play("knifing_tv_alt")
