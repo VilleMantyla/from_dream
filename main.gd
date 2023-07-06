@@ -35,8 +35,8 @@ func _ready():
 	
 	$void2/AnimationPlayer.get_animation("holding_tv_idle").set_loop(true)
 	$void2/AnimationPlayer.play("holding_tv_idle")
-	$tv_ver3/AnimationPlayer.get_animation("let_me_go").set_loop(true)
-	$tv_ver3/AnimationPlayer.play("let_me_go",-1,1.5)
+	$tv_2_floor/AnimationPlayer.get_animation("let_me_go").set_loop(true)
+	$tv_2_floor/AnimationPlayer.play("let_me_go",-1,1.5)
 	#$tv_ver3/AnimationPlayer.play("die_in_hand",-1,0.5)
 	
 
@@ -77,9 +77,13 @@ func show_character(code):
 		$TVsprite.show()
 		$TVsprite/AnimationPlayer.get_animation("decal_spin").set_loop(true)
 		$TVsprite/AnimationPlayer.play("decal_spin")
+		$TVsprite/decal3.show()
+		$TVsprite/decal3/AnimationPlayer.get_animation("up_n_down").set_loop(true)
+		$TVsprite/decal3/AnimationPlayer.play("up_n_down",-1,5)
 	elif code == 2:
 		$TVsprite/decal0.hide()
 		$TVsprite/decal1.hide()
+		$TVsprite/decal3.hide()
 		$TVsprite/decal2.show()
 		$TVsprite.texture = load("res://tv/tv_mocking_no_eye_sparkle.png")
 		$TVsprite/AnimationPlayer.get_animation("half_closed_sparkle_up_down").set_loop(true)
@@ -204,6 +208,7 @@ func start_cutscene(cutscene_name):
 
 func end_cutscene():
 	current_scene = null
+	$Player/rotation_helper/Camera.current = true
 
 func tv_FROM_TREE_anims(anim):
 	if anim == "getting_up":
@@ -252,4 +257,31 @@ func KILLING_TV(anim):
 	elif anim == "to_knife_pos":
 		$Camera7.current = true
 	elif anim == "show_knife":
+		$void2/AnimationPlayer.connect("animation_finished", self, "KILLING_TV")
 		$void2/AnimationPlayer.play("knifing_tv_alt")
+		var empty_tween = create_tween()
+		empty_tween.connect("finished", self, "KILLING_TV", ["knife_in"])
+		var empty_node = Node2D.new()
+		empty_tween.tween_property(empty_node, \
+		"position", Vector2(), 1.8).set_trans(Tween.EASE_OUT)
+		
+	elif anim == "knife_in":
+		$tv_2_floor/AnimationPlayer.play("die_in_hand")
+		$tv_2_floor
+	elif anim == "knifing_tv_alt":
+		var tv_drop = create_tween()
+		tv_drop.connect("finished", self, "KILLING_TV", ["tv_down"])
+		tv_drop.tween_property($tv_2_floor, \
+		"global_transform:origin:y", 28.3, 0.8).set_trans(Tween.EASE_OUT)
+	elif anim == "tv_down":
+		$void2/AnimationPlayer.play("to_taunt")
+	elif anim == "to_taunt":
+		$killing_tv_cutscene/AnimationPlayer.play("tv_on_floor")
+		$Player/rotation_helper/Camera.current = true
+		var void_to_player = create_tween()
+		void_to_player.connect("finished", self, "KILLING_TV", ["start_battle"])
+		void_to_player.tween_property($void2, \
+		"global_transform:origin:z", 6.3, 0.8).set_trans(Tween.EASE_OUT)
+		#void_to_player.connect("finished", self, "KILLING_TV", ["tv_down"])
+	elif anim == "start_battle":
+		$enemy_trigger._on_enemy_trigger_body_entered($Player)
