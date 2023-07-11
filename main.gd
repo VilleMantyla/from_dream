@@ -26,12 +26,12 @@ func _ready():
 	tv = $tv_ver2
 	tv.get_node("AnimationPlayer").get_animation("on_the_noose").set_loop(true)
 	tv.get_node("AnimationPlayer").play("on_the_noose",-1,2)
-	tv.get_node("AnimationPlayer").connect("animation_finished", self, "tv_FROM_TREE_anims")
+	tv.get_node("AnimationPlayer").connect("animation_finished", self, "FROM_TREE")
 	
 	$tv_3/AnimationPlayer.get_animation("banging_door").set_loop(true)
 	$tv_3/AnimationPlayer.play("banging_door",-1,2)
 	$tv_3/AnimationPlayer.get_animation("stuck").set_loop(true)
-	$tv_3/AnimationPlayer.connect("animation_finished", self, "BANGING_ELEVATOR_anims")
+	$tv_3/AnimationPlayer.connect("animation_finished", self, "BANGING_ELEVATOR")
 	
 	$void2/AnimationPlayer.get_animation("holding_tv_idle").set_loop(true)
 	$void2/AnimationPlayer.play("holding_tv_idle")
@@ -102,6 +102,7 @@ func end_chat():
 	$chat_bg.hide()
 	
 	check_for_cutscene_after_chat()
+	cutscene_after_chat = null
 	
 	if battle_on_hold:
 		enter_battle(battle_on_hold)
@@ -110,12 +111,9 @@ func end_chat():
 	$TVsprite.hide()
 
 func check_for_cutscene_after_chat():
-	if current_scene == cutscenes.FROM_TREE:
-		remove_child(tv)
-		$Path/PathFollow.add_child(tv)
-		tv.global_transform.origin = Vector3.ZERO
-		$Path.start_a_path()
-	elif cutscene_chat == "tv_plead":
+	if cutscene_after_chat == "tv_run_away":
+		FROM_TREE("tv_run_away")
+	elif cutscene_after_chat == "tv_plead":
 		KILLING_TV("tv_plead")
 	else:
 		return false
@@ -177,7 +175,7 @@ func focus_on_point(focus_point):
 ## CUTSCENES ##
 ###############
 # variable that will be checked at the end of a chat if there's next shot 
-var cutscene_chat = null
+var cutscene_after_chat = null
 
 func start_cutscene(cutscene_name):
 	current_scene = cutscene_name
@@ -187,11 +185,9 @@ func start_cutscene(cutscene_name):
 		$cutscene_audio1.play()
 		get_node("Camera2").current = true
 	elif cutscene_name == cutscenes.BANGING_ELEVATOR:
-		
 		$Player.global_transform.origin = Vector3(-105.1,1.6,5.25)
 		$Player.global_rotation.y = deg2rad(-160)
 		$Player/rotation_helper.global_rotation.x = deg2rad(-19)
-		
 		
 		var left = $house_build_ver2/elevatordoorbottom1
 		var right = $house_build_ver2/elevatordoorbottom2
@@ -201,7 +197,7 @@ func start_cutscene(cutscene_name):
 		tween1.tween_property(left, "global_transform:origin:x", left_target, 0.25)
 		var tween2 = create_tween()
 		tween2.tween_property(right, "global_transform:origin:x", right_target, 0.25)
-		tween2.connect("finished", self, "BANGING_ELEVATOR_anims", ["doors"])
+		tween2.connect("finished", self, "BANGING_ELEVATOR", ["doors"])
 	elif cutscene_name == cutscenes.KILLING_TV:
 		$Camera4.current = true
 		$Camera4/AnimationPlayer.play("floor_to_head",-1,0.4)
@@ -210,7 +206,7 @@ func end_cutscene():
 	current_scene = null
 	$Player/rotation_helper/Camera.current = true
 
-func tv_FROM_TREE_anims(anim):
+func FROM_TREE(anim):
 	if anim == "getting_up":
 		tv.global_rotation.y = deg2rad(148)
 		tv.get_node("AnimationPlayer").play("stand_rise")
@@ -227,9 +223,15 @@ func tv_FROM_TREE_anims(anim):
 		tv.get_node("AnimationPlayer").get_animation("taunting_idle").set_loop(true)
 		tv.get_node("AnimationPlayer").play("taunting_idle",-1,1.2)
 		
+		cutscene_after_chat = "tv_run_away"
 		interact_with_world_object("melph_tree_first", false, false)
+	if anim == "tv_run_away":
+		remove_child(tv)
+		$Path/PathFollow.add_child(tv)
+		tv.global_transform.origin = Vector3.ZERO
+		$Path.start_a_path()
 
-func BANGING_ELEVATOR_anims(anim):
+func BANGING_ELEVATOR(anim):
 	if anim == "doors":
 		$tv_3/AnimationPlayer.play("fall_to_stuck")
 		var trgt = $tv_3.global_transform.origin.z + 0.15
@@ -245,13 +247,12 @@ func BANGING_ELEVATOR_anims(anim):
 func KILLING_TV(anim):
 	if anim == "floor_to_head":
 		$Camera5.current = true
-		cutscene_chat = "tv_plead"
+		cutscene_after_chat = "tv_plead"
 		$Chat.show()
 		$chat_bg.show()
 		$Chat.start_chat("res://texts/chat.json", "let_me_go")
 		$Player.chatting = true
 	elif anim == "tv_plead":
-		cutscene_chat = null
 		$Camera6.current = true
 		$Camera6/AnimationPlayer.play("show_knife",-1,0.33)
 	elif anim == "to_knife_pos":

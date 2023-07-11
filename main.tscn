@@ -1,13 +1,12 @@
-[gd_scene load_steps=155 format=2]
+[gd_scene load_steps=143 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://player.gd" type="Script" id=2]
 [ext_resource path="res://level_models/house_entrance.glb" type="PackedScene" id=3]
 [ext_resource path="res://chat.gd" type="Script" id=4]
 [ext_resource path="res://tv/tv_ver2.glb" type="PackedScene" id=5]
-[ext_resource path="res://enemies/centipedes/centipedes.tscn" type="PackedScene" id=6]
 [ext_resource path="res://battle/battle_borders.tscn" type="PackedScene" id=7]
-[ext_resource path="res://battle/battle_arena.tscn" type="PackedScene" id=8]
+[ext_resource path="res://battle/shooting_arena.tscn" type="PackedScene" id=8]
 [ext_resource path="res://battle/pistol_sight.png" type="Texture" id=9]
 [ext_resource path="res://level_mechanics/ladder.gd" type="Script" id=10]
 [ext_resource path="res://level_mechanics/area_switch.gd" type="Script" id=11]
@@ -39,11 +38,9 @@
 [ext_resource path="res://enemies/maggots/maggots.tscn" type="PackedScene" id=37]
 [ext_resource path="res://sounds/pistol_fire_2.wav" type="AudioStream" id=38]
 [ext_resource path="res://battle.gd" type="Script" id=39]
-[ext_resource path="res://battle/message_box.png" type="Texture" id=40]
 [ext_resource path="res://enemies/flies/flies.tscn" type="PackedScene" id=41]
 [ext_resource path="res://enemies/slime_duo/slime_duo.tscn" type="PackedScene" id=42]
 [ext_resource path="res://battle/stats_frame.png" type="Texture" id=43]
-[ext_resource path="res://battle/battle_bg_poison.png" type="Texture" id=44]
 [ext_resource path="res://battle/gun_select.png" type="Texture" id=45]
 [ext_resource path="res://battle/biggun_select.png" type="Texture" id=46]
 [ext_resource path="res://battle/hp.png" type="Texture" id=47]
@@ -268,36 +265,6 @@ tracks/0/keys = {
 "values": [ Vector2( 1720, 824 ), Vector2( 1568, 824 ) ]
 }
 
-[sub_resource type="Animation" id=48]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ) ]
-}
-
-[sub_resource type="Animation" id=49]
-resource_name = "poisoning"
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
-}
-
 [sub_resource type="SpriteFrames" id=56]
 animations = [ {
 "frames": [ ExtResource( 49 ), ExtResource( 52 ), ExtResource( 50 ), ExtResource( 48 ), ExtResource( 53 ) ],
@@ -311,13 +278,6 @@ animations = [ {
 [sub_resource type="CircleShape2D" id=55]
 radius = 56.0
 
-[sub_resource type="DynamicFont" id=35]
-size = 50
-font_data = ExtResource( 20 )
-
-[sub_resource type="Theme" id=36]
-default_font = SubResource( 35 )
-
 [sub_resource type="DynamicFont" id=37]
 size = 30
 font_data = ExtResource( 20 )
@@ -327,89 +287,16 @@ default_font = SubResource( 37 )
 
 [sub_resource type="Animation" id=43]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath("pop_msg:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ true ]
-}
 
 [sub_resource type="Animation" id=41]
 resource_name = "message_off"
-tracks/0/type = "value"
-tracks/0/path = NodePath("pop_msg:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 944, 120 ), Vector2( 944, -80 ) ]
-}
 
 [sub_resource type="Animation" id=40]
 resource_name = "message_pop"
-tracks/0/type = "value"
-tracks/0/path = NodePath("pop_msg:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 944, -80 ), Vector2( 944, 120 ) ]
-}
 
 [sub_resource type="Animation" id=42]
 resource_name = "message_stop"
 length = 1.5
-tracks/0/type = "value"
-tracks/0/path = NodePath("pop_msg:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 944, 120 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("pop_msg:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 1.5 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ true, false ]
-}
-
-[sub_resource type="StyleBoxFlat" id=44]
-bg_color = Color( 0.443137, 0, 0.67451, 1 )
-
-[sub_resource type="StyleBoxFlat" id=45]
-bg_color = Color( 0.333333, 0.333333, 0.333333, 1 )
-
-[sub_resource type="DynamicFont" id=46]
-size = 26
-font_data = ExtResource( 20 )
-
-[sub_resource type="Theme" id=47]
-default_font = SubResource( 46 )
 
 [sub_resource type="DynamicFont" id=53]
 size = 80
@@ -504,7 +391,7 @@ tracks/1/keys = {
 "values": [ false ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("../tamagotchi:position")
+tracks/2/path = NodePath("../vi:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -516,7 +403,7 @@ tracks/2/keys = {
 "values": [ Vector2( 976, 840 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("../dodge_arena:scale")
+tracks/3/path = NodePath("vi_box:scale")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -528,7 +415,7 @@ tracks/3/keys = {
 "values": [ Vector2( 1, 1 ) ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("../dodge_arena:visible")
+tracks/4/path = NodePath("vi_box:visible")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -540,7 +427,7 @@ tracks/4/keys = {
 "values": [ false ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("../turn_labels:visible")
+tracks/5/path = NodePath("../reload_text:visible")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
@@ -552,7 +439,7 @@ tracks/5/keys = {
 "values": [ false ]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("../turn_labels:modulate")
+tracks/6/path = NodePath("../reload_text:modulate")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/imported = false
@@ -592,7 +479,7 @@ tracks/1/keys = {
 "values": [ false, true ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("../tamagotchi:position")
+tracks/2/path = NodePath("../vi:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -604,7 +491,7 @@ tracks/2/keys = {
 "values": [ Vector2( 976, 840 ), Vector2( 976, 510 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("../dodge_arena:scale")
+tracks/3/path = NodePath("vi_box:scale")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -616,7 +503,7 @@ tracks/3/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( 1, 1 ) ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("../dodge_arena:visible")
+tracks/4/path = NodePath("vi_box:visible")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -628,7 +515,7 @@ tracks/4/keys = {
 "values": [ true ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("../turn_labels:visible")
+tracks/5/path = NodePath("../reload_text:visible")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
@@ -640,7 +527,7 @@ tracks/5/keys = {
 "values": [ true, false, true, false ]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("../turn_labels:modulate")
+tracks/6/path = NodePath("../reload_text:modulate")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/imported = false
@@ -652,7 +539,7 @@ tracks/6/keys = {
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
 tracks/7/type = "value"
-tracks/7/path = NodePath("../turn_labels:texture")
+tracks/7/path = NodePath("../reload_text:texture")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/imported = false
@@ -692,7 +579,7 @@ tracks/1/keys = {
 "values": [ true, false ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("../tamagotchi:position")
+tracks/2/path = NodePath("../vi:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -704,7 +591,7 @@ tracks/2/keys = {
 "values": [ Vector2( 976, 510 ), Vector2( 976, 510 ), Vector2( 976, 840 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("../dodge_arena:visible")
+tracks/3/path = NodePath("vi_box:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -716,7 +603,7 @@ tracks/3/keys = {
 "values": [ true ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("../dodge_arena:scale")
+tracks/4/path = NodePath("vi_box:scale")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -888,57 +775,6 @@ tracks/3/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ Vector2( 960, 512 ) ]
-}
-
-[sub_resource type="Animation" id=86]
-resource_name = "player_turn"
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ ExtResource( 59 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.8 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ false, false ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath(".:modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath(".:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 960, 528 ) ]
 }
 
 [sub_resource type="RectangleShape2D" id=92]
@@ -1185,20 +1021,6 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
-}
-tracks/2/type = "method"
-tracks/2/path = NodePath("..")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0.1 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [  ],
-"method": "show_player_turn_label"
-} ]
 }
 
 [sub_resource type="Animation" id=76]
@@ -1500,7 +1322,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -120, 0, 0 )
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.5, 1.6, 13.5 )
 
 [node name="Player" type="KinematicBody" parent="."]
-transform = Transform( -1, 0, -1.0411e-06, 0, 1, 0, 1.0411e-06, 0, -1, -3.557, 1.6, -13.2857 )
+transform = Transform( -1, 0, -1.0411e-06, 0, 1, 0, 1.0411e-06, 0, -1, -3.32138, 1.6, -7.42998 )
 collision_layer = 2
 collision_mask = 5
 script = ExtResource( 2 )
@@ -1587,20 +1409,9 @@ anims/pop_left = SubResource( 107 )
 visible = false
 script = ExtResource( 39 )
 
-[node name="battle_arena" parent="Battle" instance=ExtResource( 8 )]
-
-[node name="poison_bg" type="Sprite" parent="Battle"]
-modulate = Color( 1, 1, 1, 0 )
-position = Vector2( 960, 467 )
-texture = ExtResource( 44 )
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Battle/poison_bg"]
-anims/RESET = SubResource( 48 )
-anims/poisoning = SubResource( 49 )
+[node name="shooting_arena" parent="Battle" instance=ExtResource( 8 )]
 
 [node name="Enemies" type="Node2D" parent="Battle"]
-
-[node name="Centipedes" parent="Battle/Enemies" instance=ExtResource( 6 )]
 
 [node name="maggots" parent="Battle/Enemies" instance=ExtResource( 37 )]
 
@@ -1648,41 +1459,6 @@ value = 100.0
 stream = ExtResource( 38 )
 volume_db = -22.0
 
-[node name="pop_msg" type="Sprite" parent="Battle"]
-position = Vector2( 944, 120 )
-texture = ExtResource( 40 )
-
-[node name="message" type="RichTextLabel" parent="Battle/pop_msg"]
-margin_left = -272.0
-margin_top = -48.0
-margin_right = 312.0
-margin_bottom = 48.0
-theme = SubResource( 36 )
-custom_colors/default_color = Color( 0, 0, 0, 1 )
-bbcode_enabled = true
-bbcode_text = "test test test"
-text = "test test test"
-scroll_active = false
-
-[node name="message_box" type="Sprite" parent="Battle"]
-visible = false
-position = Vector2( 950, 80 )
-scale = Vector2( 1, 0.7 )
-texture = ExtResource( 40 )
-
-[node name="message" type="RichTextLabel" parent="Battle/message_box"]
-margin_left = -288.0
-margin_top = -45.7143
-margin_right = 296.0
-margin_bottom = 50.2857
-rect_scale = Vector2( 1, 1.3 )
-theme = SubResource( 36 )
-custom_colors/default_color = Color( 0, 0, 0, 1 )
-bbcode_enabled = true
-bbcode_text = "test test test"
-text = "test test test"
-scroll_active = false
-
 [node name="gp" type="RichTextLabel" parent="Battle"]
 margin_left = 1016.0
 margin_top = 888.0
@@ -1703,39 +1479,6 @@ anims/RESET = SubResource( 43 )
 anims/message_off = SubResource( 41 )
 anims/message_pop = SubResource( 40 )
 anims/message_stop = SubResource( 42 )
-
-[node name="poison_meter" type="ProgressBar" parent="Battle"]
-visible = false
-margin_left = 835.0
-margin_top = 822.0
-margin_right = 1091.0
-margin_bottom = 846.0
-custom_styles/fg = SubResource( 44 )
-custom_styles/bg = SubResource( 45 )
-percent_visible = false
-
-[node name="poison_label" type="RichTextLabel" parent="Battle"]
-visible = false
-margin_left = 913.0
-margin_top = 819.0
-margin_right = 1233.0
-margin_bottom = 875.0
-theme = SubResource( 47 )
-bbcode_enabled = true
-bbcode_text = "POISON"
-text = "POISON"
-
-[node name="frame" type="Sprite" parent="Battle"]
-visible = false
-position = Vector2( 976, 924 )
-scale = Vector2( 2, 1 )
-texture = ExtResource( 43 )
-
-[node name="frame2" type="Sprite" parent="Battle"]
-visible = false
-position = Vector2( 976, 888 )
-scale = Vector2( 2, 1 )
-texture = ExtResource( 43 )
 
 [node name="gun" type="Sprite" parent="Battle"]
 position = Vector2( 767, 1018 )
@@ -1801,16 +1544,21 @@ position = Vector2( 288, 88 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 28 )
 
-[node name="black_arena" type="Sprite" parent="Battle"]
+[node name="dodge_arena" type="Sprite" parent="Battle"]
 visible = false
 modulate = Color( 1, 1, 1, 0 )
 texture = ExtResource( 32 )
 centered = false
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Battle/black_arena"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Battle/dodge_arena"]
 anims/RESET = SubResource( 88 )
 anims/fade_in = SubResource( 89 )
 anims/fade_out = SubResource( 94 )
+
+[node name="vi_box" type="Sprite" parent="Battle/dodge_arena"]
+visible = false
+position = Vector2( 960, 560 )
+texture = ExtResource( 33 )
 
 [node name="hp_count" type="Node2D" parent="Battle"]
 
@@ -1829,43 +1577,36 @@ bbcode_enabled = true
 bbcode_text = "HP:"
 text = "HP:"
 
-[node name="tamagotchi" type="Area2D" parent="Battle"]
+[node name="vi" type="Area2D" parent="Battle"]
 position = Vector2( 976, 840 )
 collision_layer = 16
 collision_mask = 2
 script = ExtResource( 30 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Battle/tamagotchi"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Battle/vi"]
 position = Vector2( -5, 7 )
 shape = SubResource( 95 )
 
-[node name="animated_sprite" type="AnimatedSprite" parent="Battle/tamagotchi"]
+[node name="animated_sprite" type="AnimatedSprite" parent="Battle/vi"]
 scale = Vector2( 4, 4 )
 frames = SubResource( 87 )
-frame = 1
 speed_scale = 0.2
 playing = true
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Battle/tamagotchi"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Battle/vi"]
 anims/RESET = SubResource( 96 )
 anims/hit = SubResource( 97 )
 
-[node name="turn_labels" type="Sprite" parent="Battle"]
+[node name="reload_text" type="Sprite" parent="Battle"]
 visible = false
 material = SubResource( 91 )
 position = Vector2( 960, 512 )
 scale = Vector2( 5, 5 )
 texture = ExtResource( 59 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Battle/turn_labels"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Battle/reload_text"]
 anims/RESET = SubResource( 84 )
 anims/enemy_turn = SubResource( 85 )
-anims/player_turn = SubResource( 86 )
-
-[node name="dodge_arena" type="Sprite" parent="Battle"]
-visible = false
-position = Vector2( 960, 560 )
-texture = ExtResource( 33 )
 
 [node name="dodge_limit_0" type="Node2D" parent="Battle"]
 visible = false
@@ -1932,7 +1673,7 @@ shape = SubResource( 93 )
 visible = false
 scale = Vector2( 7.5, 5.625 )
 frames = SubResource( 79 )
-frame = 3
+frame = 1
 speed_scale = 6.0
 playing = true
 centered = false
@@ -1988,7 +1729,7 @@ scale = Vector2( 5, 5 )
 texture = ExtResource( 62 )
 
 [node name="enemy_trigger" parent="." instance=ExtResource( 35 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00740242, 1.251, -9.3901 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.37378, 1.251, -6.16269 )
 enemy = NodePath("../Battle/Enemies/maggots")
 
 [node name="enemy_trigger2" parent="." instance=ExtResource( 35 )]
@@ -2174,7 +1915,7 @@ chat_key = "TV_bangging"
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
 shape = SubResource( 68 )
 
-[connection signal="area_entered" from="Battle/tamagotchi" to="Battle/tamagotchi" method="_on_tamagotchi_area_entered"]
+[connection signal="area_entered" from="Battle/vi" to="Battle/vi" method="_on_tamagotchi_area_entered"]
 [connection signal="area_exited" from="Battle/bullet_area" to="Battle/bulletshooter" method="_on_bullet_area_area_exited"]
 
 [editable path="void2"]

@@ -2,9 +2,6 @@ extends Node2D
 
 signal appear_finished
 signal enemy_died
-signal attack_message
-signal clear_message
-signal attack
 signal gp_dropped
 
 var gp_value = 100
@@ -61,9 +58,6 @@ func damage_to_part(part, dmg):
 		dead = true
 
 func play_appear_anim():
-	#get ready text
-	#get_parent().get_parent().get_node("battle_ready/AnimationPlayer").play("show_up",-1,2)
-	#get_parent().get_parent().get_node("battle_ready/AnimationPlayer").seek(0.6)
 	for m in get_children():
 		m.get_node("AnimationPlayer").play("appear",-1,1.5)
 

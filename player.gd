@@ -89,17 +89,6 @@ func _process(delta):
 				var chat_key = looking_at_interactable.chat_key
 				get_parent().interact_with_world_object(chat_key, null, null)
 
-	#################
-	# FOR DEMO ONLY #
-	#################
-	if Input.is_action_just_pressed("ui_cancel"):
-		get_parent().get_node("house_build_ver2/fake_lift").hide()
-		get_parent().get_node("tv_3").hide()
-		get_parent().get_node("StaticBody/CollisionShape").disabled = true
-		get_parent().get_node("glitch_suckers").hide()
-		get_parent().get_node("house_build_ver2/elevatordoorbottom1").hide()
-		get_parent().get_node("house_build_ver2/elevatordoorbottom2").hide()
-
 func _physics_process(delta):
 	var space_state = get_world().direct_space_state
 	#####################

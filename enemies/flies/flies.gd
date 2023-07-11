@@ -2,9 +2,7 @@ extends Node2D
 
 signal appear_finished
 signal enemy_died
-signal attack
-signal attack_message
-signal clear_message
+signal gp_dropped
 
 var part_count = 0
 

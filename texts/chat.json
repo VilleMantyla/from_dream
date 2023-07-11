@@ -1357,5 +1357,54 @@
 		}
 	]
 }
+],
+"begin_demo": [{
+	"textframe": [{
+			"text": "Hello and welcome to play From Dream.",
+			"speed": 15,
+			"sound" : 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "My name is Ville but you can call me Vi.",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "This SoulDevice (SD) is my home.",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "Please take care of me and I'll take care of you.",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "Now it's time for you to wake up.",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "Good Luck!",
+			"speed": 50,
+			"sound" : 0
+		}
+	]
+}
 ]
 }
