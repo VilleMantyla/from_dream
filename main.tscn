@@ -1,11 +1,12 @@
-[gd_scene load_steps=143 format=2]
+[gd_scene load_steps=132 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://player.gd" type="Script" id=2]
 [ext_resource path="res://level_models/house_entrance.glb" type="PackedScene" id=3]
 [ext_resource path="res://chat.gd" type="Script" id=4]
 [ext_resource path="res://tv/tv_ver2.glb" type="PackedScene" id=5]
-[ext_resource path="res://battle/battle_borders.tscn" type="PackedScene" id=7]
+[ext_resource path="res://battle/dodge_box_1.png" type="Texture" id=6]
+[ext_resource path="res://battle/shooting_borders.tscn" type="PackedScene" id=7]
 [ext_resource path="res://battle/shooting_arena.tscn" type="PackedScene" id=8]
 [ext_resource path="res://battle/pistol_sight.png" type="Texture" id=9]
 [ext_resource path="res://level_mechanics/ladder.gd" type="Script" id=10]
@@ -31,7 +32,6 @@
 [ext_resource path="res://battle/tamagotchi.gd" type="Script" id=30]
 [ext_resource path="res://battle/tamagotchi_alt.png" type="Texture" id=31]
 [ext_resource path="res://battle/battle_btm_layer_black.png" type="Texture" id=32]
-[ext_resource path="res://battle/dodge_area.png" type="Texture" id=33]
 [ext_resource path="res://battle/bulletshooter.gd" type="Script" id=34]
 [ext_resource path="res://level_mechanics/enemy_trigger.tscn" type="PackedScene" id=35]
 [ext_resource path="res://battle/weapons.gd" type="Script" id=36]
@@ -50,8 +50,6 @@
 [ext_resource path="res://battle/grenade_laucnher_sight.png" type="Texture" id=51]
 [ext_resource path="res://battle/grenade_ex_1.png" type="Texture" id=52]
 [ext_resource path="res://battle/grenade_ex_4.png" type="Texture" id=53]
-[ext_resource path="res://battle/battle_bg_green.png" type="Texture" id=54]
-[ext_resource path="res://shaders/2d_colorer.shader" type="Shader" id=55]
 [ext_resource path="res://enemies/maggots/maggot0.png" type="Texture" id=56]
 [ext_resource path="res://level_models/house_build_ver2.glb" type="PackedScene" id=57]
 [ext_resource path="res://fonts/NotoSansJP-Regular.ttf" type="DynamicFontData" id=58]
@@ -285,84 +283,12 @@ font_data = ExtResource( 20 )
 [sub_resource type="Theme" id=38]
 default_font = SubResource( 37 )
 
-[sub_resource type="Animation" id=43]
-length = 0.001
-
-[sub_resource type="Animation" id=41]
-resource_name = "message_off"
-
-[sub_resource type="Animation" id=40]
-resource_name = "message_pop"
-
-[sub_resource type="Animation" id=42]
-resource_name = "message_stop"
-length = 1.5
-
 [sub_resource type="DynamicFont" id=53]
 size = 80
 font_data = ExtResource( 20 )
 
 [sub_resource type="Theme" id=54]
 default_font = SubResource( 53 )
-
-[sub_resource type="ShaderMaterial" id=57]
-shader = ExtResource( 55 )
-shader_param/flash_color = Color( 1, 0, 0, 1 )
-shader_param/flash_modifier = 1.0
-
-[sub_resource type="Animation" id=58]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0.627451 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:material:shader_param/flash_color")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 1, 0, 0, 1 ) ]
-}
-
-[sub_resource type="Animation" id=59]
-resource_name = "damage"
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0.627451 ), Color( 1, 1, 1, 0 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:material:shader_param/flash_color")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 1, 0, 0, 1 ) ]
-}
 
 [sub_resource type="Animation" id=88]
 length = 0.001
@@ -400,10 +326,10 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 976, 840 ) ]
+"values": [ Vector2( 960, 840 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("vi_box:scale")
+tracks/3/path = NodePath("dodge_box:scale")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -415,7 +341,7 @@ tracks/3/keys = {
 "values": [ Vector2( 1, 1 ) ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("vi_box:visible")
+tracks/4/path = NodePath("dodge_box:visible")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -488,10 +414,10 @@ tracks/2/keys = {
 "times": PoolRealArray( 1.2, 1.7 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 976, 840 ), Vector2( 976, 510 ) ]
+"values": [ Vector2( 960, 840 ), Vector2( 960, 532 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("vi_box:scale")
+tracks/3/path = NodePath("dodge_box:scale")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -503,7 +429,7 @@ tracks/3/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( 1, 1 ) ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("vi_box:visible")
+tracks/4/path = NodePath("dodge_box:visible")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -588,10 +514,10 @@ tracks/2/keys = {
 "times": PoolRealArray( 0, 0.5, 1.1 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 976, 510 ), Vector2( 976, 510 ), Vector2( 976, 840 ) ]
+"values": [ Vector2( 960, 532 ), Vector2( 960, 532 ), Vector2( 960, 840 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("vi_box:visible")
+tracks/3/path = NodePath("dodge_box:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -603,7 +529,7 @@ tracks/3/keys = {
 "values": [ true ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("vi_box:scale")
+tracks/4/path = NodePath("dodge_box:scale")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -615,9 +541,6 @@ tracks/4/keys = {
 "values": [ Vector2( 1, 1 ), Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="CircleShape2D" id=95]
-radius = 16.0
-
 [sub_resource type="SpriteFrames" id=87]
 animations = [ {
 "frames": [ ExtResource( 29 ), ExtResource( 31 ) ],
@@ -625,6 +548,9 @@ animations = [ {
 "name": "default",
 "speed": 5.0
 } ]
+
+[sub_resource type="CircleShape2D" id=95]
+radius = 34.176
 
 [sub_resource type="Animation" id=96]
 length = 0.001
@@ -1027,21 +953,6 @@ tracks/1/keys = {
 resource_name = "idle"
 length = 1.2
 
-[sub_resource type="Animation" id=72]
-resource_name = "show_up"
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( -272, 496 ), Vector2( 952, 496 ) ]
-}
-
 [sub_resource type="Animation" id=74]
 resource_name = "show_up2"
 tracks/0/type = "value"
@@ -1068,20 +979,17 @@ tracks/1/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
-
-[sub_resource type="Animation" id=75]
-resource_name = "show_up3"
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
 }
 
 [sub_resource type="BoxShape" id=63]
@@ -1419,7 +1327,7 @@ script = ExtResource( 39 )
 
 [node name="slime_duo" parent="Battle/Enemies" instance=ExtResource( 42 )]
 
-[node name="battle_borders" parent="Battle" instance=ExtResource( 7 )]
+[node name="shooting_borders" parent="Battle" instance=ExtResource( 7 )]
 
 [node name="gl_explode" type="AnimatedSprite" parent="Battle"]
 visible = false
@@ -1474,12 +1382,6 @@ position = Vector2( 975, 937 )
 scale = Vector2( 2, 1 )
 texture = ExtResource( 43 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Battle"]
-anims/RESET = SubResource( 43 )
-anims/message_off = SubResource( 41 )
-anims/message_pop = SubResource( 40 )
-anims/message_stop = SubResource( 42 )
-
 [node name="gun" type="Sprite" parent="Battle"]
 position = Vector2( 767, 1018 )
 scale = Vector2( 0.9, 0.9 )
@@ -1490,12 +1392,6 @@ position = Vector2( 1119, 1019 )
 scale = Vector2( 0.9, 0.9 )
 texture = ExtResource( 46 )
 
-[node name="ColorRect" type="ColorRect" parent="Battle"]
-visible = false
-margin_right = 1920.0
-margin_bottom = 1080.0
-color = Color( 0, 0, 0, 0.478431 )
-
 [node name="tv_gun_text" type="RichTextLabel" parent="Battle"]
 visible = false
 margin_left = 1032.0
@@ -1504,18 +1400,6 @@ margin_right = 1816.0
 margin_bottom = 568.0
 theme = SubResource( 54 )
 text = "I'M READY FOR YOU SENPAI"
-
-[node name="damage_to_player" type="Sprite" parent="Battle"]
-visible = false
-modulate = Color( 1, 1, 1, 0.627451 )
-material = SubResource( 57 )
-scale = Vector2( 1, 1.66667 )
-texture = ExtResource( 54 )
-centered = false
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Battle/damage_to_player"]
-anims/RESET = SubResource( 58 )
-anims/damage = SubResource( 59 )
 
 [node name="bullets" type="Node2D" parent="Battle"]
 
@@ -1555,10 +1439,10 @@ anims/RESET = SubResource( 88 )
 anims/fade_in = SubResource( 89 )
 anims/fade_out = SubResource( 94 )
 
-[node name="vi_box" type="Sprite" parent="Battle/dodge_arena"]
+[node name="dodge_box" type="Sprite" parent="Battle/dodge_arena"]
 visible = false
-position = Vector2( 960, 560 )
-texture = ExtResource( 33 )
+position = Vector2( 960, 540 )
+texture = ExtResource( 6 )
 
 [node name="hp_count" type="Node2D" parent="Battle"]
 
@@ -1578,20 +1462,20 @@ bbcode_text = "HP:"
 text = "HP:"
 
 [node name="vi" type="Area2D" parent="Battle"]
-position = Vector2( 976, 840 )
+position = Vector2( 960, 840 )
 collision_layer = 16
 collision_mask = 2
 script = ExtResource( 30 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Battle/vi"]
-position = Vector2( -5, 7 )
-shape = SubResource( 95 )
-
 [node name="animated_sprite" type="AnimatedSprite" parent="Battle/vi"]
 scale = Vector2( 4, 4 )
 frames = SubResource( 87 )
+frame = 1
 speed_scale = 0.2
 playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Battle/vi"]
+shape = SubResource( 95 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Battle/vi"]
 anims/RESET = SubResource( 96 )
@@ -1609,18 +1493,16 @@ anims/RESET = SubResource( 84 )
 anims/enemy_turn = SubResource( 85 )
 
 [node name="dodge_limit_0" type="Node2D" parent="Battle"]
-visible = false
-position = Vector2( 688, 328 )
+position = Vector2( 763, 392 )
 
 [node name="dodge_limit_1" type="Node2D" parent="Battle"]
-visible = false
-position = Vector2( 1243, 687 )
+position = Vector2( 1157, 688 )
 
 [node name="bulletshooter" type="Node2D" parent="Battle"]
 script = ExtResource( 34 )
 
 [node name="bullet0" type="Area2D" parent="Battle/bulletshooter"]
-position = Vector2( 952, -208 )
+position = Vector2( 966, -197 )
 collision_layer = 2
 collision_mask = 4
 script = ExtResource( 61 )
@@ -1634,7 +1516,7 @@ texture = ExtResource( 56 )
 shape = SubResource( 92 )
 
 [node name="bullet1" type="Area2D" parent="Battle/bulletshooter"]
-position = Vector2( 816, -528 )
+position = Vector2( 852, -676 )
 collision_layer = 2
 collision_mask = 4
 script = ExtResource( 61 )
@@ -1648,7 +1530,7 @@ texture = ExtResource( 56 )
 shape = SubResource( 92 )
 
 [node name="bullet2" type="Area2D" parent="Battle/bulletshooter"]
-position = Vector2( 1056, -776 )
+position = Vector2( 1092, -1088 )
 collision_layer = 2
 collision_mask = 4
 script = ExtResource( 61 )
@@ -1718,9 +1600,7 @@ texture = ExtResource( 17 )
 anims/RESET = SubResource( 70 )
 anims/go_away = SubResource( 73 )
 anims/idle = SubResource( 76 )
-anims/show_up = SubResource( 72 )
 anims/show_up2 = SubResource( 74 )
-anims/show_up3 = SubResource( 75 )
 
 [node name="gameover" type="Sprite" parent="Battle"]
 visible = false

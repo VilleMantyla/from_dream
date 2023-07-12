@@ -33,8 +33,6 @@ func _ready():
 		
 		enemy.hide()
 	
-	$AnimationPlayer.connect("animation_finished", self, "on_animation_finished")
-	
 	set_process_input(false)
 	
 	temp_timer = Timer.new()
@@ -77,7 +75,6 @@ func on_noise_timeout():
 	$noise_screen/AnimationPlayer.play("fade_off",-1,5)
 
 func on_enemy_appear_anim_finished():
-	$AnimationPlayer.play("message_off",-1,4.5)
 	
 	$battle_start_label/AnimationPlayer.play("idle",-1,1.5)
 
@@ -88,9 +85,6 @@ func on_battle_start_label_anim_finished(anim):
 #		$turn_labels/AnimationPlayer.play("player_turn")
 
 func end_battle():
-	#active_enemy.hide()
-#	var msg = EnemyStuff.fetc_message(enemy.name, EnemyStuff.types.END)
-#	show_pop_message(msg)
 	enemy = null
 	leave_battle = true
 	print("battle ended")
@@ -109,9 +103,6 @@ func leave_battle():
 	set_process_input(false)
 	emit_signal("leave_battle")
 
-func on_animation_finished(anim):
-	pass
-
 func on_gp_drop(val):
 	gp += val
 	var gp_as_string = str(gp)
@@ -129,4 +120,4 @@ func on_bulletshooter_finished():
 	$vi.deactivate()
 	$weapons.reload()
 	$dodge_arena/AnimationPlayer.play("fade_out",-1,1.2)
-	$dodge_arena/vi_box.hide()
+	$dodge_arena/dodge_box.hide()

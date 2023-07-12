@@ -15,12 +15,21 @@ func _ready():
 	
 	limit_min = get_parent().get_node("dodge_limit_0").global_position
 	limit_max = get_parent().get_node("dodge_limit_1").global_position
+	
+	#adjusting for vi's size
+	limit_min.x += 34
+	limit_min.y += 38.5
+	limit_max.x -= 33.5
+	limit_max.y -= 38
 
 func activate():
 	set_process(true)
+	$animated_sprite.stop()
+	$animated_sprite.set_frame(0)
 
 func deactivate():
 	set_process(false)
+	$animated_sprite.play()
 
 func _process(delta):
 	move_input = Vector2.ZERO

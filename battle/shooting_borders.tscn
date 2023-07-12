@@ -3,7 +3,7 @@
 [ext_resource path="res://battle/battle_bar_top.png" type="Texture" id=1]
 [ext_resource path="res://battle/battle_bar_btm.png" type="Texture" id=2]
 
-[node name="battle_borders" type="Node2D"]
+[node name="shooting_borders" type="Node2D"]
 
 [node name="top_bar" type="Sprite" parent="."]
 texture = ExtResource( 1 )
