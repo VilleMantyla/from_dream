@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://battle/battle_btm_layer_black.png" type="Texture" id=1]
 [ext_resource path="res://battle/battle_bg_green.png" type="Texture" id=2]
+[ext_resource path="res://battle/battle_bg_big_green.png" type="Texture" id=3]
 
 [node name="shooting_arena" type="Node2D"]
 
@@ -10,6 +11,11 @@ texture = ExtResource( 1 )
 centered = false
 
 [node name="background" type="Sprite" parent="."]
+visible = false
 texture = ExtResource( 2 )
 centered = false
 offset = Vector2( 0, 144 )
+
+[node name="background_big" type="Sprite" parent="."]
+texture = ExtResource( 3 )
+centered = false

@@ -12,6 +12,8 @@ var interactables = {
 }
 
 func _ready():
+	randomize()
+	
 	$Chat.connect("chat_ended", self, "end_chat")
 	$Player.connect("show_context_msg", self, "show_context_msg")
 	$Player.connect("next_chat_text", self, "read_next_chat")
@@ -36,9 +38,7 @@ func _ready():
 	$void2/AnimationPlayer.get_animation("holding_tv_idle").set_loop(true)
 	$void2/AnimationPlayer.play("holding_tv_idle")
 	$tv_2_floor/AnimationPlayer.get_animation("let_me_go").set_loop(true)
-	$tv_2_floor/AnimationPlayer.play("let_me_go",-1,1.5)
-	#$tv_ver3/AnimationPlayer.play("die_in_hand",-1,0.5)
-	
+	$tv_2_floor/AnimationPlayer.play("let_me_go",-1,1.5)	
 
 
 var flip_open = true

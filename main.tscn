@@ -1,4 +1,4 @@
-[gd_scene load_steps=132 format=2]
+[gd_scene load_steps=140 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://player.gd" type="Script" id=2]
@@ -28,19 +28,22 @@
 [ext_resource path="res://battle/noise_4.png" type="Texture" id=26]
 [ext_resource path="res://battle/noise_3.png" type="Texture" id=27]
 [ext_resource path="res://battle/bullet_sprite.png" type="Texture" id=28]
-[ext_resource path="res://battle/tamagotchi0.png" type="Texture" id=29]
+[ext_resource path="res://battle/vi0.png" type="Texture" id=29]
 [ext_resource path="res://battle/tamagotchi.gd" type="Script" id=30]
-[ext_resource path="res://battle/tamagotchi_alt.png" type="Texture" id=31]
+[ext_resource path="res://battle/vi1.png" type="Texture" id=31]
 [ext_resource path="res://battle/battle_btm_layer_black.png" type="Texture" id=32]
+[ext_resource path="res://enemies/maggots/maggots.tscn" type="PackedScene" id=33]
 [ext_resource path="res://battle/bulletshooter.gd" type="Script" id=34]
 [ext_resource path="res://level_mechanics/enemy_trigger.tscn" type="PackedScene" id=35]
 [ext_resource path="res://battle/weapons.gd" type="Script" id=36]
-[ext_resource path="res://enemies/maggots/maggots.tscn" type="PackedScene" id=37]
+[ext_resource path="res://enemies/maggots/maggot_bullet_pattern.gd" type="Script" id=37]
 [ext_resource path="res://sounds/pistol_fire_2.wav" type="AudioStream" id=38]
 [ext_resource path="res://battle.gd" type="Script" id=39]
+[ext_resource path="res://battle/pistol_bonus_ring.png" type="Texture" id=40]
 [ext_resource path="res://enemies/flies/flies.tscn" type="PackedScene" id=41]
 [ext_resource path="res://enemies/slime_duo/slime_duo.tscn" type="PackedScene" id=42]
 [ext_resource path="res://battle/stats_frame.png" type="Texture" id=43]
+[ext_resource path="res://battle/pistol_bang_normal.png" type="Texture" id=44]
 [ext_resource path="res://battle/gun_select.png" type="Texture" id=45]
 [ext_resource path="res://battle/biggun_select.png" type="Texture" id=46]
 [ext_resource path="res://battle/hp.png" type="Texture" id=47]
@@ -50,6 +53,7 @@
 [ext_resource path="res://battle/grenade_laucnher_sight.png" type="Texture" id=51]
 [ext_resource path="res://battle/grenade_ex_1.png" type="Texture" id=52]
 [ext_resource path="res://battle/grenade_ex_4.png" type="Texture" id=53]
+[ext_resource path="res://battle/pistol_bang_crit.png" type="Texture" id=54]
 [ext_resource path="res://enemies/maggots/maggot0.png" type="Texture" id=56]
 [ext_resource path="res://level_models/house_build_ver2.glb" type="PackedScene" id=57]
 [ext_resource path="res://fonts/NotoSansJP-Regular.ttf" type="DynamicFontData" id=58]
@@ -271,17 +275,142 @@ animations = [ {
 "speed": 8.0
 } ]
 
+[sub_resource type="Animation" id=123]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ ExtResource( 44 ) ]
+}
+
+[sub_resource type="Animation" id=125]
+resource_name = "bonus"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1e-05, 1e-05 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 54 ) ]
+}
+
+[sub_resource type="Animation" id=124]
+resource_name = "normal"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1e-05, 1e-05 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 44 ) ]
+}
+
 [sub_resource type="CircleShape2D" id=62]
+
+[sub_resource type="Animation" id=122]
+resource_name = "beat"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 4, 4 ), Vector2( 0.1, 0.1 ) ]
+}
 
 [sub_resource type="CircleShape2D" id=55]
 radius = 56.0
-
-[sub_resource type="DynamicFont" id=37]
-size = 30
-font_data = ExtResource( 20 )
-
-[sub_resource type="Theme" id=38]
-default_font = SubResource( 37 )
 
 [sub_resource type="DynamicFont" id=53]
 size = 80
@@ -326,7 +455,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 960, 840 ) ]
+"values": [ Vector2( 960, 920 ) ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("dodge_box:scale")
@@ -414,7 +543,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 1.2, 1.7 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 960, 840 ), Vector2( 960, 532 ) ]
+"values": [ Vector2( 960, 920 ), Vector2( 960, 532 ) ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("dodge_box:scale")
@@ -514,7 +643,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0, 0.5, 1.1 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 960, 532 ), Vector2( 960, 532 ), Vector2( 960, 840 ) ]
+"values": [ Vector2( 960, 532 ), Vector2( 960, 532 ), Vector2( 960, 920 ) ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("dodge_box:visible")
@@ -541,6 +670,13 @@ tracks/4/keys = {
 "values": [ Vector2( 1, 1 ), Vector2( 0, 0 ) ]
 }
 
+[sub_resource type="DynamicFont" id=37]
+size = 30
+font_data = ExtResource( 20 )
+
+[sub_resource type="Theme" id=38]
+default_font = SubResource( 37 )
+
 [sub_resource type="SpriteFrames" id=87]
 animations = [ {
 "frames": [ ExtResource( 29 ), ExtResource( 31 ) ],
@@ -549,8 +685,8 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="CircleShape2D" id=95]
-radius = 34.176
+[sub_resource type="RectangleShape2D" id=120]
+extents = Vector2( 11, 11 )
 
 [sub_resource type="Animation" id=96]
 length = 0.001
@@ -703,8 +839,9 @@ tracks/3/keys = {
 "values": [ Vector2( 960, 512 ) ]
 }
 
-[sub_resource type="RectangleShape2D" id=92]
-extents = Vector2( 32, 72 )
+[sub_resource type="CapsuleShape2D" id=121]
+radius = 31.0
+height = 79.0
 
 [sub_resource type="RectangleShape2D" id=93]
 extents = Vector2( 1024, 608 )
@@ -1321,7 +1458,7 @@ script = ExtResource( 39 )
 
 [node name="Enemies" type="Node2D" parent="Battle"]
 
-[node name="maggots" parent="Battle/Enemies" instance=ExtResource( 37 )]
+[node name="maggots" parent="Battle/Enemies" instance=ExtResource( 33 )]
 
 [node name="flies" parent="Battle/Enemies" instance=ExtResource( 41 )]
 
@@ -1332,6 +1469,15 @@ script = ExtResource( 39 )
 [node name="gl_explode" type="AnimatedSprite" parent="Battle"]
 visible = false
 frames = SubResource( 56 )
+
+[node name="pistol_bang" type="Sprite" parent="Battle"]
+visible = false
+texture = ExtResource( 44 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Battle/pistol_bang"]
+anims/RESET = SubResource( 123 )
+anims/bonus = SubResource( 125 )
+anims/normal = SubResource( 124 )
 
 [node name="weapons" type="Node2D" parent="Battle"]
 script = ExtResource( 36 )
@@ -1346,6 +1492,14 @@ texture = ExtResource( 9 )
 shape = SubResource( 62 )
 disabled = true
 
+[node name="bonus_ring" type="Sprite" parent="Battle/weapons/pistol"]
+visible = false
+scale = Vector2( 4, 4 )
+texture = ExtResource( 40 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Battle/weapons/pistol/bonus_ring"]
+anims/beat = SubResource( 122 )
+
 [node name="grenade_launcher" type="Area2D" parent="Battle/weapons"]
 visible = false
 
@@ -1357,6 +1511,7 @@ shape = SubResource( 55 )
 disabled = true
 
 [node name="load_bar" type="ProgressBar" parent="Battle/weapons"]
+visible = false
 margin_left = -50.0
 margin_top = 35.0
 margin_right = 50.0
@@ -1367,28 +1522,19 @@ value = 100.0
 stream = ExtResource( 38 )
 volume_db = -22.0
 
-[node name="gp" type="RichTextLabel" parent="Battle"]
-margin_left = 1016.0
-margin_top = 888.0
-margin_right = 1336.0
-margin_bottom = 944.0
-theme = SubResource( 38 )
-bbcode_enabled = true
-bbcode_text = "¥0"
-text = "¥0"
-
 [node name="frame3" type="Sprite" parent="Battle"]
+visible = false
 position = Vector2( 975, 937 )
 scale = Vector2( 2, 1 )
 texture = ExtResource( 43 )
 
 [node name="gun" type="Sprite" parent="Battle"]
-position = Vector2( 767, 1018 )
+position = Vector2( 600, 1024 )
 scale = Vector2( 0.9, 0.9 )
 texture = ExtResource( 45 )
 
 [node name="biggun" type="Sprite" parent="Battle"]
-position = Vector2( 1119, 1019 )
+position = Vector2( 1376, 1024 )
 scale = Vector2( 0.9, 0.9 )
 texture = ExtResource( 46 )
 
@@ -1402,6 +1548,7 @@ theme = SubResource( 54 )
 text = "I'M READY FOR YOU SENPAI"
 
 [node name="bullets" type="Node2D" parent="Battle"]
+position = Vector2( 40, 832 )
 
 [node name="bullet0" type="Sprite" parent="Battle/bullets"]
 position = Vector2( 64, 88 )
@@ -1445,6 +1592,7 @@ position = Vector2( 960, 540 )
 texture = ExtResource( 6 )
 
 [node name="hp_count" type="Node2D" parent="Battle"]
+position = Vector2( 0, 96 )
 
 [node name="point0" type="Sprite" parent="Battle/hp_count"]
 position = Vector2( 912, 905 )
@@ -1453,16 +1601,26 @@ texture = ExtResource( 47 )
 
 [node name="hp" type="RichTextLabel" parent="Battle"]
 margin_left = 848.0
-margin_top = 888.0
+margin_top = 984.0
 margin_right = 1168.0
-margin_bottom = 944.0
+margin_bottom = 1040.0
 theme = SubResource( 38 )
 bbcode_enabled = true
 bbcode_text = "HP:"
 text = "HP:"
 
+[node name="gp" type="RichTextLabel" parent="Battle"]
+margin_left = 1016.0
+margin_top = 984.0
+margin_right = 1336.0
+margin_bottom = 1040.0
+theme = SubResource( 38 )
+bbcode_enabled = true
+bbcode_text = "¥0"
+text = "¥0"
+
 [node name="vi" type="Area2D" parent="Battle"]
-position = Vector2( 960, 840 )
+position = Vector2( 960, 920 )
 collision_layer = 16
 collision_mask = 2
 script = ExtResource( 30 )
@@ -1470,12 +1628,11 @@ script = ExtResource( 30 )
 [node name="animated_sprite" type="AnimatedSprite" parent="Battle/vi"]
 scale = Vector2( 4, 4 )
 frames = SubResource( 87 )
-frame = 1
 speed_scale = 0.2
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Battle/vi"]
-shape = SubResource( 95 )
+shape = SubResource( 120 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Battle/vi"]
 anims/RESET = SubResource( 96 )
@@ -1501,47 +1658,78 @@ position = Vector2( 1157, 688 )
 [node name="bulletshooter" type="Node2D" parent="Battle"]
 script = ExtResource( 34 )
 
-[node name="bullet0" type="Area2D" parent="Battle/bulletshooter"]
+[node name="maggot_bullet_pattern" type="Node2D" parent="Battle/bulletshooter"]
+script = ExtResource( 37 )
+
+[node name="bullet0" type="Area2D" parent="Battle/bulletshooter/maggot_bullet_pattern"]
 position = Vector2( 966, -197 )
 collision_layer = 2
 collision_mask = 4
 script = ExtResource( 61 )
 
-[node name="sprite" type="Sprite" parent="Battle/bulletshooter/bullet0"]
-rotation = 3.14159
+[node name="sprite" type="Sprite" parent="Battle/bulletshooter/maggot_bullet_pattern/bullet0"]
 scale = Vector2( 4, 4 )
 texture = ExtResource( 56 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Battle/bulletshooter/bullet0"]
-shape = SubResource( 92 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Battle/bulletshooter/maggot_bullet_pattern/bullet0"]
+position = Vector2( 2, 1.5 )
+shape = SubResource( 121 )
 
-[node name="bullet1" type="Area2D" parent="Battle/bulletshooter"]
-position = Vector2( 852, -676 )
+[node name="bullet1" type="Area2D" parent="Battle/bulletshooter/maggot_bullet_pattern"]
+position = Vector2( 966, -197 )
 collision_layer = 2
 collision_mask = 4
 script = ExtResource( 61 )
 
-[node name="sprite" type="Sprite" parent="Battle/bulletshooter/bullet1"]
-rotation = 3.14159
+[node name="sprite" type="Sprite" parent="Battle/bulletshooter/maggot_bullet_pattern/bullet1"]
 scale = Vector2( 4, 4 )
 texture = ExtResource( 56 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Battle/bulletshooter/bullet1"]
-shape = SubResource( 92 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Battle/bulletshooter/maggot_bullet_pattern/bullet1"]
+position = Vector2( 2, 1.5 )
+shape = SubResource( 121 )
 
-[node name="bullet2" type="Area2D" parent="Battle/bulletshooter"]
-position = Vector2( 1092, -1088 )
+[node name="bullet2" type="Area2D" parent="Battle/bulletshooter/maggot_bullet_pattern"]
+position = Vector2( 966, -197 )
 collision_layer = 2
 collision_mask = 4
 script = ExtResource( 61 )
 
-[node name="sprite" type="Sprite" parent="Battle/bulletshooter/bullet2"]
-rotation = 3.14159
+[node name="sprite" type="Sprite" parent="Battle/bulletshooter/maggot_bullet_pattern/bullet2"]
 scale = Vector2( 4, 4 )
 texture = ExtResource( 56 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Battle/bulletshooter/bullet2"]
-shape = SubResource( 92 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Battle/bulletshooter/maggot_bullet_pattern/bullet2"]
+position = Vector2( 2, 1.5 )
+shape = SubResource( 121 )
+
+[node name="bullet3" type="Area2D" parent="Battle/bulletshooter/maggot_bullet_pattern"]
+position = Vector2( 966, -197 )
+collision_layer = 2
+collision_mask = 4
+script = ExtResource( 61 )
+
+[node name="sprite" type="Sprite" parent="Battle/bulletshooter/maggot_bullet_pattern/bullet3"]
+scale = Vector2( 4, 4 )
+texture = ExtResource( 56 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Battle/bulletshooter/maggot_bullet_pattern/bullet3"]
+position = Vector2( 2, 1.5 )
+shape = SubResource( 121 )
+
+[node name="bullet4" type="Area2D" parent="Battle/bulletshooter/maggot_bullet_pattern"]
+position = Vector2( 966, -197 )
+collision_layer = 2
+collision_mask = 4
+script = ExtResource( 61 )
+
+[node name="sprite" type="Sprite" parent="Battle/bulletshooter/maggot_bullet_pattern/bullet4"]
+scale = Vector2( 4, 4 )
+texture = ExtResource( 56 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Battle/bulletshooter/maggot_bullet_pattern/bullet4"]
+position = Vector2( 2, 1.5 )
+shape = SubResource( 121 )
 
 [node name="bullet_area" type="Area2D" parent="Battle"]
 collision_layer = 4
@@ -1555,7 +1743,7 @@ shape = SubResource( 93 )
 visible = false
 scale = Vector2( 7.5, 5.625 )
 frames = SubResource( 79 )
-frame = 1
+frame = 2
 speed_scale = 6.0
 playing = true
 centered = false
@@ -1610,10 +1798,10 @@ texture = ExtResource( 62 )
 
 [node name="enemy_trigger" parent="." instance=ExtResource( 35 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.37378, 1.251, -6.16269 )
-enemy = NodePath("../Battle/Enemies/maggots")
+enemy = NodePath("../Battle/Enemies/flies")
 
 [node name="enemy_trigger2" parent="." instance=ExtResource( 35 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -101.676, 4.19536, 13.3205 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.12822, 1.24414, -6.16556 )
 enemy = NodePath("../Battle/Enemies/maggots")
 
 [node name="Ladder" type="Spatial" parent="." groups=["interactable", "ladder"]]

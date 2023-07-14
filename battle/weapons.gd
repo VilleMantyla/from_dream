@@ -27,10 +27,23 @@ func _ready():
 	set_process(false)
 	set_physics_process(false)
 	
-
-	
 	battle_player = get_parent()
-	
+
+##################
+## BONUS CIRCLE ##
+##################
+var center = Vector2.ZERO
+var radius = 100
+var point_count = 32
+var color = Color.yellow
+
+var speed = 100
+var radious_org = radius
+
+func _draw():
+	draw_arc(center, radius, 0, TAU, point_count, color)
+	draw_arc(center, radius-1, 0, TAU, point_count, color)
+	draw_arc(center, radius-2, 0, TAU, point_count, color)
 
 
 func activate(e):
@@ -56,6 +69,16 @@ func _process(delta): #could be changed to input
 		if get_parent().gp >= 500:
 			change_weapon(weapons.GRENADE_LAUCNHER)
 			get_parent().on_gp_drop(-500)
+	
+	# Bonus Circle
+	var step = speed*delta
+	if radius == 0:
+		radius = radious_org
+	elif radius - step > 0:
+		radius -= step
+	else:
+		radius = 0
+	update()
 
 func _physics_process(delta):
 	if Input.is_action_just_pressed("fire") and bullets_left > 0:
@@ -67,6 +90,14 @@ func _physics_process(delta):
 		if weapon == weapons.PISTOL:
 			targets = pistol_collision_query(space)
 			$AudioStreamPlayer.play()
+			if radius > 20:
+				get_parent().get_node("pistol_bang").global_position = get_global_mouse_position()
+				get_parent().get_node("pistol_bang/AnimationPlayer").play("normal",-1,2)
+				get_parent().get_node("pistol_bang/AnimationPlayer").seek(0)
+			else:
+				get_parent().get_node("pistol_bang").global_position = get_global_mouse_position()
+				get_parent().get_node("pistol_bang/AnimationPlayer").play("bonus",-1,2)
+				get_parent().get_node("pistol_bang/AnimationPlayer").seek(0)
 		elif weapon == weapons.GRENADE_LAUCNHER and $load_bar.value == 100:
 			targets = grenade_launcher_collision_query(space)
 			gl_explode.global_position = get_global_mouse_position()
@@ -168,3 +199,6 @@ func reload():
 	for b in get_parent().get_node("bullets").get_children():
 		b.show()
 		bullets_left += 1
+
+
+

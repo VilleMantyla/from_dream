@@ -16,6 +16,8 @@ func _ready():
 	for maggot in get_children():
 		var ap = maggot.get_node("AnimationPlayer")
 		ap.connect("animation_finished", self, "on_animation_finished", [maggot])
+	
+	
 
 func activate():
 	for maggot in get_children():

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/fly_bright.png-2e0198def92d582d9e609e008fe668b8.stex"
+path="res://.import/pistol_bonus_ring.png-1e51299a8ea88652628f076250c99fe4.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://enemies/flies/fly_bright.png"
-dest_files=[ "res://.import/fly_bright.png-2e0198def92d582d9e609e008fe668b8.stex" ]
+source_file="res://battle/pistol_bonus_ring.png"
+dest_files=[ "res://.import/pistol_bonus_ring.png-1e51299a8ea88652628f076250c99fe4.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=true
+flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

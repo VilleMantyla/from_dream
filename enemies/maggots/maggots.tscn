@@ -1,116 +1,78 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://enemies/maggots/maggot.tscn" type="PackedScene" id=1]
 [ext_resource path="res://enemies/maggots/maggots.gd" type="Script" id=2]
-
-[sub_resource type="GDScript" id=1]
-script/source = "extends Node2D
-
-export var hp = 1
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-func disable_collisionshape(val):
-	$Area2D/CollisionShape2D.disabled = val
-"
-
-[sub_resource type="GDScript" id=2]
-script/source = "extends Node2D
-
-export var hp = 1
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-func disable_collisionshape(val):
-	$Area2D/CollisionShape2D.disabled = val
-"
 
 [node name="maggots" type="Node2D"]
 script = ExtResource( 2 )
 
 [node name="maggot" parent="." instance=ExtResource( 1 )]
-position = Vector2( 999, 326 )
-rotation = 2.35619
-script = SubResource( 1 )
+position = Vector2( 875, 330 )
+rotation = 0.786164
 
 [node name="maggot2" parent="." instance=ExtResource( 1 )]
-position = Vector2( 878, 392 )
-rotation = 0.808839
-script = SubResource( 2 )
+position = Vector2( 986, 327 )
 
 [node name="maggot3" parent="." instance=ExtResource( 1 )]
-position = Vector2( 786, 430 )
-rotation = 5.49778
+position = Vector2( 933, 181 )
 
 [node name="maggot4" parent="." instance=ExtResource( 1 )]
-position = Vector2( 794, 544 )
-rotation = 0.785397
+position = Vector2( 814, 205 )
+rotation = -0.684412
 
 [node name="maggot5" parent="." instance=ExtResource( 1 )]
-position = Vector2( 952, 411 )
-rotation = -2.35619
+position = Vector2( 1052, 206 )
+rotation = -0.882387
 
 [node name="maggot6" parent="." instance=ExtResource( 1 )]
-position = Vector2( 896, 496 )
-rotation = 2.35619
+position = Vector2( 1124, 356 )
 
 [node name="maggot7" parent="." instance=ExtResource( 1 )]
-position = Vector2( 901, 623 )
-rotation = 0.785397
+position = Vector2( 737, 335 )
+rotation = 0.523598
 
 [node name="maggot8" parent="." instance=ExtResource( 1 )]
-position = Vector2( 1006, 494 )
-rotation = -0.785397
+position = Vector2( 926, 482 )
 
 [node name="maggot9" parent="." instance=ExtResource( 1 )]
-position = Vector2( 1182, 381 )
-rotation = 1.57079
+position = Vector2( 1049, 462 )
+rotation = 2.95391
 
 [node name="maggot10" parent="." instance=ExtResource( 1 )]
-position = Vector2( 1157, 439 )
-rotation = -1.57079
+position = Vector2( 686, 169 )
+rotation = -0.631472
 
 [node name="maggot11" parent="." instance=ExtResource( 1 )]
-position = Vector2( 843, 592 )
-rotation = -2.35619
+position = Vector2( 1193, 142 )
+rotation = -2.68718
 
 [node name="maggot12" parent="." instance=ExtResource( 1 )]
-position = Vector2( 990, 595 )
+position = Vector2( 1229, 337 )
+rotation = -3.14159
 
 [node name="maggot13" parent="." instance=ExtResource( 1 )]
-position = Vector2( 1061, 431 )
+position = Vector2( 765, 479 )
+rotation = -3.14159
 
 [node name="maggot14" parent="." instance=ExtResource( 1 )]
-position = Vector2( 1106, 574 )
-rotation = 2.09439
+position = Vector2( 598, 350 )
+rotation = -3.14159
 
 [node name="maggot15" parent="." instance=ExtResource( 1 )]
-position = Vector2( 1144, 519 )
-rotation = -0.785397
+position = Vector2( 1191, 492 )
+rotation = -3.14159
 
 [node name="maggot16" parent="." instance=ExtResource( 1 )]
-position = Vector2( 807, 334 )
-rotation = 2.09439
+position = Vector2( 920, 679 )
 
 [node name="maggot17" parent="." instance=ExtResource( 1 )]
-position = Vector2( 1084, 639 )
-rotation = -1.08854
+position = Vector2( 1047, 610 )
+rotation = 2.95391
 
 [node name="maggot18" parent="." instance=ExtResource( 1 )]
-position = Vector2( 685, 400 )
-rotation = -2.35619
+position = Vector2( 833, 599 )
+rotation = -3.14159
 
 [node name="maggot19" parent="." instance=ExtResource( 1 )]
-position = Vector2( 1096, 321 )
-
-[node name="maggot20" parent="." instance=ExtResource( 1 )]
-position = Vector2( 725, 481 )
-rotation = -4.18878
+position = Vector2( 1253, 634 )
+rotation = -3.14159

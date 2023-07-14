@@ -4,21 +4,21 @@ signal bulletshooter_finished
 
 var alive_bullets = []
 
+var active_pattern
+
 func _ready():
 	set_process(false)
+	active_pattern = $maggot_bullet_pattern
 #	for bullet in get_children():
 #		bullet.connect("body_entered", self, "do_damage")
 
 func activate():
-	alive_bullets = get_children().size()
-	for bullet in get_children():
-		bullet.global_position = bullet.origanal_pos
-		bullet.show()
+	active_pattern.reset_pattern()
+	alive_bullets = $maggot_bullet_pattern.get_children().size()
 	set_process(true)
 
 func _process(delta):
-	for bullet in get_children():
-		bullet.position += Vector2(0,1)*11
+	active_pattern.run(delta)
 
 func _on_bullet_area_area_exited(area):
 	alive_bullets -= 1
@@ -28,3 +28,7 @@ func _on_bullet_area_area_exited(area):
 
 func do_damage(player):
 	pass
+
+#######################
+## SHOOTING PATTERNS ##
+#######################
