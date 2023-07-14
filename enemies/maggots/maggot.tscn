@@ -15,14 +15,22 @@ code = "shader_type canvas_item;
 uniform sampler2D new_texture;
 uniform bool play_noise = true;
 
+uniform bool color_texture = false;
+uniform vec4 flash_color : hint_color;
+uniform float flash_modifier : hint_range(0.0, 1.0) = 0.0;
+
 void fragment() {
 	if (play_noise) {
     	COLOR.rgb = texture(new_texture, SCREEN_UV).rgb;
 		COLOR.a = texture(TEXTURE, UV).a;
 	}
+	else if (color_texture) {
+		vec4 color = texture(TEXTURE, UV);
+		color.rbg = mix(color.rgb, flash_color.rbg, flash_modifier);
+		COLOR = color;
+	}
 	else {
 		vec4 color = texture(TEXTURE, UV);
-		//color.rbg = mix(color.rgb, flash_color.rbg, flash_modifier);
 		COLOR = color;
 	}
 }"
@@ -40,6 +48,9 @@ frame_2/delay_sec = 0.0
 resource_local_to_scene = true
 shader = SubResource( 9 )
 shader_param/play_noise = true
+shader_param/color_texture = false
+shader_param/flash_color = Color( 1, 1, 1, 1 )
+shader_param/flash_modifier = 0.0
 shader_param/new_texture = SubResource( 12 )
 
 [sub_resource type="SpriteFrames" id=1]

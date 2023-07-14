@@ -44,6 +44,8 @@ func _draw():
 	draw_arc(center, radius, 0, TAU, point_count, color)
 	draw_arc(center, radius-1, 0, TAU, point_count, color)
 	draw_arc(center, radius-2, 0, TAU, point_count, color)
+	draw_arc(center, radius-3, 0, TAU, point_count, color)
+	draw_arc(center, radius-4, 0, TAU, point_count, color)
 
 
 func activate(e):
@@ -90,14 +92,17 @@ func _physics_process(delta):
 		if weapon == weapons.PISTOL:
 			targets = pistol_collision_query(space)
 			$AudioStreamPlayer.play()
-			if radius > 20:
-				get_parent().get_node("pistol_bang").global_position = get_global_mouse_position()
-				get_parent().get_node("pistol_bang/AnimationPlayer").play("normal",-1,2)
-				get_parent().get_node("pistol_bang/AnimationPlayer").seek(0)
-			else:
+			if radius < 26 and radius > 14:
 				get_parent().get_node("pistol_bang").global_position = get_global_mouse_position()
 				get_parent().get_node("pistol_bang/AnimationPlayer").play("bonus",-1,2)
 				get_parent().get_node("pistol_bang/AnimationPlayer").seek(0)
+				pistol_damage = 2
+			else:
+				get_parent().get_node("pistol_bang").global_position = get_global_mouse_position()
+				get_parent().get_node("pistol_bang/AnimationPlayer").play("normal",-1,2)
+				get_parent().get_node("pistol_bang/AnimationPlayer").seek(0)
+				pistol_damage = 1
+
 		elif weapon == weapons.GRENADE_LAUCNHER and $load_bar.value == 100:
 			targets = grenade_launcher_collision_query(space)
 			gl_explode.global_position = get_global_mouse_position()

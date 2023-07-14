@@ -7,7 +7,7 @@ signal gp_dropped
 var part_count = 0
 
 var flies
-var normal_speed = 300
+var normal_speed = 400
 
 func _ready():
 	deactivate()
@@ -15,7 +15,7 @@ func _ready():
 func activate():
 	var rng = RandomNumberGenerator.new()
 	var appear = get_child(0).get_node("AnimationPlayer")
-	appear.connect("animation_finished", self, "appear_finished")
+	appear.connect("animation_finished", self, "on_part_animation_finished")
 	for fly in get_children():
 		fly.disable_collisionshape(false)
 		var pf = fly.get_node("Path2D/PathFollow2D")
@@ -32,13 +32,14 @@ func deactivate():
 	
 	set_process(false)
 
-func appear_finished(a):
+func on_part_animation_finished(anim):
 	#set_process(true)
-	var empty_node = Node2D.new()
-	var empty_tween = create_tween()
-	empty_tween.connect("finished",self,"tween_testi_aika")
-	empty_tween.tween_property(empty_node, "position",Vector2.ZERO,1)
-	emit_signal("appear_finished")
+	if anim == "appear":
+		var empty_node = Node2D.new()
+		var empty_tween = create_tween()
+		empty_tween.connect("finished",self,"tween_testi_aika")
+		empty_tween.tween_property(empty_node, "position",Vector2.ZERO,1)
+		emit_signal("appear_finished")
 
 func tween_testi_aika():
 	set_process(true)
@@ -58,6 +59,8 @@ func damage_to_part(part, dmg):
 		part.hide()
 		part.disable_collisionshape(true)
 		part_count -= 1
+	else:
+		part.get_node("AnimationPlayer").play("damaged")
 	
 	if part_count == 0:
 		emit_signal("enemy_died")
