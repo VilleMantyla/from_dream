@@ -1,4 +1,4 @@
-[gd_scene load_steps=140 format=2]
+[gd_scene load_steps=141 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://player.gd" type="Script" id=2]
@@ -8,7 +8,7 @@
 [ext_resource path="res://battle/dodge_box_1.png" type="Texture" id=6]
 [ext_resource path="res://battle/shooting_borders.tscn" type="PackedScene" id=7]
 [ext_resource path="res://battle/shooting_arena.tscn" type="PackedScene" id=8]
-[ext_resource path="res://battle/pistol_sight2.png" type="Texture" id=9]
+[ext_resource path="res://battle/pistol_sight3_marker.png" type="Texture" id=9]
 [ext_resource path="res://level_mechanics/ladder.gd" type="Script" id=10]
 [ext_resource path="res://level_mechanics/area_switch.gd" type="Script" id=11]
 [ext_resource path="res://level_models/house_outside.glb" type="PackedScene" id=12]
@@ -39,7 +39,6 @@
 [ext_resource path="res://enemies/maggots/maggot_bullet_pattern.gd" type="Script" id=37]
 [ext_resource path="res://sounds/pistol_fire_2.wav" type="AudioStream" id=38]
 [ext_resource path="res://battle.gd" type="Script" id=39]
-[ext_resource path="res://battle/pistol_bonus_ring.png" type="Texture" id=40]
 [ext_resource path="res://enemies/flies/flies.tscn" type="PackedScene" id=41]
 [ext_resource path="res://enemies/slime_duo/slime_duo.tscn" type="PackedScene" id=42]
 [ext_resource path="res://battle/stats_frame.png" type="Texture" id=43]
@@ -54,6 +53,7 @@
 [ext_resource path="res://battle/grenade_ex_1.png" type="Texture" id=52]
 [ext_resource path="res://battle/grenade_ex_4.png" type="Texture" id=53]
 [ext_resource path="res://battle/pistol_bang_crit.png" type="Texture" id=54]
+[ext_resource path="res://battle/pistol_sight3.png" type="Texture" id=55]
 [ext_resource path="res://enemies/maggots/maggot0.png" type="Texture" id=56]
 [ext_resource path="res://level_models/house_build_ver2.glb" type="PackedScene" id=57]
 [ext_resource path="res://fonts/NotoSansJP-Regular.ttf" type="DynamicFontData" id=58]
@@ -392,12 +392,25 @@ tracks/2/keys = {
 "values": [ ExtResource( 44 ) ]
 }
 
-[sub_resource type="CircleShape2D" id=62]
-
-[sub_resource type="Animation" id=122]
-resource_name = "beat"
+[sub_resource type="Animation" id=126]
+length = 0.001
 tracks/0/type = "value"
-tracks/0/path = NodePath(".:scale")
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=127]
+resource_name = "spin"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -406,8 +419,27 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 4, 4 ), Vector2( 0.1, 0.1 ) ]
+"values": [ 0.0, 360.0 ]
 }
+tracks/1/type = "method"
+tracks/1/path = NodePath("../..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.1, 0.87 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [ false ],
+"method": "set_pistol_to_bonus"
+}, {
+"args": [ true ],
+"method": "set_pistol_to_bonus"
+} ]
+}
+
+[sub_resource type="CircleShape2D" id=62]
 
 [sub_resource type="CircleShape2D" id=55]
 radius = 56.0
@@ -1486,19 +1518,21 @@ script = ExtResource( 36 )
 visible = false
 
 [node name="Sprite" type="Sprite" parent="Battle/weapons/pistol"]
+scale = Vector2( 1.25, 1.25 )
+texture = ExtResource( 55 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Battle/weapons/pistol/Sprite"]
+anims/RESET = SubResource( 126 )
+anims/spin = SubResource( 127 )
+
+[node name="Sprite2" type="Sprite" parent="Battle/weapons/pistol"]
+position = Vector2( 0, -30 )
+scale = Vector2( 1.25, 1.25 )
 texture = ExtResource( 9 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Battle/weapons/pistol"]
 shape = SubResource( 62 )
 disabled = true
-
-[node name="bonus_ring" type="Sprite" parent="Battle/weapons/pistol"]
-visible = false
-scale = Vector2( 4, 4 )
-texture = ExtResource( 40 )
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Battle/weapons/pistol/bonus_ring"]
-anims/beat = SubResource( 122 )
 
 [node name="grenade_launcher" type="Area2D" parent="Battle/weapons"]
 visible = false
@@ -1744,7 +1778,6 @@ shape = SubResource( 93 )
 visible = false
 scale = Vector2( 7.5, 5.625 )
 frames = SubResource( 79 )
-frame = 2
 speed_scale = 6.0
 playing = true
 centered = false

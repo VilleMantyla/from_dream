@@ -28,6 +28,9 @@ func _ready():
 	set_physics_process(false)
 	
 	battle_player = get_parent()
+	
+	$pistol/Sprite/AnimationPlayer.get_animation("spin").set_loop(true)
+	$pistol/Sprite/AnimationPlayer.play("spin")
 
 ##################
 ## BONUS CIRCLE ##
@@ -41,11 +44,20 @@ var speed = 80
 var radious_org = radius
 
 func _draw():
-	draw_arc(center, radius, 0, TAU, point_count, color)
-	draw_arc(center, radius-1, 0, TAU, point_count, color)
-	draw_arc(center, radius-2, 0, TAU, point_count, color)
-	draw_arc(center, radius-3, 0, TAU, point_count, color)
-	draw_arc(center, radius-4, 0, TAU, point_count, color)
+	pass
+#	draw_arc(center, radius, 0, TAU, point_count, color)
+#	draw_arc(center, radius-1, 0, TAU, point_count, color)
+#	draw_arc(center, radius-2, 0, TAU, point_count, color)
+#	draw_arc(center, radius-3, 0, TAU, point_count, color)
+#	draw_arc(center, radius-4, 0, TAU, point_count, color)
+
+#################
+## Bonus wheel ##
+#################
+var pistol_bonus_on = false
+func set_pistol_to_bonus(val):
+	pistol_bonus_on = val
+		
 
 
 func activate(e):
@@ -98,7 +110,7 @@ func _physics_process(delta):
 		if weapon == weapons.PISTOL:
 			targets = pistol_collision_query(space)
 			$AudioStreamPlayer.play()
-			if radius < 39 and radius > 27:
+			if pistol_bonus_on: #if radius < 39 and radius > 27:
 				get_parent().get_node("pistol_bang").global_position = get_global_mouse_position()
 				get_parent().get_node("pistol_bang/AnimationPlayer").play("bonus",-1,2)
 				get_parent().get_node("pistol_bang/AnimationPlayer").seek(0)
