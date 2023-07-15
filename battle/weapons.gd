@@ -37,7 +37,7 @@ var radius = 100
 var point_count = 32
 var color = Color.yellow
 
-var speed = 100
+var speed = 80
 var radious_org = radius
 
 func _draw():
@@ -80,6 +80,12 @@ func _process(delta): #could be changed to input
 		radius -= step
 	else:
 		radius = 0
+	
+	if radius < 39 and radius > 27:
+		color = Color.red
+	else:
+		color = Color.yellow
+	
 	update()
 
 func _physics_process(delta):
@@ -92,7 +98,7 @@ func _physics_process(delta):
 		if weapon == weapons.PISTOL:
 			targets = pistol_collision_query(space)
 			$AudioStreamPlayer.play()
-			if radius < 26 and radius > 14:
+			if radius < 39 and radius > 27:
 				get_parent().get_node("pistol_bang").global_position = get_global_mouse_position()
 				get_parent().get_node("pistol_bang/AnimationPlayer").play("bonus",-1,2)
 				get_parent().get_node("pistol_bang/AnimationPlayer").seek(0)

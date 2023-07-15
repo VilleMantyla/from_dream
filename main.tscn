@@ -8,7 +8,7 @@
 [ext_resource path="res://battle/dodge_box_1.png" type="Texture" id=6]
 [ext_resource path="res://battle/shooting_borders.tscn" type="PackedScene" id=7]
 [ext_resource path="res://battle/shooting_arena.tscn" type="PackedScene" id=8]
-[ext_resource path="res://battle/pistol_sight.png" type="Texture" id=9]
+[ext_resource path="res://battle/pistol_sight2.png" type="Texture" id=9]
 [ext_resource path="res://level_mechanics/ladder.gd" type="Script" id=10]
 [ext_resource path="res://level_mechanics/area_switch.gd" type="Script" id=11]
 [ext_resource path="res://level_models/house_outside.glb" type="PackedScene" id=12]
@@ -1628,6 +1628,7 @@ script = ExtResource( 30 )
 [node name="animated_sprite" type="AnimatedSprite" parent="Battle/vi"]
 scale = Vector2( 4, 4 )
 frames = SubResource( 87 )
+frame = 1
 speed_scale = 0.2
 playing = true
 
@@ -1743,7 +1744,7 @@ shape = SubResource( 93 )
 visible = false
 scale = Vector2( 7.5, 5.625 )
 frames = SubResource( 79 )
-frame = 3
+frame = 2
 speed_scale = 6.0
 playing = true
 centered = false
