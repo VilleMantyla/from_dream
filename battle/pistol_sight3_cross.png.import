@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/pistol_sight3.png-4366c5abb99d802861bdf6d93b25ce21.stex"
+path="res://.import/pistol_sight3_cross.png-4a004ace70ff094cbaacb15043affd5e.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://battle/pistol_sight3.png"
-dest_files=[ "res://.import/pistol_sight3.png-4366c5abb99d802861bdf6d93b25ce21.stex" ]
+source_file="res://battle/pistol_sight3_cross.png"
+dest_files=[ "res://.import/pistol_sight3_cross.png-4a004ace70ff094cbaacb15043affd5e.stex" ]
 
 [params]
 

@@ -1,8 +1,8 @@
 [gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://begin_demo.gd" type="Script" id=1]
-[ext_resource path="res://battle/tamagotchi0.png" type="Texture" id=2]
-[ext_resource path="res://battle/tamagotchi_alt.png" type="Texture" id=3]
+[ext_resource path="res://battle/vi1.png" type="Texture" id=2]
+[ext_resource path="res://battle/vi0.png" type="Texture" id=3]
 [ext_resource path="res://battle/battle_btm_layer_black.png" type="Texture" id=4]
 [ext_resource path="res://chat.gd" type="Script" id=5]
 [ext_resource path="res://fonts/NotoSansJP-SemiBold.ttf" type="DynamicFontData" id=6]
@@ -12,7 +12,7 @@
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 2 ), ExtResource( 3 ) ],
+"frames": [ ExtResource( 3 ), ExtResource( 2 ) ],
 "loop": true,
 "name": "default",
 "speed": 5.0
@@ -32,7 +32,7 @@ script = ExtResource( 1 )
 texture = ExtResource( 4 )
 centered = false
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+[node name="vi" type="AnimatedSprite" parent="."]
 position = Vector2( 998, 463 )
 scale = Vector2( 10, 10 )
 frames = SubResource( 1 )
@@ -54,6 +54,7 @@ texture = ExtResource( 7 )
 centered = false
 
 [node name="bubble" type="Node2D" parent="."]
+visible = false
 script = ExtResource( 8 )
 
 [node name="Line2D" type="Line2D" parent="."]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=141 format=2]
+[gd_scene load_steps=142 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://player.gd" type="Script" id=2]
@@ -39,6 +39,7 @@
 [ext_resource path="res://enemies/maggots/maggot_bullet_pattern.gd" type="Script" id=37]
 [ext_resource path="res://sounds/pistol_fire_2.wav" type="AudioStream" id=38]
 [ext_resource path="res://battle.gd" type="Script" id=39]
+[ext_resource path="res://battle/pistol_sight3_cross.png" type="Texture" id=40]
 [ext_resource path="res://enemies/flies/flies.tscn" type="PackedScene" id=41]
 [ext_resource path="res://enemies/slime_duo/slime_duo.tscn" type="PackedScene" id=42]
 [ext_resource path="res://battle/stats_frame.png" type="Texture" id=43]
@@ -1399,7 +1400,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -120, 0, 0 )
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.5, 1.6, 13.5 )
 
 [node name="Player" type="KinematicBody" parent="."]
-transform = Transform( -1, 0, -1.0411e-06, 0, 1, 0, 1.0411e-06, 0, -1, -3.32138, 1.6, -7.42998 )
+transform = Transform( -1, 0, -1.0411e-06, 0, 1, 0, 1.0411e-06, 0, -1, 15.6157, 1.6, -37.219 )
 collision_layer = 2
 collision_mask = 5
 script = ExtResource( 2 )
@@ -1533,6 +1534,10 @@ texture = ExtResource( 9 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Battle/weapons/pistol"]
 shape = SubResource( 62 )
 disabled = true
+
+[node name="Sprite3" type="Sprite" parent="Battle/weapons/pistol"]
+scale = Vector2( 2, 2 )
+texture = ExtResource( 40 )
 
 [node name="grenade_launcher" type="Area2D" parent="Battle/weapons"]
 visible = false
@@ -1778,6 +1783,7 @@ shape = SubResource( 93 )
 visible = false
 scale = Vector2( 7.5, 5.625 )
 frames = SubResource( 79 )
+frame = 2
 speed_scale = 6.0
 playing = true
 centered = false
@@ -1835,7 +1841,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.37378, 1.251, -6.16269 )
 enemy = NodePath("../Battle/Enemies/flies")
 
 [node name="enemy_trigger2" parent="." instance=ExtResource( 35 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.12822, 3.50484, -6.16556 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.12822, 1.25054, -6.16556 )
 enemy = NodePath("../Battle/Enemies/maggots")
 
 [node name="Ladder" type="Spatial" parent="." groups=["interactable", "ladder"]]
