@@ -3,7 +3,7 @@ extends KinematicBody
 const PLAYER_HEIGHT = 1.6
 
 var MOUSE_SENSITIVITY = 0.06
-var rotation_x_limit = Vector2(deg2rad(60), deg2rad(-60))
+var rotation_x_limit = Vector2(deg2rad(70), deg2rad(-70))
 
 var move_input = Vector2.ZERO
 var move_dir = Vector3.ZERO
@@ -27,10 +27,18 @@ signal next_chat_text
 var chatting = false
 var looking_at_interactable = null
 
+#climbing on ladder
 var active_ladder = null
-var climb_speed = 1.2
-var ladder_exit_range = 0.5 #+ and -
-#var ladder_bottom = null
+var lad_climb_speed = 1.2
+var ladder_exit_range = 0.5 #includes + and -
+
+#climbing on levels
+var climb_padding = 0.25
+#var climbing_time = 100
+#var climbing = false
+#var climb_distance = null
+#var mov_dist_cur = 0
+
 
 func _ready():
 	height = PLAYER_HEIGHT#global_transform.origin.y
@@ -88,6 +96,19 @@ func _process(delta):
 			elif looking_at_interactable.is_in_group("chat"):
 				var chat_key = looking_at_interactable.chat_key
 				get_parent().interact_with_world_object(chat_key, null, null)
+			elif looking_at_interactable.is_in_group("climb"):
+				var climb = looking_at_interactable
+				if climb.climb_along_z:
+					var new_pos = climb.climb_spot
+					new_pos.x = global_transform.origin.x
+					new_pos.x = clamp(new_pos.x, climb.limit_min, climb.limit_max)
+					new_pos.y += PLAYER_HEIGHT
+					
+					var tween = create_tween()
+					tween.tween_property(self, "global_transform:origin",\
+					new_pos, 0.4).set_trans(Tween.EASE_OUT)
+			elif looking_at_interactable.is_in_group("pick_up"):
+				pass
 
 func _physics_process(delta):
 	var space_state = get_world().direct_space_state
@@ -203,10 +224,10 @@ func exit_ladder(exit_to_pos, exit_dir):
 		rotx_tween.tween_property($rotation_helper, "rotation", new_rot_x, 1.8).set_trans(Tween.EASE_IN_OUT)
 
 func climb_ladder(move_dir, delta):
-	var on_top_limit = translation.y + delta*move_dir*climb_speed < active_ladder.top_max
-	var on_bottom_limit = translation.y + delta*move_dir*climb_speed > active_ladder.btm_max + height
+	var on_top_limit = translation.y + delta*move_dir*lad_climb_speed < active_ladder.top_max
+	var on_bottom_limit = translation.y + delta*move_dir*lad_climb_speed > active_ladder.btm_max + height
 	if on_bottom_limit and on_top_limit:
-		translation.y += delta*move_dir*climb_speed
+		translation.y += delta*move_dir*lad_climb_speed
 	elif !on_bottom_limit:
 		translation.y = active_ladder.btm_max + height
 		print("player on ladder bottom")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=142 format=2]
+[gd_scene load_steps=150 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://player.gd" type="Script" id=2]
@@ -72,14 +72,17 @@
 [ext_resource path="res://level_mechanics/cutscene_collision_trigger.gd" type="Script" id=70]
 [ext_resource path="res://void/void.png" type="Texture" id=71]
 [ext_resource path="res://tv/eye_sparkle_normal_decal.png" type="Texture" id=72]
+[ext_resource path="res://level_mechanics/climb_spot.gd" type="Script" id=73]
+[ext_resource path="res://level_mechanics/misc/on_dock_box.gd" type="Script" id=74]
+[ext_resource path="res://level_mechanics/pick_up_item.gd" type="Script" id=75]
 
 [sub_resource type="SpatialMaterial" id=116]
 albedo_texture = ExtResource( 71 )
 metallic_specular = 0.0
 
-[sub_resource type="CylinderShape" id=61]
-height = 0.487519
-radius = 0.265161
+[sub_resource type="CapsuleShape" id=129]
+radius = 0.180992
+height = 0.289756
 
 [sub_resource type="DynamicFont" id=15]
 size = 30
@@ -1366,6 +1369,20 @@ tracks/1/keys = {
 height = 1.45982
 radius = 0.389801
 
+[sub_resource type="BoxShape" id=128]
+extents = Vector3( 1.76242, 1, 0.0355204 )
+
+[sub_resource type="BoxShape" id=130]
+extents = Vector3( 2.08921, 1, 0.921808 )
+
+[sub_resource type="BoxShape" id=133]
+extents = Vector3( 4.31142, 5.18362, 4.22513 )
+
+[sub_resource type="CubeMesh" id=131]
+
+[sub_resource type="SpatialMaterial" id=132]
+albedo_color = Color( 1, 0, 0, 1 )
+
 [node name="Main" type="Spatial"]
 script = ExtResource( 1 )
 
@@ -1416,8 +1433,8 @@ collision_mask = 4
 collide_with_areas = true
 
 [node name="CollisionShape" type="CollisionShape" parent="Player"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.833201, 0 )
-shape = SubResource( 61 )
+transform = Transform( 1, 1.0411e-06, 1.0411e-06, -1.0411e-06, -4.37114e-08, 1, 1.0411e-06, -1, -4.37103e-08, 0, -0.788131, 0 )
+shape = SubResource( 129 )
 
 [node name="context_msg" type="RichTextLabel" parent="."]
 visible = false
@@ -1667,7 +1684,6 @@ script = ExtResource( 30 )
 [node name="animated_sprite" type="AnimatedSprite" parent="Battle/vi"]
 scale = Vector2( 4, 4 )
 frames = SubResource( 87 )
-frame = 1
 speed_scale = 0.2
 playing = true
 
@@ -2023,8 +2039,62 @@ chat_key = "TV_bangging"
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
 shape = SubResource( 68 )
 
+[node name="dock_box_climb" type="Area" parent="." groups=["climb", "interactable"]]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 16.2256, 1.17017, -32.7962 )
+collision_layer = 4
+collision_mask = 2
+script = ExtResource( 73 )
+climb_spot = Vector3( 0, 0.9, -31.5 )
+limit_min = 14.5
+limit_max = 17.5
+
+[node name="CollisionShape" type="CollisionShape" parent="dock_box_climb"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.892574 )
+shape = SubResource( 128 )
+
+[node name="dock_box_climb2" type="Area" parent="." groups=["climb", "interactable"]]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 16.2256, 1.17017, -30.7962 )
+collision_layer = 4
+collision_mask = 2
+script = ExtResource( 73 )
+climb_spot = Vector3( 0, 0.9, -30.5 )
+limit_min = 14.5
+limit_max = 17.5
+
+[node name="CollisionShape" type="CollisionShape" parent="dock_box_climb2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.892574 )
+shape = SubResource( 128 )
+
+[node name="on_box" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 1, -30.9466 )
+collision_layer = 4
+collision_mask = 2
+input_ray_pickable = false
+script = ExtResource( 74 )
+
+[node name="CollisionShape" type="CollisionShape" parent="on_box"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0446663 )
+shape = SubResource( 130 )
+
+[node name="riris_bracelet" type="Area" parent="." groups=["interactable", "pick_up"]]
+transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 10.6066, 0.209953, -22.2278 )
+collision_layer = 4
+collision_mask = 2
+script = ExtResource( 75 )
+
+[node name="CollisionShape" type="CollisionShape" parent="riris_bracelet"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.13891, 0 )
+shape = SubResource( 133 )
+
+[node name="MeshInstance" type="MeshInstance" parent="riris_bracelet"]
+mesh = SubResource( 131 )
+skeleton = NodePath("../..")
+material/0 = SubResource( 132 )
+
 [connection signal="area_entered" from="Battle/vi" to="Battle/vi" method="_on_tamagotchi_area_entered"]
 [connection signal="area_exited" from="Battle/bullet_area" to="Battle/bulletshooter" method="_on_bullet_area_area_exited"]
+[connection signal="body_entered" from="on_box" to="on_box" method="_on_on_box_body_entered"]
+[connection signal="body_exited" from="on_box" to="on_box" method="_on_on_box_body_exited"]
 
 [editable path="void2"]
 [editable path="glitch_suckers/glitch_sucker_ver2"]
