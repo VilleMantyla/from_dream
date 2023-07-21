@@ -1,4 +1,4 @@
-[gd_scene load_steps=150 format=2]
+[gd_scene load_steps=153 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://player.gd" type="Script" id=2]
@@ -75,6 +75,61 @@
 [ext_resource path="res://level_mechanics/climb_spot.gd" type="Script" id=73]
 [ext_resource path="res://level_mechanics/misc/on_dock_box.gd" type="Script" id=74]
 [ext_resource path="res://level_mechanics/pick_up_item.gd" type="Script" id=75]
+[ext_resource path="res://menu/menu.tscn" type="PackedScene" id=76]
+
+[sub_resource type="Animation" id=134]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=135]
+resource_name = "fade_in"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [sub_resource type="SpatialMaterial" id=116]
 albedo_texture = ExtResource( 71 )
@@ -1386,6 +1441,19 @@ albedo_color = Color( 1, 0, 0, 1 )
 [node name="Main" type="Spatial"]
 script = ExtResource( 1 )
 
+[node name="Menu" parent="." instance=ExtResource( 76 )]
+visible = false
+
+[node name="fade_for_menu" type="Sprite" parent="."]
+visible = false
+modulate = Color( 1, 1, 1, 0 )
+texture = ExtResource( 32 )
+centered = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="fade_for_menu"]
+anims/RESET = SubResource( 134 )
+anims/fade_in = SubResource( 135 )
+
 [node name="void2" parent="." instance=ExtResource( 69 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -104.45, 29.879, 2.71191 )
 
@@ -1684,6 +1752,7 @@ script = ExtResource( 30 )
 [node name="animated_sprite" type="AnimatedSprite" parent="Battle/vi"]
 scale = Vector2( 4, 4 )
 frames = SubResource( 87 )
+frame = 1
 speed_scale = 0.2
 playing = true
 
@@ -1799,7 +1868,7 @@ shape = SubResource( 93 )
 visible = false
 scale = Vector2( 7.5, 5.625 )
 frames = SubResource( 79 )
-frame = 2
+frame = 1
 speed_scale = 6.0
 playing = true
 centered = false
@@ -1854,10 +1923,12 @@ texture = ExtResource( 62 )
 
 [node name="enemy_trigger" parent="." instance=ExtResource( 35 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.37378, 1.251, -6.16269 )
+visible = false
 enemy = NodePath("../Battle/Enemies/flies")
 
 [node name="enemy_trigger2" parent="." instance=ExtResource( 35 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.12822, 1.25054, -6.16556 )
+visible = false
 enemy = NodePath("../Battle/Enemies/maggots")
 
 [node name="Ladder" type="Spatial" parent="." groups=["interactable", "ladder"]]
