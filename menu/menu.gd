@@ -9,24 +9,24 @@ func _ready():
 	viewport_texture = $Viewport.get_texture()
 	$item_view.texture = viewport_texture
 	
-	$fade/AnimationPlayer.connect("animation_finished", self, "activate_menu")
+	#$fade/AnimationPlayer.connect("animation_finished", self, "activate_menu")
 	
 	set_process(false)
 
-func open_menu():
-	$fade/AnimationPlayer.play("fade_out",-1,3)
+#func open_menu():
+#	$fade/AnimationPlayer.play("fade_out",-1,3)
 
-func activate_menu(anim):
-	if anim == "fade_out":
+func activate_menu(val):
+	if val:
 		set_process(true)
-	elif anim == "fade_in":
+	else:
 		set_process(false)
-		hide()
+		#hide()
 		$Viewport/items.global_rotation.y = 0
 		
 
-func close_menu():
-	$fade/AnimationPlayer.play("fade_in",-1,3)
+#func close_menu():
+#	$fade/AnimationPlayer.play("fade_in",-1,3)
 
 
 func _process(delta):

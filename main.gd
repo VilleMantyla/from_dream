@@ -17,7 +17,8 @@ func _ready():
 	$Chat.connect("chat_ended", self, "end_chat")
 	$Player.connect("show_context_msg", self, "show_context_msg")
 	$Player.connect("next_chat_text", self, "read_next_chat")
-	$fade_for_menu/AnimationPlayer.connect("animation_finished", self, "open_menu")
+	$menu_interact/AnimationPlayer.connect("animation_finished", self,\
+	"menu_interacted")
 	
 	$Battle.connect("leave_battle", self, "exit_battle")
 	
@@ -43,9 +44,13 @@ func _ready():
 
 
 var flip_open = true
+var in_menu = false
 func _process(delta):
-	if Input.is_action_just_pressed("menu"):
-		close_menu()
+	if Input.is_action_just_pressed("menu") and !$menu_interact/AnimationPlayer.is_playing():
+		if !in_menu:
+			$menu_interact/AnimationPlayer.play("open_menu")
+		elif in_menu:
+			$menu_interact/AnimationPlayer.play("close_menu")
 #	if Input.is_action_just_pressed("interact"):
 #		if $Player.looking_at_interactable:
 #			if $Player.looking_at_interactable.is_in_group("ladder"):
@@ -68,14 +73,23 @@ func _process(delta):
 ##		flip_open = !flip_open
 #		if $Player.interacting:
 #			$Chat.try_reading_next_paragraph()
-func open_menu(anim):
-	$Menu.show()
-	$fade_for_menu.hide()
-	$Menu.open_menu()
 
-func close_menu():
-	#$Menu.hide()
-	$Menu.close_menu()
+func menu_interacted(anim):
+	if anim == "open_menu":
+		in_menu = true
+		$Menu.activate_menu(true)
+	elif anim == "close_menu":
+		in_menu = false
+		$Menu.activate_menu(false)
+
+#func open_menu():
+#	$fade_for_menu.hide()
+#	$Menu.show()
+#	$Menu/fade/AnimationPlayer.play("fade_out",-1,3)
+#
+#func close_menu():
+#	#$Menu.hide()
+#	$Menu.close_menu()
 
 func show_character(code):
 	if code == 1:

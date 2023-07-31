@@ -108,6 +108,7 @@ func _process(delta):
 					tween.tween_property(self, "global_transform:origin",\
 					new_pos, 0.4).set_trans(Tween.EASE_OUT)
 			elif looking_at_interactable.is_in_group("pick_up"):
+				looking_at_interactable.picked_up()
 				get_parent().get_node("fade_for_menu/AnimationPlayer").play("fade_in")
 
 func _physics_process(delta):
