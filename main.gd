@@ -53,28 +53,6 @@ func _process(delta):
 			$menu_interact/AnimationPlayer.play("open_menu")
 		elif in_menu:
 			$menu_interact/AnimationPlayer.play("close_menu")
-#	if Input.is_action_just_pressed("interact"):
-#		if $Player.looking_at_interactable:
-#			if $Player.looking_at_interactable.is_in_group("ladder"):
-#				$Player.climb_to_ladder()
-#
-##		if flip_open:
-##			var location_tween = create_tween()
-##			location_tween.tween_property($Player, "global_transform:origin", $door_test_spot.global_transform.origin, 1.8).set_trans(Tween.EASE_IN_OUT)
-##			var target_rot_y = deg2rad(180)
-##			var new_rot
-##			if target_rot_y - $Player.global_rotation.y < PI:
-##				new_rot = Vector3(0,deg2rad(180),0)
-##			else:
-##				new_rot = Vector3(0,deg2rad(-180),0)
-##			var rot_tween = create_tween()
-##			rot_tween.tween_property($Player, "global_rotation", new_rot, 1.8).set_trans(Tween.EASE_IN_OUT)
-##			$house_floor2/AnimationPlayer.play("open",-1,0.45)
-##		else:
-##			$house_floor2/AnimationPlayer.play("close",-1,0.45)
-##		flip_open = !flip_open
-#		if $Player.interacting:
-#			$Chat.try_reading_next_paragraph()
 
 func menu_interacted(anim):
 	if anim == "open_menu":
@@ -326,14 +304,27 @@ func KILLING_TV(anim):
 		void_to_player.connect("finished", self, "KILLING_TV", ["start_battle"])
 		void_to_player.tween_property($void2, \
 		"global_transform:origin:z", 6.3, 0.8).set_trans(Tween.EASE_OUT)
-		#void_to_player.connect("finished", self, "KILLING_TV", ["tv_down"])
+		var p_pos_for_chat = Vector3(-104.45,0,7)
+		p_pos_for_chat.y = $Player.global_transform.origin.y
+		$Player.global_transform.origin = p_pos_for_chat
+		$Player/rotation_helper.rotation.x = deg2rad(0)
+		$Player.rotation.y = deg2rad(0)
 	elif anim == "start_battle":
 		#$no_hope_trigger._on_enemy_trigger_body_entered($Player)
+		print("player pos: " + str($Player.global_transform.origin))
 		$_void_battle_0.show()
 		$_void_battle_0.start()
 		cutscene_after_chat = "after_hazy_chat"
 		alt_chat_node = $_void_battle_0/RichTextLabel
 		$Player.chatting = true
 	elif anim == "after_hazy_chat":
+		print("player pos: " + str($Player.global_transform.origin))
 		$_void_battle_0.hide()
 		$void2.hide()
+		var player_up_tween = create_tween()
+		#player_up_tween.connect("finished", self, "KILLING_TV", ["start_battle"])
+		$Player/rotation_helper.rotation.x = deg2rad(-65)
+		var cam_org_y = $Player/rotation_helper/Camera.global_transform.origin.y
+		$Player/rotation_helper/Camera.global_transform.origin.y += -1.2
+		player_up_tween.tween_property($Player/rotation_helper/Camera, \
+		"global_transform:origin:y", cam_org_y, 3).set_trans(Tween.EASE_OUT)

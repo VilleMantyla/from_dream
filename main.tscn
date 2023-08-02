@@ -1,4 +1,4 @@
-[gd_scene load_steps=159 format=2]
+[gd_scene load_steps=160 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://player.gd" type="Script" id=2]
@@ -79,6 +79,7 @@
 [ext_resource path="res://menu/items/aghandle.material" type="Material" id=77]
 [ext_resource path="res://menu/items/agnlegrinder_001.material" type="Material" id=78]
 [ext_resource path="res://_void/_void_battle_0.tscn" type="PackedScene" id=79]
+[ext_resource path="res://level_models/door_for_hostel.tscn" type="PackedScene" id=80]
 
 [sub_resource type="Animation" id=134]
 length = 0.001
@@ -1580,11 +1581,19 @@ transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0
 [node name="house_build_ver2" parent="." instance=ExtResource( 57 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -120, 0, 0 )
 
+[node name="door_for_hostel" parent="house_build_ver2" instance=ExtResource( 80 )]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 24.03, 0, -7.5 )
+y_rotation = -90
+
+[node name="door_for_hostel2" parent="house_build_ver2" instance=ExtResource( 80 )]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 11.03, 0, 12.5 )
+y_rotation = -90
+
 [node name="door_test_spot" type="Spatial" parent="."]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.5, 1.6, 13.5 )
 
 [node name="Player" type="KinematicBody" parent="."]
-transform = Transform( -1, 0, -1.0411e-06, 0, 1, 0, 1.0411e-06, 0, -1, -104.431, 30.987, 7.42185 )
+transform = Transform( -1, 0, -1.0411e-06, 0, 1, 0, 1.0411e-06, 0, -1, 15.569, 1.6, -37.974 )
 collision_layer = 2
 collision_mask = 5
 script = ExtResource( 2 )
@@ -1851,7 +1860,6 @@ script = ExtResource( 30 )
 [node name="animated_sprite" type="AnimatedSprite" parent="Battle/vi"]
 scale = Vector2( 4, 4 )
 frames = SubResource( 87 )
-frame = 1
 speed_scale = 0.2
 playing = true
 
@@ -1967,7 +1975,6 @@ shape = SubResource( 93 )
 visible = false
 scale = Vector2( 7.5, 5.625 )
 frames = SubResource( 79 )
-frame = 3
 speed_scale = 6.0
 playing = true
 centered = false

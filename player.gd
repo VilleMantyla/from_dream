@@ -108,6 +108,21 @@ func _process(delta):
 					new_pos, 0.4).set_trans(Tween.EASE_OUT)
 			elif looking_at_interactable.is_in_group("pick_up"):
 				looking_at_interactable.picked_up()
+			elif looking_at_interactable.is_in_group("regular_door") and\
+			!looking_at_interactable.is_open:
+				looking_at_interactable.is_open = true
+				var new_loc = looking_at_interactable.get_door_spot(global_transform.origin)
+				new_loc.y = global_transform.origin.y
+				var location_tween = create_tween()
+				location_tween.tween_property(self, "global_transform:origin",\
+				new_loc, 1).set_trans(Tween.EASE_IN_OUT)
+				
+				var new_roty = looking_at_interactable.get_roty(global_transform.origin)
+				var rot_tween = create_tween()
+				rot_tween.tween_property(self, "global_rotation:y",\
+				new_roty, 1).set_trans(Tween.EASE_IN_OUT)
+				
+				looking_at_interactable.play_anim(1.25)
 
 func _physics_process(delta):
 	var space_state = get_world().direct_space_state
