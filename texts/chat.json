@@ -1368,7 +1368,7 @@
 },
 {
 	"textframe": [{
-			"text": "My name is Ville but you can call me Vi.",
+			"text": "My name is VI-689n07 but you can call me Vi.",
 			"speed": 50,
 			"sound" : 0
 		}
@@ -1402,6 +1402,55 @@
 	"textframe": [{
 			"text": "Good Luck!",
 			"speed": 50,
+			"sound" : 0
+		}
+	]
+}
+],
+"void_0": [{
+	"textframe": [{
+			"text": "God I miss you.",
+			"speed": 15,
+			"sound" : 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "I WANT YOU\nI WANT YOU\nI WANT YOUUUUUU",
+			"speed": 15,
+			"sound" : 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "I want to kiss you\nSweet little kisses on your tummy",
+			"speed": 15,
+			"sound" : 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "Please I must have you!",
+			"speed": 15,
+			"sound" : 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "Come\ncome\nCUM",
+			"speed": 10,
+			"sound" : 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "You're already this far, you can't stop now",
+			"speed": 15,
 			"sound" : 0
 		}
 	]

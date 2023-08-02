@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/void_ver3.glb-22a4513ec1b8f40626aa44820f28e577.scn"
+path="res://.import/void_ver2.glb-33aee701cbcf7b9e234b48cd0492d190.scn"
 
 [deps]
 
-source_file="res://void/void_ver3.glb"
-dest_files=[ "res://.import/void_ver3.glb-22a4513ec1b8f40626aa44820f28e577.scn" ]
+source_file="res://_void/void_ver2.glb"
+dest_files=[ "res://.import/void_ver2.glb-33aee701cbcf7b9e234b48cd0492d190.scn" ]
 
 [params]
 

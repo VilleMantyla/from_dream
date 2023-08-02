@@ -7,6 +7,8 @@ var tv
 
 var battle_on_hold = null
 
+var alt_chat_node = null
+
 var interactables = {
 	"ladder" : "press space to cilmb"
 }
@@ -82,6 +84,9 @@ func menu_interacted(anim):
 		in_menu = false
 		$Menu.activate_menu(false)
 
+func picked_up_item(item):
+	$menu_interact/AnimationPlayer.play("open_menu")
+
 #func open_menu():
 #	$fade_for_menu.hide()
 #	$Menu.show()
@@ -126,8 +131,8 @@ func end_chat():
 	$Player.chatting = false
 	$chat_bg.hide()
 	
+	print(cutscene_after_chat)
 	check_for_cutscene_after_chat()
-	cutscene_after_chat = null
 	
 	if battle_on_hold:
 		enter_battle(battle_on_hold)
@@ -135,13 +140,22 @@ func end_chat():
 	#RESET TVspirte node and its children
 	$TVsprite.hide()
 
+func end_alt_chat():
+	$Player.disable_input(false)
+	$Player.chatting = false
+	check_for_cutscene_after_chat()
+	alt_chat_node = null
+
 func check_for_cutscene_after_chat():
 	if cutscene_after_chat == "tv_run_away":
 		FROM_TREE("tv_run_away")
 	elif cutscene_after_chat == "tv_plead":
 		KILLING_TV("tv_plead")
+	elif cutscene_after_chat == "after_hazy_chat":
+		KILLING_TV("after_hazy_chat")
 	else:
 		return false
+	cutscene_after_chat = null
 
 func enter_battle(enemy):
 	battle_on_hold = null
@@ -160,7 +174,10 @@ func show_context_msg(key):
 	$context_msg.text = interactables[key]
 
 func read_next_chat():
-	$Chat.try_reading_next_paragraph()
+	if alt_chat_node:
+		alt_chat_node.try_reading_next_paragraph()
+	else:
+		$Chat.try_reading_next_paragraph()
 
 func interact_with_world_object(chat, focus_point, enemy):
 	if chat:
@@ -224,6 +241,7 @@ func start_cutscene(cutscene_name):
 		tween2.tween_property(right, "global_transform:origin:x", right_target, 0.25)
 		tween2.connect("finished", self, "BANGING_ELEVATOR", ["doors"])
 	elif cutscene_name == cutscenes.KILLING_TV:
+		$killing_tv_cutscene/CollisionShape.disabled = true
 		$Camera4.current = true
 		$Camera4/AnimationPlayer.play("floor_to_head",-1,0.4)
 
@@ -310,4 +328,12 @@ func KILLING_TV(anim):
 		"global_transform:origin:z", 6.3, 0.8).set_trans(Tween.EASE_OUT)
 		#void_to_player.connect("finished", self, "KILLING_TV", ["tv_down"])
 	elif anim == "start_battle":
-		$enemy_trigger._on_enemy_trigger_body_entered($Player)
+		#$no_hope_trigger._on_enemy_trigger_body_entered($Player)
+		$_void_battle_0.show()
+		$_void_battle_0.start()
+		cutscene_after_chat = "after_hazy_chat"
+		alt_chat_node = $_void_battle_0/RichTextLabel
+		$Player.chatting = true
+	elif anim == "after_hazy_chat":
+		$_void_battle_0.hide()
+		$void2.hide()

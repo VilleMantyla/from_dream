@@ -1,4 +1,4 @@
-[gd_scene load_steps=158 format=2]
+[gd_scene load_steps=159 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://player.gd" type="Script" id=2]
@@ -68,9 +68,9 @@
 [ext_resource path="res://battle/text_bg.png" type="Texture" id=66]
 [ext_resource path="res://tv/eye_sparkle_small_decal.png" type="Texture" id=67]
 [ext_resource path="res://tv/tv_ver3.glb" type="PackedScene" id=68]
-[ext_resource path="res://void/void.glb" type="PackedScene" id=69]
+[ext_resource path="res://_void/void.glb" type="PackedScene" id=69]
 [ext_resource path="res://level_mechanics/cutscene_collision_trigger.gd" type="Script" id=70]
-[ext_resource path="res://void/void.png" type="Texture" id=71]
+[ext_resource path="res://_void/void.png" type="Texture" id=71]
 [ext_resource path="res://tv/eye_sparkle_normal_decal.png" type="Texture" id=72]
 [ext_resource path="res://level_mechanics/climb_spot.gd" type="Script" id=73]
 [ext_resource path="res://level_mechanics/misc/on_dock_box.gd" type="Script" id=74]
@@ -78,6 +78,7 @@
 [ext_resource path="res://menu/menu.tscn" type="PackedScene" id=76]
 [ext_resource path="res://menu/items/aghandle.material" type="Material" id=77]
 [ext_resource path="res://menu/items/agnlegrinder_001.material" type="Material" id=78]
+[ext_resource path="res://_void/_void_battle_0.tscn" type="PackedScene" id=79]
 
 [sub_resource type="Animation" id=134]
 length = 0.001
@@ -1583,7 +1584,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -120, 0, 0 )
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.5, 1.6, 13.5 )
 
 [node name="Player" type="KinematicBody" parent="."]
-transform = Transform( -1, 0, -1.0411e-06, 0, 1, 0, 1.0411e-06, 0, -1, -112.411, 30.987, 20.3798 )
+transform = Transform( -1, 0, -1.0411e-06, 0, 1, 0, 1.0411e-06, 0, -1, -104.431, 30.987, 7.42185 )
 collision_layer = 2
 collision_mask = 5
 script = ExtResource( 2 )
@@ -1850,6 +1851,7 @@ script = ExtResource( 30 )
 [node name="animated_sprite" type="AnimatedSprite" parent="Battle/vi"]
 scale = Vector2( 4, 4 )
 frames = SubResource( 87 )
+frame = 1
 speed_scale = 0.2
 playing = true
 
@@ -1965,6 +1967,7 @@ shape = SubResource( 93 )
 visible = false
 scale = Vector2( 7.5, 5.625 )
 frames = SubResource( 79 )
+frame = 3
 speed_scale = 6.0
 playing = true
 centered = false
@@ -2018,13 +2021,11 @@ scale = Vector2( 5, 5 )
 texture = ExtResource( 62 )
 
 [node name="enemy_trigger" parent="." instance=ExtResource( 35 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.37378, 1.251, -6.16269 )
-visible = false
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.30491, 1.1868, -4.33356 )
 enemy = NodePath("../Battle/Enemies/flies")
 
 [node name="enemy_trigger2" parent="." instance=ExtResource( 35 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.12822, 1.25054, -6.16556 )
-visible = false
 enemy = NodePath("../Battle/Enemies/maggots")
 
 [node name="Ladder" type="Spatial" parent="." groups=["interactable", "ladder"]]
@@ -2271,6 +2272,9 @@ skeleton = NodePath("")
 
 [node name="CollisionShape" type="CollisionShape" parent="anglegrinder"]
 shape = SubResource( 136 )
+
+[node name="_void_battle_0" parent="." instance=ExtResource( 79 )]
+visible = false
 
 [connection signal="area_entered" from="Battle/vi" to="Battle/vi" method="_on_tamagotchi_area_entered"]
 [connection signal="area_exited" from="Battle/bullet_area" to="Battle/bulletshooter" method="_on_bullet_area_area_exited"]

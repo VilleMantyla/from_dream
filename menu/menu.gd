@@ -2,6 +2,7 @@ extends Node2D
 
 
 var viewport_texture
+var selected_item
 
 var item_spin_speed = 1.3
 # Called when the node enters the scene tree for the first time.
@@ -11,6 +12,7 @@ func _ready():
 	
 	#$fade/AnimationPlayer.connect("animation_finished", self, "activate_menu")
 	
+	selected_item = $Viewport/items/riris_bracelet
 	set_process(false)
 
 #func open_menu():
@@ -22,7 +24,7 @@ func activate_menu(val):
 	else:
 		set_process(false)
 		#hide()
-		$Viewport/items.global_rotation.y = 0
+		selected_item.global_rotation.y = 0
 		
 
 #func close_menu():
@@ -30,9 +32,9 @@ func activate_menu(val):
 
 
 func _process(delta):
-	spin_items(delta)
+	spin_selected_item(delta)
 
-func spin_items(delta):
+func spin_selected_item(delta):
 	var spin_step = item_spin_speed*delta
-	$Viewport/items.global_rotation.y -= spin_step
-	print($Viewport/items.global_rotation.y)
+	selected_item.global_rotation.y -= spin_step
+	print(selected_item.global_rotation.y)

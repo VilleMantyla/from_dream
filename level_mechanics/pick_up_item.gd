@@ -11,3 +11,4 @@ func _ready():
 
 func picked_up():
 	$model.hide()
+	get_parent().picked_up_item(get_node(item))

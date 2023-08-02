@@ -1,0 +1,134 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://_void/_void_battle_0.gd" type="Script" id=1]
+[ext_resource path="res://battle/noise_4.png" type="Texture" id=2]
+[ext_resource path="res://battle/noise_5.png" type="Texture" id=3]
+[ext_resource path="res://battle/noise_1.png" type="Texture" id=4]
+[ext_resource path="res://battle/noise_2.png" type="Texture" id=5]
+[ext_resource path="res://battle/noise_3.png" type="Texture" id=6]
+[ext_resource path="res://battle/noise_0.png" type="Texture" id=7]
+[ext_resource path="res://battle/battle_btm_layer_black.png" type="Texture" id=8]
+[ext_resource path="res://chat.gd" type="Script" id=9]
+[ext_resource path="res://fonts/NotoSansJP-Bold.ttf" type="DynamicFontData" id=10]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 7 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 2 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="Animation" id=2]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("blackness:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("noise:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("noise:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "begin"
+tracks/0/type = "value"
+tracks/0/path = NodePath("blackness:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("noise:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false, true, false, true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("noise:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ Color( 1, 1, 1, 0.392157 ) ]
+}
+
+[sub_resource type="DynamicFont" id=4]
+size = 32
+font_data = ExtResource( 10 )
+
+[sub_resource type="Theme" id=5]
+default_font = SubResource( 4 )
+
+[node name="_void_battle_0" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="blackness" type="Sprite" parent="."]
+texture = ExtResource( 8 )
+centered = false
+
+[node name="noise" type="AnimatedSprite" parent="."]
+visible = false
+scale = Vector2( 7.5, 5.625 )
+frames = SubResource( 1 )
+frame = 4
+speed_scale = 6.0
+playing = true
+centered = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 2 )
+anims/begin = SubResource( 3 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+margin_left = 514.0
+margin_top = 338.0
+margin_right = 1405.0
+margin_bottom = 649.0
+theme = SubResource( 5 )
+text = "TEST TEST TEST"
+script = ExtResource( 9 )

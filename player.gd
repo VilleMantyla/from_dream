@@ -39,7 +39,6 @@ var climb_padding = 0.25
 #var climb_distance = null
 #var mov_dist_cur = 0
 
-
 func _ready():
 	height = PLAYER_HEIGHT#global_transform.origin.y
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -109,7 +108,6 @@ func _process(delta):
 					new_pos, 0.4).set_trans(Tween.EASE_OUT)
 			elif looking_at_interactable.is_in_group("pick_up"):
 				looking_at_interactable.picked_up()
-				get_parent().get_node("fade_for_menu/AnimationPlayer").play("fade_in")
 
 func _physics_process(delta):
 	var space_state = get_world().direct_space_state
