@@ -84,6 +84,7 @@ centered = false
 position = Vector2( 288, 832 )
 scale = Vector2( 6, 6 )
 frames = SubResource( 5 )
+frame = 1
 speed_scale = 0.25
 playing = true
 

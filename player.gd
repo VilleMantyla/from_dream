@@ -102,7 +102,6 @@ func _process(delta):
 					new_pos.x = global_transform.origin.x
 					new_pos.x = clamp(new_pos.x, climb.limit_min, climb.limit_max)
 					new_pos.y += PLAYER_HEIGHT
-					
 					var tween = create_tween()
 					tween.tween_property(self, "global_transform:origin",\
 					new_pos, 0.4).set_trans(Tween.EASE_OUT)
@@ -122,7 +121,9 @@ func _process(delta):
 				rot_tween.tween_property(self, "global_rotation:y",\
 				new_roty, 1).set_trans(Tween.EASE_IN_OUT)
 				
-				looking_at_interactable.play_anim(1.25)
+				looking_at_interactable.play_anim(1.3)
+			elif looking_at_interactable.is_in_group("chain"):
+				looking_at_interactable.cut_chain()
 
 func _physics_process(delta):
 	var space_state = get_world().direct_space_state
@@ -163,11 +164,6 @@ func _physics_process(delta):
 		var result = $rotation_helper/RayCast.get_collider()
 		if result.is_in_group("interactable"):
 			looking_at_interactable = result
-			if result.is_in_group("ladder"):
-				pass
-#				emit_signal("show_context_msg", "ladder")
-#			else:
-#				emit_signal("hide_context_msg")
 		else:
 			looking_at_interactable = null
 			#emit_signal("hide_context_msg")
