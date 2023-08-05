@@ -1,7 +1,6 @@
 extends Area
 
-
-export (NodePath) var item
+export (Global.items) var item_name
 
 
 # Called when the node enters the scene tree for the first time.
@@ -11,4 +10,4 @@ func _ready():
 
 func picked_up():
 	$model.hide()
-	get_parent().picked_up_item(get_node(item))
+	get_parent().picked_up_item(item_name)

@@ -53,7 +53,7 @@ func _process(delta):
 			$menu_interact/AnimationPlayer.play("open_menu")
 		elif in_menu:
 			$menu_interact/AnimationPlayer.play("close_menu")
-
+var new_item = null
 func menu_interacted(anim):
 	if anim == "open_menu":
 		in_menu = true
@@ -61,9 +61,13 @@ func menu_interacted(anim):
 	elif anim == "close_menu":
 		in_menu = false
 		$Menu.activate_menu(false)
+	elif anim == "open_menu_new_item":
+		$Menu.activate_menu_with_new_item(new_item)
+		new_item = null
 
 func picked_up_item(item):
-	$menu_interact/AnimationPlayer.play("open_menu")
+	new_item = item
+	$menu_interact/AnimationPlayer.play("open_menu_new_item")
 
 #func open_menu():
 #	$fade_for_menu.hide()

@@ -43,6 +43,7 @@ void vertex() {
 
 void fragment() {
 	ALBEDO = albedo.rgb * texture(albedo_texture, UV).rgb;
+	ALPHA = albedo.a;
 }
 
 void light() {
