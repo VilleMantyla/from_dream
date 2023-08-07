@@ -5,8 +5,8 @@ export var y_rotation = 0
 var is_open = false
 
 func get_door_spot(loc):
-	var spot_a = $door_with_frame/door_spot_a.global_transform.origin
-	var spot_b = $door_with_frame/door_spot_b.global_transform.origin
+	var spot_a = $door/door_spot_a.global_transform.origin
+	var spot_b = $door/door_spot_b.global_transform.origin
 	
 	if spot_a.distance_to(loc) < spot_b.distance_to(loc):
 		return spot_a
@@ -18,8 +18,8 @@ func get_door_spot(loc):
 		return spot_b
 
 func get_roty(loc):
-	var spot_a = $door_with_frame/door_spot_a.global_transform.origin
-	var spot_b = $door_with_frame/door_spot_b.global_transform.origin
+	var spot_a = $door/door_spot_a.global_transform.origin
+	var spot_b = $door/door_spot_b.global_transform.origin
 	
 	if spot_a.distance_to(loc) < spot_b.distance_to(loc):
 		return deg2rad(y_rotation)
@@ -32,5 +32,5 @@ func play_anim(s):
 
 func _on_closedoor_body_exited(body):
 	if is_open:
-		$AnimationPlayer.play_backwards("open")
+		$AnimationPlayer.play("close", -1, 1.5)
 		is_open = false

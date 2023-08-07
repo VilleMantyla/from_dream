@@ -18,7 +18,6 @@ func _ready():
 	
 	$Chat.connect("chat_ended", self, "end_chat")
 	$Player.connect("show_context_msg", self, "show_context_msg")
-	$Player.connect("next_chat_text", self, "read_next_chat")
 	$menu_interact/AnimationPlayer.connect("animation_finished", self,\
 	"menu_interacted")
 	
@@ -53,6 +52,10 @@ func _process(delta):
 			$menu_interact/AnimationPlayer.play("open_menu")
 		elif in_menu:
 			$menu_interact/AnimationPlayer.play("close_menu")
+	if $Player.chatting:
+		if Input.is_action_just_pressed("interact"):
+			read_next_chat()
+
 var new_item = null
 func menu_interacted(anim):
 	if anim == "open_menu":
@@ -109,12 +112,14 @@ func show_character(code):
 
 func end_chat():
 	$Chat.hide()
-	$Player.disable_input(false)
+	#$Player.disable_input(false)
+	
 	$Player.chatting = false
 	$chat_bg.hide()
 	
 	print(cutscene_after_chat)
-	check_for_cutscene_after_chat()
+	if !check_for_cutscene_after_chat():
+		$Player.activate(true)
 	
 	if battle_on_hold:
 		enter_battle(battle_on_hold)
@@ -123,9 +128,10 @@ func end_chat():
 	$TVsprite.hide()
 
 func end_alt_chat():
-	$Player.disable_input(false)
+	#$Player.disable_input(false)
 	$Player.chatting = false
-	check_for_cutscene_after_chat()
+	if !check_for_cutscene_after_chat():
+		$Player.activate(true)
 	alt_chat_node = null
 
 func check_for_cutscene_after_chat():
@@ -136,8 +142,10 @@ func check_for_cutscene_after_chat():
 	elif cutscene_after_chat == "after_hazy_chat":
 		KILLING_TV("after_hazy_chat")
 	else:
+		print("no cutscene after chat")
 		return false
 	cutscene_after_chat = null
+	return true
 
 func enter_battle(enemy):
 	battle_on_hold = null
@@ -149,7 +157,7 @@ func enter_battle(enemy):
 func exit_battle():
 	$Battle.hide()
 	$Player.activate(true)
-	$Player.disable_input(false)
+	#$Player.disable_input(false)
 	print("fix player activate and disable input logic")
 
 func show_context_msg(key):
@@ -162,6 +170,7 @@ func read_next_chat():
 		$Chat.try_reading_next_paragraph()
 
 func interact_with_world_object(chat, focus_point, enemy):
+	$Player.activate(false)
 	if chat:
 		$Chat.show()
 		$chat_bg.show()
@@ -174,8 +183,6 @@ func interact_with_world_object(chat, focus_point, enemy):
 			battle_on_hold = enemy
 		else:
 			enter_battle(enemy)
-		
-	$Player.disable_input(true)
 
 func focus_on_point(focus_point):
 	var original_rot = $Player/rotation_helper.global_rotation
@@ -202,6 +209,7 @@ func focus_on_point(focus_point):
 var cutscene_after_chat = null
 
 func start_cutscene(cutscene_name):
+	$Player.activate(false)
 	current_scene = cutscene_name
 	if cutscene_name == cutscenes.FROM_TREE:
 		tv.global_transform.origin.y = 0
@@ -230,6 +238,7 @@ func start_cutscene(cutscene_name):
 func end_cutscene():
 	current_scene = null
 	$Player/rotation_helper/Camera.current = true
+	$Player.activate(true)
 
 func FROM_TREE(anim):
 	if anim == "getting_up":
@@ -255,6 +264,7 @@ func FROM_TREE(anim):
 		$Path/PathFollow.add_child(tv)
 		tv.global_transform.origin = Vector3.ZERO
 		$Path.start_a_path()
+		end_cutscene()
 
 func BANGING_ELEVATOR(anim):
 	if anim == "doors":
@@ -264,7 +274,6 @@ func BANGING_ELEVATOR(anim):
 		tween.tween_property($tv_3, "global_transform:origin:z", trgt, 0.8)
 		$Chat.show()
 		$Chat.start_chat_timed("res://texts/chat.json", "TV_fall_scream")
-		#$Sprite.show()
 	if anim == "fall_to_stuck":
 		$tv_3/AnimationPlayer.play("stuck")
 		$AnimationPlayer.play("rise")
@@ -326,9 +335,11 @@ func KILLING_TV(anim):
 		$_void_battle_0.hide()
 		$void2.hide()
 		var player_up_tween = create_tween()
+		player_up_tween.connect("finished", self, "end_cutscene")
 		#player_up_tween.connect("finished", self, "KILLING_TV", ["start_battle"])
 		$Player/rotation_helper.rotation.x = deg2rad(-65)
 		var cam_org_y = $Player/rotation_helper/Camera.global_transform.origin.y
 		$Player/rotation_helper/Camera.global_transform.origin.y += -1.2
 		player_up_tween.tween_property($Player/rotation_helper/Camera, \
 		"global_transform:origin:y", cam_org_y, 3).set_trans(Tween.EASE_OUT)
+		

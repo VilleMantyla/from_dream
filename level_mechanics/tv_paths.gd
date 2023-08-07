@@ -38,5 +38,5 @@ func _process(delta):
 	
 	if $PathFollow.get_unit_offset() == 1:
 		get_parent().get_node("house_entrance/outsidedoor").global_rotation.y = deg2rad(180)
-		get_parent().end_cutscene()
+		#get_parent().end_cutscene()
 		set_process(false)

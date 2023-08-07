@@ -23,7 +23,6 @@ var state = null
 
 signal show_context_msg
 signal hide_context_msg
-signal next_chat_text
 var chatting = false
 var looking_at_interactable = null
 
@@ -44,9 +43,11 @@ func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func activate(val):
+	set_process_input(val)
 	set_process(val)
 	set_physics_process(val)
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	if val:
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _input(event):
 	if event is InputEventMouseMotion:# and !stop_mouse_rot:
@@ -82,8 +83,6 @@ func _process(delta):
 	if Input.is_action_just_pressed("interact"):
 		if state == LADDER:
 			try_exit_ladder()
-		elif chatting:
-			emit_signal("next_chat_text")
 		elif looking_at_interactable:
 			if looking_at_interactable.is_in_group("ladder"):
 				var floor_n = set_active_ladder(looking_at_interactable)
@@ -180,10 +179,6 @@ func drop_player(fall_max, delta):
 		translation.y += fall_max
 		return true 
 
-func disable_input(val):
-	set_process_input(!val)
-	stop_player = val
-
 func climb_to_ladder(floor_n):
 	state = LADDER
 	
@@ -197,11 +192,11 @@ func try_exit_ladder():
 	var exit_data = active_ladder.get_next_exit_pos(translation.y-height,
 	translation.y, ladder_exit_range)
 	if exit_data:
-		print("got exit data")
+		print("got ladder exit data")
+		activate(false)
 		exit_ladder(exit_data[0], exit_data[1])
 
 func exit_ladder(exit_to_pos, exit_dir):
-	state = null
 	if exit_dir == Vector2(0,0):
 		#bottom
 		pass
@@ -232,6 +227,9 @@ func exit_ladder(exit_to_pos, exit_dir):
 		var new_rot_x = Vector3(deg2rad(-45),0,0)
 		var rotx_tween = create_tween()
 		rotx_tween.tween_property($rotation_helper, "rotation", new_rot_x, 1.8).set_trans(Tween.EASE_IN_OUT)
+		
+		#something more general later
+		rotx_tween.connect("finished", self, "on_ladder_exited")
 
 func climb_ladder(move_dir, delta):
 	var on_top_limit = translation.y + delta*move_dir*lad_climb_speed < active_ladder.top_max
@@ -248,6 +246,10 @@ func climb_ladder(move_dir, delta):
 func set_active_ladder(ladder_floor_area):
 	active_ladder = ladder_floor_area.get_parent()
 	return ladder_floor_area.floor_number
+
+func on_ladder_exited():
+	state = null
+	activate(true)
 
 func switch_area(new_area):
 	if new_area.slide_to_pos:

@@ -1,5 +1,6 @@
 shader_type spatial;
 
+render_mode depth_draw_alpha_prepass;
 //render_mode ambient_light_disabled;
 
 const float PI = 3.1415926536f;
