@@ -17,6 +17,9 @@ var turn_label_timer
 
 var bullets_left = 5
 
+enum states {WAIT, FIRE}
+var state = states.WAIT
+
 func _ready():
 	weapon_node = $pistol
 	change_weapon(weapons.PISTOL)
@@ -32,33 +35,12 @@ func _ready():
 	$pistol/Sprite/AnimationPlayer.get_animation("spin").set_loop(true)
 	$pistol/Sprite/AnimationPlayer.play("spin")
 
-##################
-## BONUS CIRCLE ##
-##################
-var center = Vector2.ZERO
-var radius = 100
-var point_count = 32
-var color = Color.yellow
-
-var speed = 80
-var radious_org = radius
-
-func _draw():
-	pass
-#	draw_arc(center, radius, 0, TAU, point_count, color)
-#	draw_arc(center, radius-1, 0, TAU, point_count, color)
-#	draw_arc(center, radius-2, 0, TAU, point_count, color)
-#	draw_arc(center, radius-3, 0, TAU, point_count, color)
-#	draw_arc(center, radius-4, 0, TAU, point_count, color)
-
 #################
 ## Bonus wheel ##
 #################
 var pistol_bonus_on = false
 func set_pistol_to_bonus(val):
 	pistol_bonus_on = val
-		
-
 
 func activate(e):
 	enemy = e
@@ -70,6 +52,12 @@ func deactivate():
 	enemy = null
 	set_process(false)
 	set_physics_process(false)
+
+func set_state_to_FIRE():
+	state = states.FIRE
+
+func set_state_to_WAIT():
+	state = states.WAIT
 
 func _process(delta): #could be changed to input
 	position = get_global_mouse_position()
@@ -83,25 +71,10 @@ func _process(delta): #could be changed to input
 		if get_parent().gp >= 500:
 			change_weapon(weapons.GRENADE_LAUCNHER)
 			get_parent().on_gp_drop(-500)
-	
-	# Bonus Circle
-	var step = speed*delta
-	if radius == 0:
-		radius = radious_org
-	elif radius - step > 0:
-		radius -= step
-	else:
-		radius = 0
-	
-	if radius < 39 and radius > 27:
-		color = Color.red
-	else:
-		color = Color.yellow
-	
-	update()
 
 func _physics_process(delta):
-	if Input.is_action_just_pressed("fire") and bullets_left > 0:
+	if state == states.FIRE and \
+	Input.is_action_just_pressed("fire") and bullets_left > 0:
 		spend_bullet()
 		
 		var space = get_world_2d().direct_space_state
@@ -110,17 +83,6 @@ func _physics_process(delta):
 		if weapon == weapons.PISTOL:
 			targets = pistol_collision_query(space)
 			$AudioStreamPlayer.play()
-			if pistol_bonus_on: #if radius < 39 and radius > 27:
-				get_parent().get_node("pistol_bang").global_position = get_global_mouse_position()
-				get_parent().get_node("pistol_bang/AnimationPlayer").play("bonus",-1,2)
-				get_parent().get_node("pistol_bang/AnimationPlayer").seek(0)
-				pistol_damage = 2
-			else:
-				get_parent().get_node("pistol_bang").global_position = get_global_mouse_position()
-				get_parent().get_node("pistol_bang/AnimationPlayer").play("normal",-1,2)
-				get_parent().get_node("pistol_bang/AnimationPlayer").seek(0)
-				pistol_damage = 1
-
 		elif weapon == weapons.GRENADE_LAUCNHER and $load_bar.value == 100:
 			targets = grenade_launcher_collision_query(space)
 			gl_explode.global_position = get_global_mouse_position()

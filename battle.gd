@@ -13,8 +13,6 @@ var enemy_appear_timer
 
 func _ready():
 	$weapons.connect("player_turn_completed", self, "switch_to_enemy_turn")
-	$battle_start_label/AnimationPlayer.connect("animation_finished", \
-	self, "on_battle_start_label_anim_finished")
 	
 	$dodge_arena/AnimationPlayer.connect("animation_finished", \
 	self, "activate_vi")
@@ -23,7 +21,6 @@ func _ready():
 	self, "on_bulletshooter_finished")
 	
 	for enemy in $Enemies.get_children():
-		#enemy.connect("appear_finished", self, "on_enemy_appear_anim_finished")
 		enemy.connect("enemy_died", self, "end_battle")
 		enemy.connect("gp_dropped", self, "on_gp_drop")
 		
@@ -43,6 +40,10 @@ func _input(event):
 	if event.is_action_pressed("interact") and leave_battle:
 		leave_battle()
 
+#battle start animation (show noise and signal found sprite):
+#first show 50% of animation, wait for (enemy_appear_timer) enemy to appear
+#then show the rest of animation (battle_start_100%)
+
 func start_battle(e):
 	enemy = e
 	show()
@@ -50,19 +51,17 @@ func start_battle(e):
 	$weapons.activate(enemy)
 	enemy.show()
 	
-	$noise_screen/AnimationPlayer.play("start_battle")
+	$noise_screen/AnimationPlayer.play("battle_start_50%")
 
 func noise_done(anim):
-	if anim == "start_battle":
-		enemy_appear_timer.wait_time = enemy.appear_and_activate()
+	if anim == "battle_start_50%":
+		enemy_appear_timer.wait_time = enemy.appear_and_prepare()
 		enemy_appear_timer.start()
+	elif anim == "battle_start_100%":
+		pass
 
 func enemy_appear_finished():
-	$battle_start_label/AnimationPlayer.play("idle",-1,1.5)
-
-func on_battle_start_label_anim_finished(anim):
-	if anim == "idle":
-		$battle_start_label/AnimationPlayer.play("go_away",-1,2)
+	$noise_screen/AnimationPlayer.play("battle_start_100%")
 
 func switch_to_player_turn():
 	pass
@@ -74,9 +73,6 @@ func activate_vi(anim):
 	if anim == "fade_in":
 		$vi.activate()
 		get_node("bulletshooter").activate()
-
-
-
 
 
 func on_gp_drop(val):
