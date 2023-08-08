@@ -11,14 +11,10 @@ var leave_battle = false
 
 var temp_timer
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	$weapons.connect("player_turn_completed", self, "switch_to_enemy_turn")
 	$battle_start_label/AnimationPlayer.connect("animation_finished", \
 	self, "on_battle_start_label_anim_finished")
-	
-#	$reload_text/AnimationPlayer.connect("animation_finished", \
-#	self, "on_turn_label_anim_finished")
 	
 	$dodge_arena/AnimationPlayer.connect("animation_finished", \
 	self, "activate_vi")
@@ -52,13 +48,16 @@ func start_battle(e):
 	show()
 	set_process_input(true)
 	$weapons.activate(enemy)
-	#enemy.activate()
 	enemy.show()
 	
 	$noise_screen.show()
 	$battle_start_label/AnimationPlayer.play("show_up2",-1,2)
 	$battle_start_label/AnimationPlayer.seek(0.6)
 	temp_timer.start()
+
+func noise_done(anim):
+	if anim == "fade_off":
+		enemy.activate()
 
 func switch_to_player_turn():
 	pass
@@ -75,14 +74,28 @@ func on_noise_timeout():
 	$noise_screen/AnimationPlayer.play("fade_off",-1,5)
 
 func on_enemy_appear_anim_finished():
-	
 	$battle_start_label/AnimationPlayer.play("idle",-1,1.5)
 
 func on_battle_start_label_anim_finished(anim):
 	if anim == "idle":
 		$battle_start_label/AnimationPlayer.play("go_away",-1,2)
-#	elif anim == "go_away":
-#		$turn_labels/AnimationPlayer.play("player_turn")
+
+func on_gp_drop(val):
+	gp += val
+	var gp_as_string = str(gp)
+	if gp_as_string.length() > 3:
+		var first_comma = gp_as_string.length() - 3
+		gp_as_string = gp_as_string.insert(first_comma, ",")
+	
+	$gp.text = "¥" + gp_as_string
+
+
+
+func on_bulletshooter_finished():
+	$vi.deactivate()
+	$weapons.reload()
+	$dodge_arena/AnimationPlayer.play("fade_out",-1,1.2)
+	$dodge_arena/dodge_box.hide()
 
 func end_battle():
 	enemy = null
@@ -102,22 +115,3 @@ func leave_battle():
 	$weapons.deactivate()
 	set_process_input(false)
 	emit_signal("leave_battle")
-
-func on_gp_drop(val):
-	gp += val
-	var gp_as_string = str(gp)
-	if gp_as_string.length() > 3:
-		var first_comma = gp_as_string.length() - 3
-		gp_as_string = gp_as_string.insert(first_comma, ",")
-	
-	$gp.text = "¥" + gp_as_string
-
-func noise_done(anim):
-	if anim == "fade_off":
-		enemy.activate()
-
-func on_bulletshooter_finished():
-	$vi.deactivate()
-	$weapons.reload()
-	$dodge_arena/AnimationPlayer.play("fade_out",-1,1.2)
-	$dodge_arena/dodge_box.hide()

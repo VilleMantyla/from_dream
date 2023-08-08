@@ -10,7 +10,7 @@ var battle_on_hold = null
 var alt_chat_node = null
 
 var interactables = {
-	"ladder" : "press space to cilmb"
+	"ladder" : "press space to climb"
 }
 
 func _ready():
@@ -41,7 +41,7 @@ func _ready():
 	$void2/AnimationPlayer.get_animation("holding_tv_idle").set_loop(true)
 	$void2/AnimationPlayer.play("holding_tv_idle")
 	$tv_2_floor/AnimationPlayer.get_animation("let_me_go").set_loop(true)
-	$tv_2_floor/AnimationPlayer.play("let_me_go",-1,1.5)	
+	$tv_2_floor/AnimationPlayer.play("let_me_go",-1,1.5)
 
 
 var flip_open = true
@@ -55,6 +55,10 @@ func _process(delta):
 	if $Player.chatting:
 		if Input.is_action_just_pressed("interact"):
 			read_next_chat()
+	
+	###for testing purposes only###
+	if Input.is_action_just_pressed("debug_btn_1"):
+		FREE_ELEVATOR()
 
 var new_item = null
 func menu_interacted(anim):
@@ -157,8 +161,6 @@ func enter_battle(enemy):
 func exit_battle():
 	$Battle.hide()
 	$Player.activate(true)
-	#$Player.disable_input(false)
-	print("fix player activate and disable input logic")
 
 func show_context_msg(key):
 	$context_msg.text = interactables[key]
@@ -343,3 +345,12 @@ func KILLING_TV(anim):
 		player_up_tween.tween_property($Player/rotation_helper/Camera, \
 		"global_transform:origin:y", cam_org_y, 3).set_trans(Tween.EASE_OUT)
 		
+
+func FREE_ELEVATOR():
+	$house_build_ver2/fake_lift.hide()
+	$tv_3.hide()
+	$glitch_suckers.hide()
+	$tv3_static_body/CollisionShape.disabled = true
+	$house_build_ver2/elevatordoorbottom1.global_transform.origin.x += 0.5
+	$house_build_ver2/elevatordoorbottom2.global_transform.origin.x -= 0.5
+	
