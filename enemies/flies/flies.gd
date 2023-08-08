@@ -3,6 +3,8 @@ extends Node2D
 signal enemy_died
 signal gp_dropped
 
+export (NodePath) var bullet_pattern
+
 var part_count = 0
 
 var flies
@@ -11,6 +13,7 @@ var normal_speed = 400
 var appear_time = 1.0
 
 func _ready():
+	bullet_pattern = get_node(bullet_pattern)
 	deactivate()
 
 func appear_and_prepare():

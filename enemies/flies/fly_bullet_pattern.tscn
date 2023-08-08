@@ -14,10 +14,12 @@ _data = {
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
+visible = false
 texture = ExtResource( 4 )
 centered = false
 
 [node name="Sprite2" type="Sprite" parent="."]
+visible = false
 position = Vector2( 960, 540 )
 texture = ExtResource( 3 )
 

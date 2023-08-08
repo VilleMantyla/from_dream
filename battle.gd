@@ -20,11 +20,11 @@ func _ready():
 	$bulletshooter.connect("bulletshooter_finished", \
 	self, "on_bulletshooter_finished")
 	
-	for enemy in $Enemies.get_children():
-		enemy.connect("enemy_died", self, "end_battle")
-		enemy.connect("gp_dropped", self, "on_gp_drop")
+	for e in $Enemies.get_children():
+		e.connect("enemy_died", self, "end_battle")
+		e.connect("gp_dropped", self, "on_gp_drop")
 		
-		enemy.hide()
+		e.hide()
 	
 	set_process_input(false)
 	
@@ -46,6 +46,7 @@ func _input(event):
 
 func start_battle(e):
 	enemy = e
+	$bulletshooter.set_pattern(e.bullet_pattern)
 	show()
 	set_process_input(true)
 	$weapons.activate(enemy)

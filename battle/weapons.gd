@@ -11,10 +11,6 @@ var gl_explode
 
 var enemy = null
 
-var battle_player
-
-var turn_label_timer
-
 var bullets_left = 5
 
 enum states {WAIT, FIRE}
@@ -29,8 +25,6 @@ func _ready():
 	
 	set_process(false)
 	set_physics_process(false)
-	
-	battle_player = get_parent()
 	
 	$pistol/Sprite/AnimationPlayer.get_animation("spin").set_loop(true)
 	$pistol/Sprite/AnimationPlayer.play("spin")
