@@ -9,7 +9,7 @@ var enemy
 
 var leave_battle = false
 
-var temp_timer
+var enemy_appear_timer
 
 func _ready():
 	$weapons.connect("player_turn_completed", self, "switch_to_enemy_turn")
@@ -23,7 +23,7 @@ func _ready():
 	self, "on_bulletshooter_finished")
 	
 	for enemy in $Enemies.get_children():
-		enemy.connect("appear_finished", self, "on_enemy_appear_anim_finished")
+		#enemy.connect("appear_finished", self, "on_enemy_appear_anim_finished")
 		enemy.connect("enemy_died", self, "end_battle")
 		enemy.connect("gp_dropped", self, "on_gp_drop")
 		
@@ -31,13 +31,13 @@ func _ready():
 	
 	set_process_input(false)
 	
-	temp_timer = Timer.new()
-	temp_timer.wait_time = 1
-	temp_timer.one_shot = true
-	temp_timer.connect("timeout", self, "on_noise_timeout")
-	add_child(temp_timer)
-	
 	$noise_screen/AnimationPlayer.connect("animation_finished", self, "noise_done")
+	
+	enemy_appear_timer = Timer.new()
+	enemy_appear_timer.wait_time = 1000
+	enemy_appear_timer.one_shot = true
+	enemy_appear_timer.connect("timeout", self, "enemy_appear_finished")
+	add_child(enemy_appear_timer)
 
 func _input(event):
 	if event.is_action_pressed("interact") and leave_battle:
@@ -50,14 +50,19 @@ func start_battle(e):
 	$weapons.activate(enemy)
 	enemy.show()
 	
-	$noise_screen.show()
-	$battle_start_label/AnimationPlayer.play("show_up2",-1,2)
-	$battle_start_label/AnimationPlayer.seek(0.6)
-	temp_timer.start()
+	$noise_screen/AnimationPlayer.play("start_battle")
 
 func noise_done(anim):
-	if anim == "fade_off":
-		enemy.activate()
+	if anim == "start_battle":
+		enemy_appear_timer.wait_time = enemy.appear_and_activate()
+		enemy_appear_timer.start()
+
+func enemy_appear_finished():
+	$battle_start_label/AnimationPlayer.play("idle",-1,1.5)
+
+func on_battle_start_label_anim_finished(anim):
+	if anim == "idle":
+		$battle_start_label/AnimationPlayer.play("go_away",-1,2)
 
 func switch_to_player_turn():
 	pass
@@ -70,15 +75,9 @@ func activate_vi(anim):
 		$vi.activate()
 		get_node("bulletshooter").activate()
 
-func on_noise_timeout():
-	$noise_screen/AnimationPlayer.play("fade_off",-1,5)
 
-func on_enemy_appear_anim_finished():
-	$battle_start_label/AnimationPlayer.play("idle",-1,1.5)
 
-func on_battle_start_label_anim_finished(anim):
-	if anim == "idle":
-		$battle_start_label/AnimationPlayer.play("go_away",-1,2)
+
 
 func on_gp_drop(val):
 	gp += val
@@ -88,8 +87,6 @@ func on_gp_drop(val):
 		gp_as_string = gp_as_string.insert(first_comma, ",")
 	
 	$gp.text = "¥" + gp_as_string
-
-
 
 func on_bulletshooter_finished():
 	$vi.deactivate()

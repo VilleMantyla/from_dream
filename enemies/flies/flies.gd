@@ -9,10 +9,12 @@ var part_count = 0
 var flies
 var normal_speed = 400
 
+var appear_time = 1.0
+
 func _ready():
 	deactivate()
 
-func activate():
+func appear_and_activate():
 	var rng = RandomNumberGenerator.new()
 	var appear = get_child(0).get_node("AnimationPlayer")
 	appear.connect("animation_finished", self, "on_part_animation_finished")
@@ -25,6 +27,8 @@ func activate():
 		
 	part_count = get_children().size()
 	flies = get_children()
+	
+	return appear_time
 
 func deactivate():
 	for fly in get_children():

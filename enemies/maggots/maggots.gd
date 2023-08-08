@@ -16,8 +16,6 @@ func _ready():
 	for maggot in get_children():
 		var ap = maggot.get_node("AnimationPlayer")
 		ap.connect("animation_finished", self, "on_animation_finished", [maggot])
-	
-	
 
 func activate():
 	for maggot in get_children():
@@ -26,7 +24,7 @@ func activate():
 	part_count = get_children().size()
 	appear_count = part_count
 	dead = false
-	play_appear_anim()
+	#play_appear_anim()
 
 func deactivate():
 	for maggot in get_children():
