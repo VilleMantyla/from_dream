@@ -14,6 +14,7 @@ func _ready():
 	set_process(false)
 
 func run_pattern():
+	reset_pattern()
 	set_process(true)
 
 func reset_pattern():

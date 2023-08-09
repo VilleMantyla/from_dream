@@ -11,7 +11,7 @@ func set_pattern(pattern):
 	active_pattern = pattern
 
 func activate():
-	active_pattern.reset_pattern()
+	#active_pattern.reset_pattern()
 	active_pattern.run_pattern()
 
 #func _on_bullet_area_area_exited(area):

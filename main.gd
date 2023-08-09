@@ -347,7 +347,8 @@ func KILLING_TV(anim):
 		
 
 func FREE_ELEVATOR():
-	$house_build_ver2/fake_lift.hide()
+	$house_build_ver2/fake_lift_floor.hide()
+	$house_build_ver2/fake_lift_car.hide()
 	$tv_3.hide()
 	$glitch_suckers.hide()
 	$tv3_static_body/CollisionShape.disabled = true
