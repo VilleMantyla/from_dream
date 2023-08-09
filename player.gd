@@ -113,14 +113,13 @@ func _process(delta):
 				new_loc.y = global_transform.origin.y
 				var location_tween = create_tween()
 				location_tween.tween_property(self, "global_transform:origin",\
-				new_loc, 1).set_trans(Tween.EASE_IN_OUT)
+				new_loc, 0.7).set_trans(Tween.EASE_IN_OUT)
 
 				var new_roty = looking_at_interactable.get_roty(global_transform.origin,\
 				global_rotation)
 				var rot_tween = create_tween()
-				rot_tween.connect("finished",self,"silly_test")
 				rot_tween.tween_property(self, "global_rotation:y",\
-				new_roty, 1).set_trans(Tween.EASE_IN_OUT)
+				new_roty, 0.7).set_trans(Tween.EASE_IN_OUT)
 				
 				looking_at_interactable.play_anim(1.3)
 			elif looking_at_interactable.is_in_group("chain"):
