@@ -25,18 +25,12 @@ func appear_and_prepare():
 		var pf = fly.get_node("Path2D/PathFollow2D")
 		#var random_offset = rng.randf_range(0.0, 1.0)
 		#pf.set_unit_offset(pf.get_unit_offset()+random_offset)
-		fly.get_node("AnimationPlayer").play("appear",-1,1)
+		fly.get_node("AnimationPlayer").play("appear",-1,1/appear_time)
 		
 	part_count = get_children().size()
 	flies = get_children()
 	
 	return appear_time
-
-func deactivate():
-	for fly in get_children():
-		fly.disable_collisionshape(true)
-	
-	set_process(false)
 
 func on_part_animation_finished(anim):
 	if anim == "appear":
@@ -44,6 +38,11 @@ func on_part_animation_finished(anim):
 		var empty_tween = create_tween()
 		empty_tween.connect("finished",self,"activate")
 		empty_tween.tween_property(empty_node, "position",Vector2.ZERO,1)
+
+func deactivate():
+	for fly in get_children():
+		fly.disable_collisionshape(true)
+	set_process(false)
 
 func activate():
 	set_process(true)
