@@ -1,9 +1,7 @@
 extends Node2D
 
-
 var speed = 400
 var delay_between_flies = 1.0
-#maybe later an array structure for each fly with speed and delay
 const run_time = 5.5 #seconds till this pattern is finished
 
 var flies = []
@@ -33,7 +31,6 @@ func run_pattern():
 	disable_colliders(false)
 	set_process(true)
 
-var dead_flies = []
 func _process(delta):
 	for fly in flies:
 		if fly.delay <= 0:
