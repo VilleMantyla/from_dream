@@ -77,6 +77,16 @@ func _physics_process(delta):
 		if weapon == weapons.PISTOL:
 			targets = pistol_collision_query(space)
 			$AudioStreamPlayer.play()
+			if pistol_bonus_on:
+				get_parent().get_node("pistol_bang").global_position = get_global_mouse_position()
+				get_parent().get_node("pistol_bang/AnimationPlayer").play("bonus",-1,2)
+				get_parent().get_node("pistol_bang/AnimationPlayer").seek(0)
+				pistol_damage = 2
+			else:
+				get_parent().get_node("pistol_bang").global_position = get_global_mouse_position()
+				get_parent().get_node("pistol_bang/AnimationPlayer").play("normal",-1,2)
+				get_parent().get_node("pistol_bang/AnimationPlayer").seek(0)
+				pistol_damage = 1
 		elif weapon == weapons.GRENADE_LAUCNHER and $load_bar.value == 100:
 			targets = grenade_launcher_collision_query(space)
 			gl_explode.global_position = get_global_mouse_position()

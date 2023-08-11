@@ -6,7 +6,7 @@ signal gp_dropped
 export (NodePath) var bullet_pattern
 
 var wait_before_slide = 0.01
-var slide_dist = 300
+var slide_dist = 200
 var slide_dirs = [Vector2(0,-1), Vector2(0.707, -0.707), Vector2(1,0),\
 Vector2(0.707, 0.707), Vector2(0,1),Vector2(-0.707, 0.707),\
 Vector2(-1,0), Vector2(-0.707, -0.707)]
@@ -24,8 +24,6 @@ var big_slimes = []
 enum slime_ids {BIG, SMALL}
 var part_count = -1
 
-var stop_sliding = false
-
 func _ready():
 	bullet_pattern = get_node(bullet_pattern)
 	
@@ -38,11 +36,13 @@ func _ready():
 		slime.id = slime_ids.BIG
 		for small_slime in slime.get_node("small_slimes").get_children():
 			small_slime.id = slime_ids.SMALL
-			part_count += 1
-			small_slime.hide()
+	
+	deactivate_and_reset()
 	
 	slide_path = slide_eight
 	shape_max_i = slide_path.size()-1
+	
+	set_process(false)
 
 func _process(delta):
 	if Input.is_action_just_pressed("debug_btn_1"):
@@ -53,18 +53,30 @@ func appear_and_prepare():
 	appear.connect("animation_finished", self, "on_part_animation_finished")
 	for slime in big_slimes:
 		slime.get_node("big_slime/AnimationPlayer").play("appear", -1, 1/appear_time)
+		slime.disable_collisionshape(false)
 	
 	return appear_time
 
 func on_part_animation_finished(anim):
+	activate()
 	if anim == "appear":
 		var empty_node = Node2D.new()
 		var empty_tween = create_tween()
-		empty_tween.connect("finished",self,"activate")
+		#empty_tween.connect("finished",self,"activate")
 		empty_tween.tween_property(empty_node, "position", Vector2.ZERO,1)
 
 func activate():
 	slide()
+
+func deactivate_and_reset():
+	part_count = 0
+	for slime in big_slimes:
+		slime.disable_collisionshape(true)
+		slime.show()
+		for small_slime in slime.get_node("small_slimes").get_children():
+			small_slime.disable_collisionshape(true)
+			part_count += 1
+			small_slime.hide()
 
 func slide_to_random_dir():
 	var slime = $slime/big_slime
@@ -80,32 +92,32 @@ func slide_to_random_dir():
 	slide_tween.tween_property(slime, "global_position", new_pos, 0.5).set_trans(Tween.EASE_IN_OUT)
 
 func slide():
-	if stop_sliding:
-		return
 	var timer_tween = create_tween()
 	var empty_node2d = Node2D.new()
 	timer_tween.connect("finished", self , "slide_to_random_dir")
 	timer_tween.tween_property(empty_node2d, "position", Vector2.ZERO, wait_before_slide)
 
 func break_to_small_slimes(slime):
-	stop_sliding = true
+	slime.disable_collisionshape(true)
 	var big_slime = slime.get_node("big_slime")
 	big_slime.hide()
 	var center_pos = big_slime.global_position
-	var i = 2
+	var i = 1
 	for small_slime in slime.get_node("small_slimes").get_children():
-		small_slime.global_position = center_pos+slide_dirs[i] * 50
-		var new_pos = small_slime.global_position+slide_dirs[i] * 150
-		var slide_tween = create_tween()
-		slide_tween.tween_property(small_slime, "global_position", new_pos, 0.5).set_trans(Tween.EASE_IN_OUT)
+		small_slime.global_position = center_pos+slide_dirs[i] * 30
+		#var new_pos = small_slime.global_position+slide_dirs[i] * 150
+		#var slide_tween = create_tween()
+		#slide_tween.tween_property(small_slime, "global_position", new_pos, 0.5).set_trans(Tween.EASE_IN_OUT)
 		small_slime.show()
-		i += 1
-	
+		small_slime.disable_collisionshape(false)
+		small_slime.velocity = slide_dirs[i]*390
+		small_slime.set_physics_process(true)
+		i += 2
 #	var timer_tween = create_tween()
 #	var empty_node2d = Node2D.new()
 #	timer_tween.connect("finished", self , "join_to_big_slime", [slime])
 #	timer_tween.tween_property(empty_node2d, "position", Vector2.ZERO, 0.5)
-#
+
 #func join_to_big_slime(slime):
 #	var big_slime = slime.get_node("big_slime")
 #	var center_pos = big_slime.global_position
@@ -137,9 +149,9 @@ func damage_to_part(part, dmg):
 	if part.id == slime_ids.SMALL:
 		if part.hp <= 0:
 			part.disable_collisionshape(true)
-			#part.hide()
+			part.hide()
 			part_count -= 1
-			emit_signal("gp", 1)
+			emit_signal("gp_dropped", 1)
 #	if part.hp <= 0:
 #		part.hide()
 #		part.disable_collisionshape(true)
@@ -147,5 +159,5 @@ func damage_to_part(part, dmg):
 #	else:
 #		part.get_node("AnimationPlayer").play("damaged")
 #
-#	if part_count == 0:
-#		emit_signal("enemy_died")
+	if part_count == 0:
+		emit_signal("enemy_died")
