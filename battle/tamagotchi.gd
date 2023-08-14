@@ -66,6 +66,7 @@ func move(delta, dir):
 	position = new_pos
 
 func _on_tamagotchi_area_entered(area):
+	print_debug("vi got hit by " + str(area.name))
 	if god_mode:
 		return
 	$AnimationPlayer.play("hit",-1,4.5)
