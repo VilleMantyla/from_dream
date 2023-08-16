@@ -6,6 +6,8 @@ var weapon
 enum weapons {PISTOL, GRENADE_LAUCNHER}
 var weapon_node
 var pistol_damage = 1
+var pistol_normal_damage = 10
+var pistol_crit_damage = 2
 var grenade_launcher_damage = 5
 var gl_explode
 
@@ -86,7 +88,7 @@ func _physics_process(delta):
 				get_parent().get_node("pistol_bang").global_position = get_global_mouse_position()
 				get_parent().get_node("pistol_bang/AnimationPlayer").play("normal",-1,2)
 				get_parent().get_node("pistol_bang/AnimationPlayer").seek(0)
-				pistol_damage = 1
+				pistol_damage = pistol_normal_damage
 		elif weapon == weapons.GRENADE_LAUCNHER and $load_bar.value == 100:
 			targets = grenade_launcher_collision_query(space)
 			gl_explode.global_position = get_global_mouse_position()

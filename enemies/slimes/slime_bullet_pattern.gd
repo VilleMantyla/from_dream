@@ -5,11 +5,14 @@ var delays = [0,2]
 var speeds = [4,8]
 var positions = [Vector2(960,-200), Vector2(1026,-200)]
 
-const run_time = 6.5
+const run_time = 6.2
 var run_time_count = run_time
 
 func _ready():
 	slimes = get_children()
+	
+	reset_pattern()
+	
 	set_process(false)
 
 func _process(delta):

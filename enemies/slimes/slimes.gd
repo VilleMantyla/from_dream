@@ -12,15 +12,10 @@ Vector2(0.707, 0.707), Vector2(0,1),Vector2(-0.707, 0.707),\
 Vector2(-1,0), Vector2(-0.707, -0.707)]
 
 #slide shape(s)
-#enum slide_spahes {EIGHT}
-#var slide_dict = {
-#	slide_spahes.EIGHT : [1,3,5,7,7,5,3,1]
-#}
 var slide_eight = [1,3,5,7,7,5,3,1]
 var slide_eight2 = [5,7,1,3,3,1,7,5]
-#var shape_i = 0
-#var shape_max_i = -1
-#var slide_path = null
+
+var small_slime_speed = 420
 
 var rng
 var appear_time = 1.0
@@ -63,11 +58,11 @@ func appear_and_prepare():
 
 func on_part_animation_finished(anim):
 	activate()
-	if anim == "appear":
-		var empty_node = Node2D.new()
-		var empty_tween = create_tween()
-		#empty_tween.connect("finished",self,"activate")
-		empty_tween.tween_property(empty_node, "position", Vector2.ZERO,1)
+#	if anim == "appear":
+#		var empty_node = Node2D.new()
+#		var empty_tween = create_tween()
+#		#empty_tween.connect("finished",self,"activate")
+#		empty_tween.tween_property(empty_node, "position", Vector2.ZERO,1)
 
 func activate():
 	for slime in slimes:
@@ -118,7 +113,7 @@ func break_to_small_slimes(slime):
 		#slide_tween.tween_property(small_slime, "global_position", new_pos, 0.5).set_trans(Tween.EASE_IN_OUT)
 		small_slime.show()
 		small_slime.disable_collisionshape(false)
-		small_slime.velocity = slide_dirs[i]*390
+		small_slime.velocity = slide_dirs[i]*small_slime_speed
 		small_slime.set_physics_process(true)
 		i += 2
 #	var timer_tween = create_tween()

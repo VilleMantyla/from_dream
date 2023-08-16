@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://enemies/roach_and_flies/roach_and_flies.gd" type="Script" id=1]
+[ext_resource path="res://enemies/roach_and_flies/cockroach.tscn" type="PackedScene" id=2]
+[ext_resource path="res://enemies/flies/fly.tscn" type="PackedScene" id=3]
+
+[node name="roach_and_flies" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="cockroach" parent="." instance=ExtResource( 2 )]
+position = Vector2( 968, 408 )
+
+[node name="fly" parent="." instance=ExtResource( 3 )]
+position = Vector2( 432, 264 )

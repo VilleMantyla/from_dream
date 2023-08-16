@@ -8,7 +8,7 @@ export (NodePath) var bullet_pattern
 var part_count = 0
 
 var flies
-var normal_speed = 400
+var speed = 400
 
 var appear_time = 1.0
 
@@ -17,9 +17,9 @@ func _ready():
 	deactivate()
 
 func appear_and_prepare():
-	var rng = RandomNumberGenerator.new()
-	var appear = get_child(0).get_node("AnimationPlayer")
-	appear.connect("animation_finished", self, "on_part_animation_finished")
+	#var rng = RandomNumberGenerator.new()
+	var animation_player = get_child(0).get_node("AnimationPlayer")
+	animation_player.connect("animation_finished", self, "animation_finished")
 	for fly in get_children():
 		fly.disable_collisionshape(false)
 		var pf = fly.get_node("Path2D/PathFollow2D")
@@ -32,7 +32,7 @@ func appear_and_prepare():
 	
 	return appear_time
 
-func on_part_animation_finished(anim):
+func animation_finished(anim):
 	if anim == "appear":
 		var empty_node = Node2D.new()
 		var empty_tween = create_tween()
@@ -50,7 +50,7 @@ func activate():
 func _process(delta):
 	for fly in flies:
 		var pf = fly.get_node("Path2D/PathFollow2D")
-		pf.set_offset(pf.get_offset()+normal_speed*delta)
+		pf.set_offset(pf.get_offset()+speed*delta)
 
 func take_damage(parts, dmg):
 	for part in parts:

@@ -21,6 +21,9 @@ func _ready():
 	limit_min.y += 38.5
 	limit_max.x -= 33.5
 	limit_max.y -= 38
+	
+	if god_mode:
+		print_debug("god mode on")
 
 func activate():
 	set_process(true)
