@@ -15,7 +15,8 @@ func _ready():
 
 func activate_menu(val):
 	if val:
-		set_process(true)
+		#set_process(true)
+		pass
 	else:
 		set_process(false)
 		selected_item.global_rotation.y = 0

@@ -89,9 +89,8 @@ texture = ExtResource( 1 )
 centered = false
 
 [node name="device_name" type="Sprite" parent="."]
-modulate = Color( 0.592157, 0.0196078, 0.0196078, 0.341176 )
-position = Vector2( 960, 528 )
-scale = Vector2( 3, 3 )
+visible = false
+position = Vector2( 1576, 392 )
 texture = ExtResource( 8 )
 
 [node name="vi" type="AnimatedSprite" parent="."]
@@ -107,7 +106,7 @@ scale = Vector2( 3, 3 )
 texture = ExtResource( 9 )
 
 [node name="item_view" type="Sprite" parent="."]
-position = Vector2( 960, 530 )
+position = Vector2( 960, 450 )
 scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 4 )
 
@@ -153,18 +152,32 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -50, 0.1 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -50, 0 )
 
 [node name="riris_bracelet" type="MeshInstance" parent="Viewport/items"]
-transform = Transform( 0.965902, -0.0714402, -0.248858, 0.00218588, 0.963394, -0.268079, 0.2589, 0.258394, 0.9307, 0, 0, 0 )
+transform = Transform( 0.965902, -0.0714402, -0.248858, 0.00218588, 0.963394, -0.268079, 0.2589, 0.258394, 0.9307, 0, 0, -0.0216641 )
 mesh = SubResource( 1 )
 
 [node name="anglegrinder" type="MeshInstance" parent="Viewport/items"]
-transform = Transform( -0.282843, -0.282843, -6.03983e-08, -0.282843, 0.282843, -2.47269e-08, 6.01926e-08, 2.52235e-08, -0.4, 0.202433, -0.0355492, -0.0497198 )
+transform = Transform( -0.282843, -0.282843, -6.03983e-08, -0.244479, 0.244479, 0.201148, -0.142233, 0.142233, -0.345745, 0.042622, -0.0359993, -0.224818 )
+visible = false
 mesh = SubResource( 8 )
 skeleton = NodePath("")
 
 [node name="RichTextLabel3" type="RichTextLabel" parent="."]
 margin_left = 584.0
-margin_top = 112.0
+margin_top = 48.0
 margin_right = 1536.0
-margin_bottom = 360.0
+margin_bottom = 296.0
+mouse_filter = 2
 theme = SubResource( 10 )
 text = "CHAT       ITEMS       OPTIONS"
+
+[node name="RichTextLabel4" type="RichTextLabel" parent="."]
+visible = false
+margin_left = 1440.0
+margin_top = 240.0
+margin_right = 1808.0
+margin_bottom = 632.0
+mouse_filter = 2
+theme = SubResource( 10 )
+text = "ITEMS
+CHAT
+OPTIONS"
