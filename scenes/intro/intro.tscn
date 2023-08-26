@@ -1,0 +1,114 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://player.gd" type="Script" id=1]
+[ext_resource path="res://scenes/intro/intro.gd" type="Script" id=2]
+[ext_resource path="res://level_models/0-intro_cliff/road_near_cliff.glb" type="PackedScene" id=3]
+[ext_resource path="res://riri_model_jump.gd" type="Script" id=4]
+
+[sub_resource type="CapsuleShape" id=174]
+radius = 0.180992
+height = 0.289756
+
+[sub_resource type="ProceduralSky" id=176]
+sky_top_color = Color( 0, 0, 0, 1 )
+sky_horizon_color = Color( 0, 0, 0, 1 )
+sky_curve = 0.237512
+sky_energy = 0.0
+sun_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="Environment" id=175]
+background_sky = SubResource( 176 )
+background_energy = 10.0
+ambient_light_color = Color( 0.145098, 0.117647, 0.117647, 1 )
+ambient_light_energy = 2.0
+ambient_light_sky_contribution = 0.0
+fog_enabled = true
+fog_color = Color( 0.176471, 0.168627, 0.168627, 1 )
+fog_sun_color = Color( 1, 0.666667, 0, 1 )
+fog_depth_begin = 0.0
+fog_depth_end = 10.0
+
+[sub_resource type="BoxShape" id=426]
+extents = Vector3( 3.18847, 1, 1 )
+
+[sub_resource type="CapsuleMesh" id=423]
+
+[sub_resource type="Animation" id=424]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( -6.48623, 0, -8.0788 ) ]
+}
+
+[sub_resource type="Animation" id=425]
+resource_name = "jump"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( -6.48623, 0, -8.0788 ), Vector3( -7.79527, -0.286687, -9.40356 ), Vector3( -9.08921, -27.9044, -10.1582 ) ]
+}
+
+[node name="intro" type="Node"]
+script = ExtResource( 2 )
+
+[node name="Player" type="KinematicBody" parent="."]
+transform = Transform( 1, 0, 1.12852e-06, 0, 1, 0, -1.12852e-06, 0, 1, -0.389708, 4.82092, 13.6715 )
+collision_layer = 2
+collision_mask = 5
+script = ExtResource( 1 )
+
+[node name="rotation_helper" type="Spatial" parent="Player"]
+
+[node name="Camera" type="Camera" parent="Player/rotation_helper"]
+
+[node name="RayCast" type="RayCast" parent="Player/rotation_helper"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 3.57628e-07, 0 )
+enabled = true
+collision_mask = 4
+collide_with_areas = true
+
+[node name="CollisionShape" type="CollisionShape" parent="Player"]
+transform = Transform( 1, 1.0411e-06, 1.0411e-06, -1.0411e-06, -4.37114e-08, 1, 1.0411e-06, -1, -4.37103e-08, 0, -0.736834, 0 )
+shape = SubResource( 174 )
+
+[node name="OmniLight" type="OmniLight" parent="Player"]
+omni_range = 3.0
+
+[node name="road_near_cliff" parent="." instance=ExtResource( 3 )]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 175 )
+
+[node name="riri_jump" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 16.5728, 0, -50.8209 )
+
+[node name="CollisionShape" type="CollisionShape" parent="riri_jump"]
+transform = Transform( 0.860146, 0, 0.510048, 0, 1, 0, -0.510048, 0, 0.860146, 1.89761, 0.829362, 2.00327 )
+shape = SubResource( 426 )
+
+[node name="riri_model_jump" type="MeshInstance" parent="riri_jump"]
+transform = Transform( 0.235699, -0.185596, 1.35211e-08, 0, -1.31134e-08, -0.5, 0.185596, 0.235699, -1.71712e-08, -6.48623, 0, -8.0788 )
+mesh = SubResource( 423 )
+skeleton = NodePath("../..")
+script = ExtResource( 4 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="riri_jump/riri_model_jump"]
+anims/RESET = SubResource( 424 )
+anims/jump = SubResource( 425 )
+
+[connection signal="body_entered" from="riri_jump" to="riri_jump/riri_model_jump" method="_on_Area_body_entered"]
