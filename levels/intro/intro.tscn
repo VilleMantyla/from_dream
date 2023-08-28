@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=2]
+[gd_scene load_steps=48 format=2]
 
 [ext_resource path="res://player.gd" type="Script" id=1]
 [ext_resource path="res://levels/intro/intro.gd" type="Script" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://sounds/riri_escape.wav" type="AudioStream" id=8]
 [ext_resource path="res://level_models/0-intro_cliff/sprites/misc_colors.png" type="Texture" id=9]
 [ext_resource path="res://level_models/0-intro_cliff/sprites/road.png" type="Texture" id=10]
+[ext_resource path="res://battle/battle_bar_top.png" type="Texture" id=11]
 
 [sub_resource type="ProceduralSky" id=176]
 sky_top_color = Color( 0, 0, 0, 1 )
@@ -478,6 +479,108 @@ tracks/1/keys = {
 } ]
 }
 
+[sub_resource type="Animation" id=463]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("top_bar:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("btm_bar:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 936 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("top_bar:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("btm_bar:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=464]
+resource_name = "bars_away"
+tracks/0/type = "value"
+tracks/0/path = NodePath("top_bar:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, -164 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("btm_bar:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 936 ), Vector2( 0, 1080 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("top_bar:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("btm_bar:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
 [node name="intro" type="Node"]
 script = ExtResource( 2 )
 
@@ -485,7 +588,7 @@ script = ExtResource( 2 )
 environment = SubResource( 175 )
 
 [node name="Player" type="KinematicBody" parent="."]
-transform = Transform( 0.956677, 0, -0.291152, 0, 1, 0, 0.291152, 0, 0.956677, -0.597624, 4.82092, 14.9859 )
+transform = Transform( 0.956677, 0, -0.291152, 0, 1, 0, 0.291152, 0, 0.956677, -0.598, 3.34, 14.986 )
 collision_layer = 2
 collision_mask = 5
 script = ExtResource( 1 )
@@ -801,7 +904,20 @@ transform = Transform( 0.895082, 0, -0.445901, 0, 1, 0, 0.445901, 0, 0.895082, -
 stream = ExtResource( 8 )
 pitch_scale = 0.95
 
-[node name="foot_steps" type="AudioStreamPlayer" parent="."]
+[node name="bars" type="Node2D" parent="."]
+
+[node name="top_bar" type="Sprite" parent="bars"]
+texture = ExtResource( 11 )
+centered = false
+
+[node name="btm_bar" type="Sprite" parent="bars"]
+position = Vector2( 0, 936 )
+texture = ExtResource( 11 )
+centered = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="bars"]
+anims/RESET = SubResource( 463 )
+anims/bars_away = SubResource( 464 )
 
 [connection signal="body_entered" from="riri_jump" to="." method="_on_riri_jump_body_entered"]
 [connection signal="body_entered" from="jump_after" to="." method="_on_jump_after_body_entered"]

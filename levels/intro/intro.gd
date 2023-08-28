@@ -5,6 +5,9 @@ signal focus_finished
 func _ready():
 	connect("focus_finished", self, "riri_jump")
 	$fade_black/AnimationPlayer.connect("animation_finished",self,"on_fade")
+	$AudioStreamPlayer.connect("finished",self,"riri_run_audio_finished")
+	
+	$Player.activate(false)
 	
 	$fade_black/AnimationPlayer.play("fade_out",-1,0.6)
 
@@ -49,3 +52,7 @@ func on_fade(anim):
 
 func play_riri_escape():
 	$AudioStreamPlayer.play()
+
+func riri_run_audio_finished():
+	$bars/AnimationPlayer.play("bars_away",-1,3)
+	$Player.activate(true)

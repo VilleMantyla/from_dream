@@ -45,9 +45,6 @@ func _ready():
 	height = PLAYER_HEIGHT#global_transform.origin.y
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
-#	step_sounds.append(load("res://sounds/step0.wav"))
-#	step_sounds.append(load("res://sounds/step1.wav"))
-#	step_sounds.append(load("res://sounds/step2.wav"))
 	step_sounds.append(load("res://sounds/stepalt0.wav"))
 	step_sounds.append(load("res://sounds/stepalt1.wav"))
 	step_sounds.append(load("res://sounds/stepalt2.wav"))
