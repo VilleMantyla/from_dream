@@ -38,9 +38,22 @@ var climb_padding = 0.25
 #var climb_distance = null
 #var mov_dist_cur = 0
 
+var step_sounds = []
+var rng
+
 func _ready():
 	height = PLAYER_HEIGHT#global_transform.origin.y
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
+#	step_sounds.append(load("res://sounds/step0.wav"))
+#	step_sounds.append(load("res://sounds/step1.wav"))
+#	step_sounds.append(load("res://sounds/step2.wav"))
+	step_sounds.append(load("res://sounds/stepalt0.wav"))
+	step_sounds.append(load("res://sounds/stepalt1.wav"))
+	step_sounds.append(load("res://sounds/stepalt2.wav"))
+	step_sounds.append(load("res://sounds/stepalt3.wav"))
+	rng = RandomNumberGenerator.new()
+	rng.randomize()
 
 func activate(val):
 	set_process_input(val)
@@ -76,6 +89,8 @@ func _process(delta):
 		else:
 			#walk
 			move_dir = (transform.basis*Vector3(move_input.x, 0, -move_input.y)).normalized()
+			if !$step_sound.is_playing():
+				play_footstep_sound()
 	else:
 		#idle
 		move_dir = Vector3.ZERO
@@ -265,3 +280,12 @@ func switch_area(new_area):
 	
 		var new_rot_y = new_area.target_rot.y
 		global_rotation.y = deg2rad(new_rot_y)
+
+var old_i = -1
+func play_footstep_sound():
+	var i = rng.randi_range(0,step_sounds.size()-1)
+	while old_i == i:
+		i = rng.randi_range(0,step_sounds.size()-1)
+	old_i = i
+	$step_sound.set_stream(step_sounds[i])
+	$step_sound.play()
