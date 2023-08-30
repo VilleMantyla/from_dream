@@ -75,7 +75,6 @@ func activate_vi(anim):
 		$vi.activate()
 		get_node("bulletshooter").activate()
 
-
 func on_gp_drop(val):
 	gp += val
 	var gp_as_string = str(gp)
@@ -108,4 +107,5 @@ func leave_battle():
 	leave_battle = false
 	$weapons.deactivate()
 	set_process_input(false)
+	$win.hide()
 	emit_signal("leave_battle")

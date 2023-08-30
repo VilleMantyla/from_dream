@@ -13,6 +13,8 @@ func _ready():
 
 func _on_riri_jump_body_entered(body):
 	focus_on_point($riri2.global_transform.origin)
+	$bars/AnimationPlayer.play("bars_in")
+	$Player.activate(false)
 
 func riri_jump():
 	$riri_jump/AnimationPlayer.play("jump",-1,0.4)
@@ -54,5 +56,9 @@ func play_riri_escape():
 	$AudioStreamPlayer.play()
 
 func riri_run_audio_finished():
+	$bars/AnimationPlayer.play("bars_away",-1,3)
+	$Player.activate(true)
+
+func riri_jumped():
 	$bars/AnimationPlayer.play("bars_away",-1,3)
 	$Player.activate(true)

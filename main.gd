@@ -59,6 +59,7 @@ func _process(delta):
 	###for testing purposes only###
 	if Input.is_action_just_pressed("debug_btn_1"):
 		FREE_ELEVATOR()
+		$note_text.hide()
 
 var new_item = null
 func menu_interacted(anim):
@@ -157,10 +158,12 @@ func enter_battle(enemy):
 	$Player.activate(false)
 	
 	$Battle.start_battle(enemy)
+	$ColorRect.hide()
 
 func exit_battle():
 	$Battle.hide()
 	$Player.activate(true)
+	$ColorRect.show()
 
 func show_context_msg(key):
 	$context_msg.text = interactables[key]

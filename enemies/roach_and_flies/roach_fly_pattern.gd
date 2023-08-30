@@ -37,6 +37,8 @@ func deactivate_and_reset():
 	run_time_count = run_time
 	active_bullets = []
 	bullet_pool = $roach_shooter/bullets.get_children()
+	for bullet in bullet_pool:
+		bullet.hide()
 
 func run_pattern():
 	disable_colliders(false)
@@ -117,6 +119,7 @@ func shoot_bullet(dir, pos):
 	bullet.global_position = pos
 	bullet.global_rotation = dir.angle()+Vector2.UP.angle()
 	active_bullets.append(bullet)
+	bullet.show()
 
 func get_new_bullet():
 	var bullet = bullet_pool.pop_front()
