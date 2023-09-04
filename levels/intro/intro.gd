@@ -10,14 +10,15 @@ func _ready():
 	$Player.activate(false)
 	
 	$fade_black/AnimationPlayer.play("fade_out",-1,0.6)
+	$riri/AnimationPlayer.play("idle_on_cliff",-1,3)
 
 func _on_riri_jump_body_entered(body):
-	focus_on_point($riri2.global_transform.origin)
+	focus_on_point($riri.global_transform.origin)
 	$bars/AnimationPlayer.play("bars_in")
 	$Player.activate(false)
 
 func riri_jump():
-	$riri_jump/AnimationPlayer.play("jump",-1,0.4)
+	$riri/AnimationPlayer.play("walk_off_clif+",-1,3)
 
 func _on_jump_after_body_entered(body):
 	$fade_black/AnimationPlayer.play("fade_in",-1,0.5)
@@ -61,4 +62,30 @@ func riri_run_audio_finished():
 
 func riri_jumped():
 	$bars/AnimationPlayer.play("bars_away",-1,3)
+	$Player.activate(true)
+
+func _on_prompt_jump_q_body_entered(body):
+	$question_prompt.show()
+	$yes.show()
+	$no.show()
+	$Player.activate(false)
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+
+func _on_yes_pressed():
+	var tween = create_tween()
+	var new_pos = $Player.global_transform.origin
+	new_pos += Vector3(-1.7,0,-1.7)
+	tween.tween_property($Player, "global_transform:origin", new_pos, 0.6).\
+	set_trans(Tween.EASE_IN)
+	$Player.activate(true)
+
+func _on_no_pressed():
+	$question_prompt.hide()
+	var tween = create_tween()
+	var new_pos = $Player.global_transform.origin
+	new_pos += Vector3(0.9,0,0.9)
+	tween.tween_property($Player, "global_transform:origin", new_pos, 1.2).\
+	set_trans(Tween.EASE_IN_OUT)
+	$yes.hide()
+	$no.hide()
 	$Player.activate(true)
