@@ -4,7 +4,7 @@ signal focus_finished
 
 func _ready():
 	connect("focus_finished", self, "riri_jump")
-	$fade_black/AnimationPlayer.connect("animation_finished",self,"on_fade")
+	$noise/AnimationPlayer.connect("animation_finished",self,"noise_fade")
 	$AudioStreamPlayer.connect("finished",self,"riri_run_audio_finished")
 	
 	$Player.activate(false)
@@ -19,9 +19,6 @@ func _on_riri_jump_body_entered(body):
 
 func riri_jump():
 	$riri/AnimationPlayer.play("walk_off_clif+",-1,3)
-
-func _on_jump_after_body_entered(body):
-	$fade_black/AnimationPlayer.play("fade_in",-1,0.5)
 
 func focus_on_point(focus_point):
 	var original_rot = $Player/rotation_helper.global_rotation
@@ -47,12 +44,6 @@ func focus_on_point(focus_point):
 func focus_finished():
 	emit_signal("focus_finished")
 
-func on_fade(anim):
-	if anim == "fade_in":
-		get_tree().change_scene("res://levels/intro/vi_greeting.tscn")
-	elif anim == "fade_out":
-		pass
-
 func play_riri_escape():
 	$AudioStreamPlayer.play()
 
@@ -77,15 +68,24 @@ func _on_yes_pressed():
 	new_pos += Vector3(-1.7,0,-1.7)
 	tween.tween_property($Player, "global_transform:origin", new_pos, 0.6).\
 	set_trans(Tween.EASE_IN)
-	$Player.activate(true)
-
-func _on_no_pressed():
 	$question_prompt.hide()
-	var tween = create_tween()
-	var new_pos = $Player.global_transform.origin
-	new_pos += Vector3(0.9,0,0.9)
-	tween.tween_property($Player, "global_transform:origin", new_pos, 1.2).\
-	set_trans(Tween.EASE_IN_OUT)
 	$yes.hide()
 	$no.hide()
 	$Player.activate(true)
+
+func _on_no_pressed():
+	var tween = create_tween()
+	var new_pos = $Player.global_transform.origin
+	new_pos += Vector3(0.9,0,0.9)
+	tween.tween_property($Player, "global_transform:origin", new_pos, 1)
+	$question_prompt.hide()
+	$yes.hide()
+	$no.hide()
+	$Player.activate(true)
+
+func jumped_after_riri(body):
+	$noise/AnimationPlayer.play("fade_in")
+
+func noise_fade(anim):
+	if anim == "fade_in":
+		get_tree().change_scene("res://main.tscn")
