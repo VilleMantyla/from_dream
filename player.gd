@@ -49,6 +49,13 @@ func _ready():
 	step_sounds.append(load("res://sounds/stepalt1.wav"))
 	step_sounds.append(load("res://sounds/stepalt2.wav"))
 	step_sounds.append(load("res://sounds/stepalt3.wav"))
+	
+#	step_sounds.append(load("res://sounds/step0.wav"))
+#	step_sounds.append(load("res://sounds/step1.wav"))
+#	step_sounds.append(load("res://sounds/step2.wav"))
+#	step_sounds.append(load("res://sounds/step3.wav"))
+#	step_sounds.append(load("res://sounds/step4.wav"))
+	
 	rng = RandomNumberGenerator.new()
 	rng.randomize()
 

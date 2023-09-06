@@ -16,6 +16,8 @@ var interactables = {
 func _ready():
 	randomize()
 	
+	$house_entrance/sea/AnimationPlayer.play("sea",-1,2)
+	
 	$Chat.connect("chat_ended", self, "end_chat")
 	$Player.connect("show_context_msg", self, "show_context_msg")
 	$menu_interact/AnimationPlayer.connect("animation_finished", self,\
