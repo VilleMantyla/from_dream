@@ -1431,7 +1431,7 @@ script = ExtResource( 2 )
 environment = ExtResource( 13 )
 
 [node name="Player" type="KinematicBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17.8131, 3.94826, -51.8061 )
+transform = Transform( 0.999134, 0, -0.0415966, 0, 1, 0, 0.0415966, 0, 0.999134, -0.702102, 3.9286, 17.892 )
 collision_layer = 2
 collision_mask = 5
 script = ExtResource( 1 )

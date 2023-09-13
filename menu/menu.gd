@@ -1,46 +1,48 @@
-extends Node2D
+extends Control
 
-
-var viewport_texture
-var selected_item
-
-var item_spin_speed = 1.3
+var items_submenu
 
 func _ready():
-	viewport_texture = $Viewport.get_texture()
-	$item_view.texture = viewport_texture
+	items_submenu = $items_submenu
+
+func hide_topmenu():
+	$GridContainer.hide()
+
+func open_menu():
+	activate_topmenu()
+	show()
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+
+func close_menu():
+	hide()
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
+func new_item(item):
+	$ColorRect.hide()
+	$topmenu_btn.hide()
+	$GridContainer.hide()
 	
-	selected_item = $Viewport/items/riris_bracelet
-	set_process(false)
+	$items_submenu.show()
+	$items_submenu/vi.hide()
+	$items_submenu/TV.hide()
+	$items_submenu/vi_chat_text.hide()
+	$items_submenu/TV_chat_text.hide()
+	$items_submenu/Control.hide()
+	
+	$items_submenu.new_item_view(item)
+	
+	show()
 
-func activate_menu(val):
-	if val:
-		#set_process(true)
-		pass
-	else:
-		set_process(false)
-		selected_item.global_rotation.y = 0
-		
+func add_new_item(item):
+	pass
 
-func activate_menu_with_new_item(new_item):
-	vi_text_new_item(new_item)
+func activate_topmenu():
+	hide_submenus()
+	$GridContainer.show()
 
-func vi_text_new_item(new_item):
-	$vi_chat_text.text = "Will uyou pick up the " + item_names[new_item] + "?"
+func hide_submenus():
+	items_submenu.hide()
 
-func _process(delta):
-	spin_selected_item(delta)
-
-func spin_selected_item(delta):
-	var spin_step = item_spin_speed*delta
-	selected_item.global_rotation.y -= spin_step
-	print(selected_item.global_rotation.y)
-
-
-#################################################################
-## TEXTS ##
-#################################################################
-var item_names = {
-	Global.items.BRACELET : "Bracelet",
-	Global.items.ANGLEGRINDER : "Angle Grinder"
-}
+func show_items_submenu():
+	hide_topmenu()
+	items_submenu.show()

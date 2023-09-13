@@ -7,6 +7,6 @@ export (Global.items) var item_name
 func _ready():
 	pass # Replace with function body
 
-func picked_up():
+func pick_up():
 	$model.hide()
-	get_parent().picked_up_item(item_name)
+	get_parent().pick_up_item(item_name)

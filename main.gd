@@ -7,7 +7,9 @@ var tv
 
 var battle_on_hold = null
 
-var alt_chat_node = null
+var active_chat = null
+
+var item_pickup = false
 
 var interactables = {
 	"ladder" : "press space to climb"
@@ -16,12 +18,13 @@ var interactables = {
 func _ready():
 	randomize()
 	
-	$house_entrance/sea/AnimationPlayer.play("sea",-1,2)
+	#PLAYER_WAKES_UP("wake_up")
 	
-	$Chat.connect("chat_ended", self, "end_chat")
+	$house_entrance/sea/AnimationPlayer.play("sea",-1,2)
+	$house_build_ver2/water/AnimationPlayer.play("water",-1,2)
+	
+	$TV_hostel_chat.connect("chat_ended", self, "end_TV_hostel_chat")
 	$Player.connect("show_context_msg", self, "show_context_msg")
-	$menu_interact/AnimationPlayer.connect("animation_finished", self,\
-	"menu_interacted")
 	
 	$Battle.connect("leave_battle", self, "exit_battle")
 	
@@ -57,36 +60,29 @@ func _process(delta):
 	if $Player.chatting:
 		if Input.is_action_just_pressed("interact"):
 			read_next_chat()
+	if item_pickup:
+		if Input.is_action_just_pressed("yes"):
+			
+			item_pickup = false
 	
 	###for testing purposes only###
 	if Input.is_action_just_pressed("debug_btn_1"):
 		FREE_ELEVATOR()
 		$note_text.hide()
 
-var new_item = null
-func menu_interacted(anim):
-	if anim == "open_menu":
-		in_menu = true
-		$Menu.activate_menu(true)
-	elif anim == "close_menu":
-		in_menu = false
-		$Menu.activate_menu(false)
-	elif anim == "open_menu_new_item":
-		$Menu.activate_menu_with_new_item(new_item)
-		new_item = null
+func open_menu():
+	$Menu.open_menu()
+	in_menu = true
 
-func picked_up_item(item):
-	new_item = item
-	$menu_interact/AnimationPlayer.play("open_menu_new_item")
+func close_menu():
+	$Menu.close_menu()
+	in_menu = false
 
-#func open_menu():
-#	$fade_for_menu.hide()
-#	$Menu.show()
-#	$Menu/fade/AnimationPlayer.play("fade_out",-1,3)
-#
-#func close_menu():
-#	#$Menu.hide()
-#	$Menu.close_menu()
+func pick_up_item(item):
+	$Menu.new_item(item)
+	active_chat = $sd_world_chat.start_chat("res://texts/sd_world_chat.json",\
+	"item_0")
+	item_pickup = true
 
 func show_character(code):
 	if code == 1:
@@ -117,9 +113,8 @@ func show_character(code):
 		#$TVsprite/AnimationPlayer.play("pop_left",-1,2.5)
 
 
-func end_chat():
-	$Chat.hide()
-	#$Player.disable_input(false)
+func end_TV_hostel_chat():
+	$TV_hostel_chat.hide()
 	
 	$Player.chatting = false
 	$chat_bg.hide()
@@ -139,7 +134,7 @@ func end_alt_chat():
 	$Player.chatting = false
 	if !check_for_cutscene_after_chat():
 		$Player.activate(true)
-	alt_chat_node = null
+	active_chat = null
 
 func check_for_cutscene_after_chat():
 	if cutscene_after_chat == "tv_run_away":
@@ -171,14 +166,12 @@ func show_context_msg(key):
 	$context_msg.text = interactables[key]
 
 func read_next_chat():
-	if alt_chat_node:
-		alt_chat_node.try_reading_next_paragraph()
-	else:
-		$Chat.try_reading_next_paragraph()
+	active_chat.try_reading_next_paragraph()
 
-func interact_with_world_object(chat, focus_point, enemy):
+func deprecated_interact_with_world_object(chat, focus_point, enemy):
 	$Player.activate(false)
 	if chat:
+		active_chat = $Chat
 		$Chat.show()
 		$chat_bg.show()
 		$Chat.start_chat("res://texts/chat.json", chat)
@@ -247,6 +240,19 @@ func end_cutscene():
 	$Player/rotation_helper/Camera.current = true
 	$Player.activate(true)
 
+func PLAYER_WAKES_UP(anim):
+	if anim == "wake_up":
+		var player_up_tween = create_tween()
+		player_up_tween.connect("finished", self, "PLAYER_WAKES_UP", ["vi_intro"])
+		var cam_org_y = $Player/rotation_helper/Camera.global_transform.origin.y
+		$Player/rotation_helper/Camera.global_transform.origin.y += -1.2
+		player_up_tween.tween_property($Player/rotation_helper/Camera, \
+		"global_transform:origin:y", cam_org_y, 3).set_trans(Tween.EASE_OUT)
+	elif anim == "vi_intro":
+		active_chat = $sd_world_chat.start_chat("res://texts/sd_world_chat.json",\
+		"plot_0")
+		$Player.chatting = true
+
 func FROM_TREE(anim):
 	if anim == "getting_up":
 		tv.global_rotation.y = deg2rad(148)
@@ -265,7 +271,11 @@ func FROM_TREE(anim):
 		tv.get_node("AnimationPlayer").play("taunting_idle",-1,1.2)
 		
 		cutscene_after_chat = "tv_run_away"
-		interact_with_world_object("melph_tree_first", false, false)
+		active_chat = $TV_hostel_chat
+		active_chat.show()
+		$chat_bg.show()
+		active_chat.start_chat("res://texts/chat.json", "melph_tree_first")
+		$Player.chatting = true
 	if anim == "tv_run_away":
 		remove_child(tv)
 		$Path/PathFollow.add_child(tv)
@@ -284,6 +294,8 @@ func BANGING_ELEVATOR(anim):
 	if anim == "fall_to_stuck":
 		$tv_3/AnimationPlayer.play("stuck")
 		$AnimationPlayer.play("rise")
+		$house_build_ver2/water/AnimationPlayer.play("rise",-1,0.25)
+		$house_build_ver2/water.show()
 
 func KILLING_TV(anim):
 	if anim == "floor_to_head":
@@ -335,7 +347,7 @@ func KILLING_TV(anim):
 		$_void_battle_0.show()
 		$_void_battle_0.start()
 		cutscene_after_chat = "after_hazy_chat"
-		alt_chat_node = $_void_battle_0/RichTextLabel
+		active_chat = $_void_battle_0/RichTextLabel
 		$Player.chatting = true
 	elif anim == "after_hazy_chat":
 		print("player pos: " + str($Player.global_transform.origin))
@@ -349,7 +361,6 @@ func KILLING_TV(anim):
 		$Player/rotation_helper/Camera.global_transform.origin.y += -1.2
 		player_up_tween.tween_property($Player/rotation_helper/Camera, \
 		"global_transform:origin:y", cam_org_y, 3).set_trans(Tween.EASE_OUT)
-		
 
 func FREE_ELEVATOR():
 	$house_build_ver2/fake_lift_floor.hide()
@@ -359,4 +370,3 @@ func FREE_ELEVATOR():
 	$tv3_static_body/CollisionShape.disabled = true
 	$house_build_ver2/elevatordoorbottom1.global_transform.origin.x += 0.5
 	$house_build_ver2/elevatordoorbottom2.global_transform.origin.x -= 0.5
-	

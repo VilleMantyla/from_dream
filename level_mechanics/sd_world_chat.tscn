@@ -1,0 +1,93 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://chat.gd" type="Script" id=1]
+[ext_resource path="res://level_mechanics/world_chat.gd" type="Script" id=2]
+[ext_resource path="res://battle/vi1.png" type="Texture" id=3]
+[ext_resource path="res://battle/noise_5.png" type="Texture" id=4]
+[ext_resource path="res://battle/noise_4.png" type="Texture" id=5]
+[ext_resource path="res://battle/vi0.png" type="Texture" id=6]
+[ext_resource path="res://battle/noise_3.png" type="Texture" id=7]
+[ext_resource path="res://fonts/NotoSansJP-Regular.ttf" type="DynamicFontData" id=8]
+[ext_resource path="res://menu/new_new_tv.png" type="Texture" id=9]
+[ext_resource path="res://level_mechanics/world_chat_bg.png" type="Texture" id=10]
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 7 ), ExtResource( 5 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 6 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="DynamicFont" id=3]
+size = 29
+font_data = ExtResource( 8 )
+
+[sub_resource type="Theme" id=4]
+default_font = SubResource( 3 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 36
+font_data = ExtResource( 8 )
+
+[sub_resource type="Theme" id=6]
+default_font = SubResource( 5 )
+
+[node name="sd_world_chat" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="bg" type="Sprite" parent="."]
+position = Vector2( 960, 832 )
+scale = Vector2( 1, 0.8 )
+texture = ExtResource( 10 )
+
+[node name="background" type="AnimatedSprite" parent="."]
+visible = false
+position = Vector2( 1561, 945 )
+scale = Vector2( 1.61719, 1.36979 )
+frames = SubResource( 2 )
+playing = true
+
+[node name="vi" type="AnimatedSprite" parent="."]
+position = Vector2( 1400, 832 )
+scale = Vector2( 5, 5 )
+frames = SubResource( 1 )
+speed_scale = 0.5
+playing = true
+
+[node name="dialog" type="RichTextLabel" parent="."]
+margin_left = 384.0
+margin_top = 800.0
+margin_right = 1280.0
+margin_bottom = 936.0
+mouse_filter = 2
+theme = SubResource( 4 )
+bbcode_enabled = true
+script = ExtResource( 1 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="tv" type="Sprite" parent="."]
+visible = false
+position = Vector2( 1400, 864 )
+scale = Vector2( 1.9, 1.9 )
+texture = ExtResource( 9 )
+
+[node name="speaker" type="RichTextLabel" parent="."]
+margin_left = 384.0
+margin_top = 736.0
+margin_right = 480.0
+margin_bottom = 800.0
+theme = SubResource( 6 )
+bbcode_enabled = true
+bbcode_text = "VI"
+text = "VI"

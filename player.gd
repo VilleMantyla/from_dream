@@ -124,7 +124,7 @@ func _process(delta):
 					tween.tween_property(self, "global_transform:origin",\
 					new_pos, 0.4).set_trans(Tween.EASE_OUT)
 			elif looking_at_interactable.is_in_group("pick_up"):
-				looking_at_interactable.picked_up()
+				looking_at_interactable.pick_up()
 			elif looking_at_interactable.is_in_group("note"):
 				get_parent().get_node("note_text").show()
 				print("show note")

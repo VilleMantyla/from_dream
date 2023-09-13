@@ -1,0 +1,129 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://menu/item_slot.png" type="Texture" id=1]
+[ext_resource path="res://menu/item_slot_pressed.png" type="Texture" id=2]
+[ext_resource path="res://fonts/NotoSansJP-Regular.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://menu/items_bg.png" type="Texture" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 24
+font_data = ExtResource( 3 )
+
+[sub_resource type="Theme" id=2]
+default_font = SubResource( 1 )
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 1, 0.791855 )
+texture = ExtResource( 4 )
+centered = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_left = 14.0
+margin_top = 10.0
+margin_right = 314.0
+margin_bottom = 202.0
+custom_constants/separation = 0
+
+[node name="TextureButton" type="TextureButton" parent="VBoxContainer"]
+margin_right = 300.0
+margin_bottom = 64.0
+texture_normal = ExtResource( 1 )
+texture_pressed = ExtResource( 2 )
+
+[node name="Label" type="Label" parent="VBoxContainer/TextureButton"]
+anchor_left = 0.53
+anchor_top = 0.461
+anchor_right = 0.6
+anchor_bottom = 0.5
+margin_left = -150.0
+margin_top = -18.0
+margin_right = 150.0
+margin_bottom = 17.0
+theme = SubResource( 2 )
+text = "item name"
+valign = 1
+
+[node name="TextureButton2" type="TextureButton" parent="VBoxContainer"]
+margin_top = 64.0
+margin_right = 300.0
+margin_bottom = 128.0
+texture_normal = ExtResource( 1 )
+texture_pressed = ExtResource( 2 )
+
+[node name="Label" type="Label" parent="VBoxContainer/TextureButton2"]
+anchor_left = 0.53
+anchor_top = 0.5
+anchor_right = 0.6
+anchor_bottom = 0.5
+margin_left = -150.0
+margin_top = -18.0
+margin_right = 150.0
+margin_bottom = 17.0
+theme = SubResource( 2 )
+text = "item name"
+valign = 1
+
+[node name="TextureButton3" type="TextureButton" parent="VBoxContainer"]
+margin_top = 128.0
+margin_right = 300.0
+margin_bottom = 192.0
+texture_normal = ExtResource( 1 )
+texture_pressed = ExtResource( 2 )
+
+[node name="Label" type="Label" parent="VBoxContainer/TextureButton3"]
+anchor_left = 0.53
+anchor_top = 0.5
+anchor_right = 0.6
+anchor_bottom = 0.5
+margin_left = -150.0
+margin_top = -18.0
+margin_right = 150.0
+margin_bottom = 17.0
+theme = SubResource( 2 )
+text = "item name"
+valign = 1
+
+[node name="TextureButton4" type="TextureButton" parent="VBoxContainer"]
+margin_top = 192.0
+margin_right = 300.0
+margin_bottom = 256.0
+texture_normal = ExtResource( 1 )
+texture_pressed = ExtResource( 2 )
+
+[node name="Label" type="Label" parent="VBoxContainer/TextureButton4"]
+anchor_left = 0.53
+anchor_top = 0.5
+anchor_right = 0.6
+anchor_bottom = 0.5
+margin_left = -150.0
+margin_top = -18.0
+margin_right = 150.0
+margin_bottom = 17.0
+theme = SubResource( 2 )
+text = "item name"
+valign = 1
+
+[node name="TextureButton5" type="TextureButton" parent="VBoxContainer"]
+margin_top = 256.0
+margin_right = 300.0
+margin_bottom = 320.0
+texture_normal = ExtResource( 1 )
+texture_pressed = ExtResource( 2 )
+
+[node name="Label" type="Label" parent="VBoxContainer/TextureButton5"]
+anchor_left = 0.53
+anchor_top = 0.5
+anchor_right = 0.6
+anchor_bottom = 0.5
+margin_left = -150.0
+margin_top = -18.0
+margin_right = 150.0
+margin_bottom = 17.0
+theme = SubResource( 2 )
+text = "item name"
+valign = 1

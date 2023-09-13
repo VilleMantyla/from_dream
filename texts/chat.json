@@ -1358,9 +1358,9 @@
 	]
 }
 ],
-"begin_demo": [{
+"vi_introduction": [{
 	"textframe": [{
-			"text": "Hello and welcome to play From Dream.",
+			"text": "Hello, my name is VI.",
 			"speed": 15,
 			"sound" : 0
 		}
@@ -1368,7 +1368,7 @@
 },
 {
 	"textframe": [{
-			"text": "My name is VI-689n07 but you can call me Vi.",
+			"text": "I'm a virtual pet that now lives inside your head!",
 			"speed": 50,
 			"sound" : 0
 		}
@@ -1376,7 +1376,7 @@
 },
 {
 	"textframe": [{
-			"text": "This SoulDevice (SD) is my home.",
+			"text": "Cool huh!",
 			"speed": 50,
 			"sound" : 0
 		}
@@ -1384,7 +1384,7 @@
 },
 {
 	"textframe": [{
-			"text": "Please take care of me and I'll take care of you.",
+			"text": "My home is a Soul Device embedded to your skull.",
 			"speed": 50,
 			"sound" : 0
 		}
@@ -1392,15 +1392,7 @@
 },
 {
 	"textframe": [{
-			"text": "Now it's time for you to wake up.",
-			"speed": 50,
-			"sound" : 0
-		}
-	]
-},
-{
-	"textframe": [{
-			"text": "Good Luck!",
+			"text": "To access the Soul Device press TAB.",
 			"speed": 50,
 			"sound" : 0
 		}

@@ -1,0 +1,62 @@
+{
+"plot_0": [{
+	"textframe": [{
+			"text": "Hello, my name is VI.",
+			"speed": 15,
+			"sound": 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "I'm a virtual pet that now lives inside your head!",
+			"speed": 15,
+			"sound": 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "Cool huh!",
+			"speed": 15,
+			"sound": 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "My home is a Soul Device embedded to your skull.",
+			"speed": 15,
+			"sound": 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "To access the Soul Device press TAB.",
+			"speed": 15,
+			"sound": 0
+		}
+	]
+}
+],
+"item_0": [{
+	"textframe": [{
+			"text": "It's a bracelet. Pick it up?",
+			"speed": 15,
+			"sound": 0
+		},
+        {
+            "text": "\n[color=#355E3B]y for yes[/color]",
+            "speed": 9999,
+            "sound": 0
+        },
+        {
+            "text": "\n[color=#880808]n for no[/color]",
+            "speed": 9999,
+            "sound": 0
+        }
+	]
+}
+]
+}
