@@ -16,6 +16,12 @@ func start_chat(chat_file, chat_key):
 	
 	return get_chat()
 
+func show_text(t):
+	get_chat().text = t
+	global_position = hide_pos
+	var tween = create_tween()
+	tween.tween_property(self, "global_position:y", show_pos.y, 0.3).set_trans(Tween.EASE_OUT)
+
 func read_chat(chat_file, chat_key):
 	get_chat().start_chat(chat_file, chat_key)
 

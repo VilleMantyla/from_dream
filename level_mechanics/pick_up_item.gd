@@ -9,4 +9,7 @@ func _ready():
 
 func pick_up():
 	$model.hide()
-	get_parent().pick_up_item(item_name)
+	get_parent().pick_up_item(item_name, self)
+
+func deactivate():
+	$CollisionShape.disabled = true

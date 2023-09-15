@@ -1,11 +1,11 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://menu/menu_sub_btn.png" type="Texture" id=1]
 [ext_resource path="res://menu/items_submenu.gd" type="Script" id=2]
 [ext_resource path="res://menu/items/riri_bracelet.png" type="Texture" id=3]
 [ext_resource path="res://menu/item_view.png" type="Texture" id=4]
-[ext_resource path="res://battle/vi1.png" type="Texture" id=5]
-[ext_resource path="res://battle/vi0.png" type="Texture" id=6]
+[ext_resource path="res://battle/vi2.png" type="Texture" id=5]
+[ext_resource path="res://battle/vi3.png" type="Texture" id=6]
 [ext_resource path="res://fonts/NotoSansJP-Regular.ttf" type="DynamicFontData" id=7]
 [ext_resource path="res://menu/menu_name.png" type="Texture" id=8]
 [ext_resource path="res://menu/new_new_tv.png" type="Texture" id=9]
@@ -16,6 +16,7 @@
 [ext_resource path="res://menu/menu.gd" type="Script" id=14]
 [ext_resource path="res://menu/items_bg.png" type="Texture" id=15]
 [ext_resource path="res://menu/item_slot_pressed.png" type="Texture" id=16]
+[ext_resource path="res://chat.gd" type="Script" id=17]
 
 [sub_resource type="DynamicFont" id=3]
 size = 32
@@ -26,7 +27,7 @@ default_font = SubResource( 3 )
 
 [sub_resource type="SpriteFrames" id=5]
 animations = [ {
-"frames": [ ExtResource( 6 ), ExtResource( 5 ) ],
+"frames": [ ExtResource( 5 ), ExtResource( 6 ) ],
 "loop": true,
 "name": "default",
 "speed": 5.0
@@ -38,6 +39,13 @@ font_data = ExtResource( 7 )
 
 [sub_resource type="Theme" id=7]
 default_font = SubResource( 6 )
+
+[sub_resource type="DynamicFont" id=1]
+size = 24
+font_data = ExtResource( 7 )
+
+[sub_resource type="Theme" id=2]
+default_font = SubResource( 1 )
 
 [sub_resource type="SpatialMaterial" id=9]
 albedo_texture = ExtResource( 3 )
@@ -84,13 +92,6 @@ surfaces/1 = {
 "skeleton_aabb": [  ],
 "vertex_count": 30
 }
-
-[sub_resource type="DynamicFont" id=1]
-size = 24
-font_data = ExtResource( 7 )
-
-[sub_resource type="Theme" id=2]
-default_font = SubResource( 1 )
 
 [node name="Menu" type="Control"]
 anchor_right = 1.0
@@ -254,101 +255,60 @@ theme = SubResource( 4 )
 text = "BROKEN"
 align = 1
 
-[node name="items_submenu" type="Node2D" parent="."]
-visible = false
-script = ExtResource( 2 )
-
-[node name="item_view_bg" type="Sprite" parent="items_submenu"]
-position = Vector2( 960, 448 )
-scale = Vector2( 1.42945, 1 )
-texture = ExtResource( 15 )
-
-[node name="vi" type="AnimatedSprite" parent="items_submenu"]
-position = Vector2( 288, 832 )
+[node name="vi" type="AnimatedSprite" parent="."]
+position = Vector2( 1500, 908 )
 scale = Vector2( 5, 5 )
 frames = SubResource( 5 )
 frame = 1
 speed_scale = 0.25
 playing = true
 
-[node name="TV" type="Sprite" parent="items_submenu"]
-position = Vector2( 1680, 888 )
+[node name="items_submenu" type="Node2D" parent="."]
+script = ExtResource( 2 )
+
+[node name="vi" type="AnimatedSprite" parent="items_submenu"]
+position = Vector2( 1500, 908 )
+scale = Vector2( 5, 5 )
+frames = SubResource( 5 )
+frame = 1
+speed_scale = 0.25
+playing = true
+
+[node name="tv" type="Sprite" parent="items_submenu"]
+position = Vector2( 1500, 888 )
 scale = Vector2( 3, 3 )
 texture = ExtResource( 9 )
 
-[node name="item_view" type="Sprite" parent="items_submenu"]
-position = Vector2( 960, 450 )
-scale = Vector2( 1.5, 1.5 )
-texture = ExtResource( 4 )
-
-[node name="vi_chat_text" type="RichTextLabel" parent="items_submenu"]
-margin_left = 464.0
-margin_top = 824.0
-margin_right = 1352.0
-margin_bottom = 944.0
+[node name="items_chat" type="RichTextLabel" parent="items_submenu"]
+margin_left = 647.0
+margin_top = 835.0
+margin_right = 1535.0
+margin_bottom = 955.0
 mouse_filter = 2
 theme = SubResource( 7 )
-text = "It's a bracelet with name Riri carved on it"
+script = ExtResource( 17 )
 
-[node name="TV_chat_text" type="RichTextLabel" parent="items_submenu"]
-margin_left = 800.0
-margin_top = 920.0
-margin_right = 1688.0
-margin_bottom = 1040.0
-mouse_filter = 2
-theme = SubResource( 7 )
-text = "Is that like your girlfriend or something?"
-
-[node name="Viewport" type="Viewport" parent="items_submenu"]
-size = Vector2( 1080, 350 )
-transparent_bg = true
-render_target_v_flip = true
-
-[node name="Camera" type="Camera" parent="items_submenu/Viewport"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -50, 0.1 )
-
-[node name="items" type="Spatial" parent="items_submenu/Viewport"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -50, 0 )
-
-[node name="riris_bracelet" type="MeshInstance" parent="items_submenu/Viewport/items"]
-transform = Transform( 0.965902, -0.0714402, -0.248858, 0.00218588, 0.963394, -0.268079, 0.2589, 0.258394, 0.9307, 0, 0, -0.0216641 )
-visible = false
-mesh = SubResource( 10 )
-
-[node name="anglegrinder" type="MeshInstance" parent="items_submenu/Viewport/items"]
-transform = Transform( -0.282843, -0.282843, -6.03983e-08, -0.244479, 0.244479, 0.201148, -0.142233, 0.142233, -0.345745, 0.042622, -0.0359993, -0.224818 )
-visible = false
-mesh = SubResource( 8 )
-skeleton = NodePath("")
-
-[node name="Control" type="Control" parent="items_submenu"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 1312.0
-margin_top = 288.0
-margin_right = 1312.0
-margin_bottom = 288.0
-mouse_filter = 2
-
-[node name="Sprite" type="Sprite" parent="items_submenu/Control"]
+[node name="item_list_bg" type="Sprite" parent="items_submenu"]
+position = Vector2( 1312, 288 )
 scale = Vector2( 1, 0.791855 )
 texture = ExtResource( 15 )
 centered = false
 
-[node name="VBoxContainer" type="VBoxContainer" parent="items_submenu/Control"]
-margin_left = 14.0
-margin_top = 10.0
-margin_right = 314.0
-margin_bottom = 202.0
+[node name="item_list" type="VBoxContainer" parent="items_submenu"]
+margin_left = 1326.0
+margin_top = 298.0
+margin_right = 1626.0
+margin_bottom = 618.0
 custom_constants/separation = 0
 
-[node name="TextureButton" type="TextureButton" parent="items_submenu/Control/VBoxContainer"]
+[node name="TextureButton" type="TextureButton" parent="items_submenu/item_list"]
+visible = false
 margin_right = 300.0
 margin_bottom = 64.0
 texture_normal = ExtResource( 12 )
 texture_pressed = ExtResource( 16 )
 
-[node name="Label" type="Label" parent="items_submenu/Control/VBoxContainer/TextureButton"]
+[node name="Label" type="Label" parent="items_submenu/item_list/TextureButton"]
 anchor_left = 0.53
 anchor_top = 0.461
 anchor_right = 0.6
@@ -361,14 +321,15 @@ theme = SubResource( 2 )
 text = "item name"
 valign = 1
 
-[node name="TextureButton2" type="TextureButton" parent="items_submenu/Control/VBoxContainer"]
+[node name="TextureButton2" type="TextureButton" parent="items_submenu/item_list"]
+visible = false
 margin_top = 64.0
 margin_right = 300.0
 margin_bottom = 128.0
 texture_normal = ExtResource( 12 )
 texture_pressed = ExtResource( 16 )
 
-[node name="Label" type="Label" parent="items_submenu/Control/VBoxContainer/TextureButton2"]
+[node name="Label" type="Label" parent="items_submenu/item_list/TextureButton2"]
 anchor_left = 0.53
 anchor_top = 0.5
 anchor_right = 0.6
@@ -381,14 +342,15 @@ theme = SubResource( 2 )
 text = "item name"
 valign = 1
 
-[node name="TextureButton3" type="TextureButton" parent="items_submenu/Control/VBoxContainer"]
+[node name="TextureButton3" type="TextureButton" parent="items_submenu/item_list"]
+visible = false
 margin_top = 128.0
 margin_right = 300.0
 margin_bottom = 192.0
 texture_normal = ExtResource( 12 )
 texture_pressed = ExtResource( 16 )
 
-[node name="Label" type="Label" parent="items_submenu/Control/VBoxContainer/TextureButton3"]
+[node name="Label" type="Label" parent="items_submenu/item_list/TextureButton3"]
 anchor_left = 0.53
 anchor_top = 0.5
 anchor_right = 0.6
@@ -401,14 +363,15 @@ theme = SubResource( 2 )
 text = "item name"
 valign = 1
 
-[node name="TextureButton4" type="TextureButton" parent="items_submenu/Control/VBoxContainer"]
+[node name="TextureButton4" type="TextureButton" parent="items_submenu/item_list"]
+visible = false
 margin_top = 192.0
 margin_right = 300.0
 margin_bottom = 256.0
 texture_normal = ExtResource( 12 )
 texture_pressed = ExtResource( 16 )
 
-[node name="Label" type="Label" parent="items_submenu/Control/VBoxContainer/TextureButton4"]
+[node name="Label" type="Label" parent="items_submenu/item_list/TextureButton4"]
 anchor_left = 0.53
 anchor_top = 0.5
 anchor_right = 0.6
@@ -421,14 +384,15 @@ theme = SubResource( 2 )
 text = "item name"
 valign = 1
 
-[node name="TextureButton5" type="TextureButton" parent="items_submenu/Control/VBoxContainer"]
+[node name="TextureButton5" type="TextureButton" parent="items_submenu/item_list"]
+visible = false
 margin_top = 256.0
 margin_right = 300.0
 margin_bottom = 320.0
 texture_normal = ExtResource( 12 )
 texture_pressed = ExtResource( 16 )
 
-[node name="Label" type="Label" parent="items_submenu/Control/VBoxContainer/TextureButton5"]
+[node name="Label" type="Label" parent="items_submenu/item_list/TextureButton5"]
 anchor_left = 0.53
 anchor_top = 0.5
 anchor_right = 0.6
@@ -440,6 +404,38 @@ margin_bottom = 17.0
 theme = SubResource( 2 )
 text = "item name"
 valign = 1
+
+[node name="item_view_bg" type="Sprite" parent="items_submenu"]
+position = Vector2( 960, 448 )
+scale = Vector2( 1.42945, 1 )
+texture = ExtResource( 15 )
+
+[node name="item_view" type="Sprite" parent="items_submenu"]
+position = Vector2( 960, 450 )
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 4 )
+
+[node name="Viewport" type="Viewport" parent="items_submenu"]
+size = Vector2( 1080, 350 )
+transparent_bg = true
+render_target_v_flip = true
+
+[node name="Camera" type="Camera" parent="items_submenu/Viewport"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -50, 0.1 )
+
+[node name="item_3dmodels" type="Spatial" parent="items_submenu/Viewport"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -50, 0 )
+
+[node name="riris_bracelet" type="MeshInstance" parent="items_submenu/Viewport/item_3dmodels"]
+transform = Transform( 0.965902, -0.0714402, -0.248858, 0.00218588, 0.963394, -0.268079, 0.2589, 0.258394, 0.9307, 0, 0, -0.0216641 )
+visible = false
+mesh = SubResource( 10 )
+
+[node name="anglegrinder" type="MeshInstance" parent="items_submenu/Viewport/item_3dmodels"]
+transform = Transform( -0.282843, -0.282843, -6.03983e-08, -0.244479, 0.244479, 0.201148, -0.142233, 0.142233, -0.345745, 0.042622, -0.0359993, -0.224818 )
+visible = false
+mesh = SubResource( 8 )
+skeleton = NodePath("")
 
 [connection signal="button_down" from="topmenu_btn" to="." method="activate_topmenu"]
 [connection signal="button_down" from="GridContainer/VBoxContainer2/TextureButton" to="." method="show_items_submenu"]

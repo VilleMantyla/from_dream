@@ -9,7 +9,12 @@ var battle_on_hold = null
 
 var active_chat = null
 
-var item_pickup = false
+var in_menu = false
+
+var picking_up_item = false
+var picked_up_item = false
+var pick_up_item = null
+var pick_up_area = null
 
 var interactables = {
 	"ladder" : "press space to climb"
@@ -49,8 +54,7 @@ func _ready():
 	$tv_2_floor/AnimationPlayer.play("let_me_go",-1,1.5)
 
 
-var flip_open = true
-var in_menu = false
+
 func _process(delta):
 	if Input.is_action_just_pressed("menu") and !$menu_interact/AnimationPlayer.is_playing():
 		if !in_menu:
@@ -60,10 +64,14 @@ func _process(delta):
 	if $Player.chatting:
 		if Input.is_action_just_pressed("interact"):
 			read_next_chat()
-	if item_pickup:
+	if picking_up_item:
 		if Input.is_action_just_pressed("yes"):
-			
-			item_pickup = false
+			item_picked_up()
+	if picked_up_item:
+		if Input.is_action_just_pressed("interact"):
+			picked_up_item = false
+			$sd_world_chat.end_chat()
+			$Player.activate(true)
 	
 	###for testing purposes only###
 	if Input.is_action_just_pressed("debug_btn_1"):
@@ -78,11 +86,25 @@ func close_menu():
 	$Menu.close_menu()
 	in_menu = false
 
-func pick_up_item(item):
-	$Menu.new_item(item)
+func pick_up_item(item, area):
+	$Player.activate(false)
+	$Menu.show_item_on_pickup(item)
 	active_chat = $sd_world_chat.start_chat("res://texts/sd_world_chat.json",\
 	"item_0")
-	item_pickup = true
+	picking_up_item = true
+	pick_up_area = area
+	pick_up_item = item
+
+func item_picked_up():
+	picking_up_item = false
+	var item_name = $Menu.add_new_item(pick_up_item)
+	$sd_world_chat.show_text("You picked up " + item_name)
+	
+	$Menu.hide()
+	pick_up_area.deactivate()
+	pick_up_area = null
+	picked_up_item = true
+	pick_up_item = null
 
 func show_character(code):
 	if code == 1:
