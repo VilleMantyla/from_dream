@@ -56,8 +56,10 @@ func try_reading_next_paragraph():
 	if state_name == WAIT:
 		state.read_frame()
 	if state_name == QUESTION:
-		state.show_answers()
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		#just waiting for the answer
+		pass
+		#state.show_answers()
+		#Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 func hide_character_sprites():
 	pass
@@ -207,15 +209,16 @@ class Question:
 	func enter(f):
 		parent.state_name = parent.QUESTION
 		frame = f
+		show_answers()
 		return self
 	
 	func readyAnswers():
-		for i in frame.answers.size():
-			parent.get_parent().get_node("Answers").get_node("Answer" + str(i)).text = frame.answers[i]
-			parent.get_parent().get_node("Answers").get_node("Answer" + str(i)).show()
+		parent.get_parent().get_node("yes_btn").show()
+		parent.get_parent().get_node("no_btn").show()
 
 	func show_answers():
 		readyAnswers()
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	
 	func update(delta):
 		pass
@@ -280,7 +283,7 @@ class TextFrame:
 #QuestionFrame class, defined in JSON format.
 class QuestionFrame extends TextFrame:
 	var answers = []
-	var results = []
+#	var results = []
 	
 	func _init(frame).(frame):
 		pass
@@ -291,9 +294,9 @@ class QuestionFrame extends TextFrame:
 		for data in frame:
 			if data.has("text"):
 				sentence_data.append(data)
-			else:
-				answers = data["answers"]
-				results = data["results"]
+#			else:
+#				answers = data["answers"]
+#				results = data["results"]
 
 static func read_json_file(filename):
 	var file = File.new()

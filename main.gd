@@ -86,11 +86,11 @@ func close_menu():
 	$Menu.close_menu()
 	in_menu = false
 
-func pick_up_item(item, area):
+func pick_up_item(item, area, chat_key):
 	$Player.activate(false)
 	$Menu.show_item_on_pickup(item)
 	active_chat = $sd_world_chat.start_chat("res://texts/sd_world_chat.json",\
-	"item_0")
+	chat_key)
 	picking_up_item = true
 	pick_up_area = area
 	pick_up_item = item
@@ -101,10 +101,17 @@ func item_picked_up():
 	$sd_world_chat.show_text("You picked up " + item_name)
 	
 	$Menu.hide()
-	pick_up_area.deactivate()
+	if pick_up_area:
+		pick_up_area.deactivate()
 	pick_up_area = null
 	picked_up_item = true
 	pick_up_item = null
+
+func start_sd_chat(key):
+	active_chat = $sd_world_chat.start_chat("res://texts/sd_world_chat.json",\
+	key)
+	$Player.activate(false)
+	$Player.chatting = true
 
 func show_character(code):
 	if code == 1:

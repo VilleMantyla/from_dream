@@ -58,5 +58,41 @@
         }
 	]
 }
+],
+"item_1": [{
+	"textframe": [{
+			"text": "You found a sock. Take it?",
+			"speed": 15,
+			"sound": 0
+		},
+        {
+            "text": "\n[color=#355E3B]y for yes[/color]",
+            "speed": 9999,
+            "sound": 0
+        },
+        {
+            "text": "\n[color=#880808]n for no[/color]",
+            "speed": 9999,
+            "sound": 0
+        }
+	]
+}
+],
+"check_0": [{
+	"textframe": [{
+			"text": "It's a trash can.",
+			"speed": 15,
+			"sound": 0
+		}
+	]
+},
+{
+	"questionframe": [{
+			"text": "Want to look inside?",
+			"speed": 15,
+			"sound": 0
+		}
+	]
+}
 ]
 }

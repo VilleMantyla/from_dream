@@ -1,15 +1,17 @@
 extends Area
 
-export (Global.items) var item_name
+export (Global.items) var item
+export var chat_key = ""
+export var sparkle = false
 
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body
+	if sparkle:
+		$sparkle/AnimationPlayer.play("scale")
 
 func pick_up():
 	$model.hide()
-	get_parent().pick_up_item(item_name, self)
+	$sparkle.hide()
+	get_parent().pick_up_item(item, self, chat_key)
 
 func deactivate():
 	$CollisionShape.disabled = true

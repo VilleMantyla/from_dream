@@ -110,9 +110,13 @@ func _process(delta):
 				get_parent().start_cutscene(looking_at_interactable.cutscene_name)
 			elif looking_at_interactable.is_in_group("area_switch"):
 				switch_area(looking_at_interactable)
-			elif looking_at_interactable.is_in_group("chat"):
-				var chat_key = looking_at_interactable.chat_key
-				get_parent().interact_with_world_object(chat_key, null, null)
+#			elif looking_at_interactable.is_in_group("chat"):
+#				var chat_key = looking_at_interactable.chat_key
+#				get_parent().interact_with_world_object(chat_key, null, null)
+			elif looking_at_interactable.is_in_group("sdw_chat"):
+				#var chat_key = looking_at_interactable.chat_key
+				looking_at_interactable.check()
+				print("fix asking/questions")
 			elif looking_at_interactable.is_in_group("climb"):
 				var climb = looking_at_interactable
 				if climb.climb_along_z:
