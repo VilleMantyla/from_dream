@@ -56,6 +56,11 @@ func reset_view():
 	$item_list_bg.show()
 	$item_view_bg.show()
 	$item_list.show()
+	
+	for model in $Viewport/item_3dmodels.get_children():
+		model.hide()
+	for btn in $item_list.get_children():
+		btn.pressed = false
 
 func add_new_item(item):
 	items.append(item)

@@ -12,6 +12,7 @@ func open_menu():
 
 func close_menu():
 	hide()
+	$items_submenu.reset_view()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func show_item_on_pickup(item):
@@ -27,10 +28,10 @@ func show_item_on_pickup(item):
 
 func add_new_item(item):
 	items_submenu.add_new_item(item)
-	reset_view()
+	reset_item_view()
 	return items_submenu.item_data[item]["name"]
 
-func reset_view():
+func reset_item_view():
 	$ColorRect.show()
 	$topmenu_btn.show()
 	$GridContainer.show()

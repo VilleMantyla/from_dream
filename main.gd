@@ -11,9 +11,6 @@ var active_chat = null
 
 var in_menu = false
 
-var picking_up_item = false
-var picked_up_item = false
-var pick_up_item = null
 var pick_up_area = null
 
 var interactables = {
@@ -53,8 +50,6 @@ func _ready():
 	$tv_2_floor/AnimationPlayer.get_animation("let_me_go").set_loop(true)
 	$tv_2_floor/AnimationPlayer.play("let_me_go",-1,1.5)
 
-
-
 func _process(delta):
 	if Input.is_action_just_pressed("menu") and !$menu_interact/AnimationPlayer.is_playing():
 		if !in_menu:
@@ -64,14 +59,6 @@ func _process(delta):
 	if $Player.chatting:
 		if Input.is_action_just_pressed("interact"):
 			read_next_chat()
-	if picking_up_item:
-		if Input.is_action_just_pressed("yes"):
-			item_picked_up()
-	if picked_up_item:
-		if Input.is_action_just_pressed("interact"):
-			picked_up_item = false
-			$sd_world_chat.end_chat()
-			$Player.activate(true)
 	
 	###for testing purposes only###
 	if Input.is_action_just_pressed("debug_btn_1"):
@@ -86,32 +73,30 @@ func close_menu():
 	$Menu.close_menu()
 	in_menu = false
 
-func pick_up_item(item, area, chat_key):
-	$Player.activate(false)
-	$Menu.show_item_on_pickup(item)
-	active_chat = $sd_world_chat.start_chat("res://texts/sd_world_chat.json",\
-	chat_key)
-	picking_up_item = true
-	pick_up_area = area
-	pick_up_item = item
-
-func item_picked_up():
-	picking_up_item = false
-	var item_name = $Menu.add_new_item(pick_up_item)
-	$sd_world_chat.show_text("You picked up " + item_name)
-	
-	$Menu.hide()
-	if pick_up_area:
-		pick_up_area.deactivate()
-	pick_up_area = null
-	picked_up_item = true
-	pick_up_item = null
-
-func start_sd_chat(key):
+func start_sd_chat(key, trigger):
 	active_chat = $sd_world_chat.start_chat("res://texts/sd_world_chat.json",\
 	key)
 	$Player.activate(false)
 	$Player.chatting = true
+
+func pick_up_item(item):
+	$Menu.add_new_item(item)
+	$Menu.hide()
+	if pick_up_area:
+		pick_up_area.deactivate()
+	pick_up_area = null
+
+func cancel_item_pick_up():
+	$Menu.reset_item_view()
+	if pick_up_area:
+		pick_up_area.reactivate()
+	pick_up_area = null
+	$Menu.hide()
+	end_sd_world_chat()
+
+func end_sd_world_chat():
+	$sd_world_chat.end_chat()
+	$Player.activate(true)
 
 func show_character(code):
 	if code == 1:
@@ -140,7 +125,6 @@ func show_character(code):
 		pop_up_tween.tween_property($TVsprite, \
 		"position", Vector2(1568, 824), 0.4).set_trans(Tween.EASE_OUT)
 		#$TVsprite/AnimationPlayer.play("pop_left",-1,2.5)
-
 
 func end_TV_hostel_chat():
 	$TV_hostel_chat.hide()

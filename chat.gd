@@ -219,6 +219,7 @@ class Question:
 	func show_answers():
 		readyAnswers()
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		Input.warp_mouse_position(Vector2(905,750))
 	
 	func update(delta):
 		pass
