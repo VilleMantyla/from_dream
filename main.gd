@@ -73,7 +73,7 @@ func close_menu():
 	$Menu.close_menu()
 	in_menu = false
 
-func start_sd_chat(key, trigger):
+func start_sd_chat(key):
 	active_chat = $sd_world_chat.start_chat("res://texts/sd_world_chat.json",\
 	key)
 	$Player.activate(false)
@@ -275,7 +275,9 @@ func FROM_TREE(anim):
 		$Player.global_rotation.y = deg2rad(148)
 		$Player/rotation_helper.global_rotation.x = deg2rad(-10)
 		$Player/rotation_helper/Camera.current = true
-	
+		
+		$house_entrance/rope.hide()
+		$entrance_door.locked = false
 	if anim == "stand_rise":
 		tv.get_node("AnimationPlayer").play("to_taunting")
 	

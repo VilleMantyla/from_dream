@@ -279,7 +279,9 @@ func on_ladder_exited():
 	activate(true)
 
 func switch_area(new_area):
-	if new_area.slide_to_pos:
+	if new_area.check_lock():
+		pass
+	elif new_area.slide_to_pos:
 		var new_pos = new_area.target_pos
 		new_pos.y += PLAYER_HEIGHT
 		var tween1 = create_tween()

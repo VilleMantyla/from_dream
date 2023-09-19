@@ -13,7 +13,7 @@ func pick_up():
 	$sparkle.hide()
 	get_parent().get_node("Menu").show_item_on_pickup(item)
 	get_parent().pick_up_area = self
-	get_parent().start_sd_chat(chat_key, self)
+	get_parent().start_sd_chat(chat_key)
 
 func deactivate():
 	$CollisionShape.disabled = true

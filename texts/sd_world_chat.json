@@ -84,6 +84,15 @@
 	]
 }
 ],
+"check_1": [{
+	"textframe": [{
+			"text": "Shouldn't we help that girl?",
+			"speed": 15,
+			"sound": 0
+		}
+	]
+}
+],
 "check_2": [{
 	"questionframe": [{
 			"text": "It's a bracelet. Take it?",
