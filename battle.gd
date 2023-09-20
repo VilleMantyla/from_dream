@@ -11,6 +11,9 @@ var leave_battle = false
 
 var enemy_appear_timer
 
+enum states{NO_BATTLE,BATTLE_ON,BATTLE_WIN}
+var state = states.NO_BATTLE
+
 func _ready():
 	$weapons.connect("player_turn_completed", self, "switch_to_enemy_turn")
 	
@@ -21,7 +24,7 @@ func _ready():
 	self, "on_bulletshooter_finished")
 	
 	for e in $Enemies.get_children():
-		e.connect("enemy_died", self, "end_battle")
+		e.connect("enemy_died", self, "end_battle_victory")
 		e.connect("gp_dropped", self, "on_gp_drop")
 		
 		e.hide()
@@ -45,6 +48,7 @@ func _input(event):
 #then show the rest of animation (battle_start_100%)
 
 func start_battle(e):
+	state = states.BATTLE_ON
 	enemy = e
 	$bulletshooter.set_pattern(e.bullet_pattern)
 	show()
@@ -68,7 +72,10 @@ func switch_to_player_turn():
 	pass
 
 func switch_to_enemy_turn():
-	$dodge_arena/AnimationPlayer.play("fade_in",-1,1.2)
+	if state == states.BATTLE_ON:
+		$dodge_arena/AnimationPlayer.play("fade_in",-1,1.2)
+	else:
+		print_debug("no battle")
 
 func activate_vi(anim):
 	if anim == "fade_in":
@@ -90,7 +97,8 @@ func on_bulletshooter_finished():
 	$dodge_arena/AnimationPlayer.play("fade_out",-1,1.2)
 	$dodge_arena/dodge_box.hide()
 
-func end_battle():
+func end_battle_victory():
+	state = states.BATTLE_WIN
 	enemy = null
 	leave_battle = true
 	print("battle ended")

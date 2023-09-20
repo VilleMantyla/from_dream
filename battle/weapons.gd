@@ -5,9 +5,9 @@ signal player_turn_completed
 var weapon
 enum weapons {PISTOL, GRENADE_LAUCNHER}
 var weapon_node
-var pistol_damage = 1
-var pistol_normal_damage = 10
+var pistol_normal_damage = 1
 var pistol_crit_damage = 2
+var pistol_damage = pistol_normal_damage
 var grenade_launcher_damage = 5
 var gl_explode
 
@@ -18,7 +18,17 @@ var bullets_left = 5
 enum states {WAIT, FIRE}
 var state = states.WAIT
 
+var clip_empty_timer #timer for small wait after shooting to check if player won
+					 #on last bullet
+var clip_empty_wait = 0.3
+
 func _ready():
+	clip_empty_timer = Timer.new()
+	clip_empty_timer.one_shot = true
+	clip_empty_timer.wait_time = clip_empty_wait
+	clip_empty_timer.connect("timeout", self, "end_shooting")
+	add_child(clip_empty_timer)
+	
 	weapon_node = $pistol
 	change_weapon(weapons.PISTOL)
 	
@@ -41,6 +51,7 @@ func set_pistol_to_bonus(val):
 func activate(e):
 	enemy = e
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+	reload()
 	set_process(true)
 	set_physics_process(true)
 
@@ -184,12 +195,13 @@ func spend_bullet():
 	get_parent().get_node("bullets").get_child(bullets_left).hide()
 	
 	if bullets_left == 0:
-		emit_signal("player_turn_completed")
+		clip_empty_timer.start()
+
+func end_shooting():
+	emit_signal("player_turn_completed")
 
 func reload():
+	bullets_left = 0
 	for b in get_parent().get_node("bullets").get_children():
 		b.show()
 		bullets_left += 1
-
-
-

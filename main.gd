@@ -213,6 +213,10 @@ func read_next_chat():
 #		else:
 #			enter_battle(enemy)
 
+func destroy_this_start_battle(enemy):
+	$Player.activate(false)
+	enter_battle(enemy)
+
 func focus_on_point(focus_point):
 	var original_rot = $Player/rotation_helper.global_rotation
 	$Player/rotation_helper.look_at(focus_point, Vector3.UP)
