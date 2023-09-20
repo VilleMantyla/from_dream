@@ -1,7 +1,7 @@
 [gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://chat.gd" type="Script" id=1]
-[ext_resource path="res://level_mechanics/world_chat.gd" type="Script" id=2]
+[ext_resource path="res://level_mechanics/sd_world_chat.gd" type="Script" id=2]
 [ext_resource path="res://battle/vi1.png" type="Texture" id=3]
 [ext_resource path="res://battle/noise_5.png" type="Texture" id=4]
 [ext_resource path="res://battle/noise_4.png" type="Texture" id=5]

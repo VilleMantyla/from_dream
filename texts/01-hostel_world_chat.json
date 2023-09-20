@@ -1,0 +1,186 @@
+{
+"0_chat": [{
+	"textframe": [{
+			"text": "I DID NOT NEED YOUR HELP!!",
+			"speed": 50,
+			"sound": 0,
+			"sprite-code" : 1
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "and I saw you looking under my skirt pervert!",
+			"speed": 50,
+			"sound": 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "...",
+			"speed": 50,
+			"sound": 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "aren't you gonna say something?",
+			"speed": 50,
+			"sound": 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "...",
+			"speed": 50,
+			"sound": 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "lol are you a mute?",
+			"speed": 50,
+			"sound": 0,
+			"sprite-code" : 2
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "hahahaha",
+			"speed": 50,
+			"sound": 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "ahh...",
+			"speed": 50,
+			"sound": 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "well, I don't have time *chatting* with you",
+			"speed": 50,
+			"sound": 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "LOL",
+			"speed": 50,
+			"sound": 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "I'm after the guy who hanged me up in that tree",
+			"speed": 50,
+			"sound": 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "so so long, mute retard",
+			"speed": 50,
+			"sound": 0
+		}
+	]
+}
+],
+"1_chat": [{
+	"textframe": [{
+			"text": "Open up you idiot!",
+			"speed": 50,
+			"sound": 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "I saw you get in. I want my Aku back!",
+			"speed": 50,
+			"sound": 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "I'm gonna kill you!",
+			"speed": 50,
+			"sound": 0
+		}
+	]
+}
+],
+"2_chat": [{
+	"textframe": [{
+			"text": "Open up!",
+			"speed": 50,
+			"sound": 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "I want my Aku-",
+			"speed": 50,
+			"sound": 0
+		}
+	]
+}
+],
+"3_chat": [{
+	"textframe": [{
+			"text": "KYAA~!!",
+			"speed": 50,
+			"sound": 0
+		}
+	]
+}
+],
+"4_chat": [{
+	"textframe": [{
+			"text": "I'm stuck!",
+			"speed": 50,
+			"sound": 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "...",
+			"speed": 5,
+			"sound": 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "Wait, what's...",
+			"speed": 50,
+			"sound": 0
+		}
+	]
+}
+],
+"5_chat": [{
+	"textframe": [{
+			"text": "HELP!",
+			"speed": 50,
+			"sound": 0
+		}
+	]
+}
+]
+}

@@ -41,6 +41,8 @@ var climb_padding = 0.25
 var step_sounds = []
 var rng
 
+var activation_lock = false
+
 func _ready():
 	height = PLAYER_HEIGHT#global_transform.origin.y
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -60,11 +62,16 @@ func _ready():
 	rng.randomize()
 
 func activate(val):
+	if activation_lock:
+		return false
 	set_process_input(val)
 	set_process(val)
 	set_physics_process(val)
 	if val:
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
+func lock_activation(val):
+	activation_lock = val
 
 func _input(event):
 	if event is InputEventMouseMotion:# and !stop_mouse_rot:
@@ -110,9 +117,8 @@ func _process(delta):
 				get_parent().start_cutscene(looking_at_interactable.cutscene_name)
 			elif looking_at_interactable.is_in_group("area_switch"):
 				switch_area(looking_at_interactable)
-#			elif looking_at_interactable.is_in_group("chat"):
-#				var chat_key = looking_at_interactable.chat_key
-#				get_parent().interact_with_world_object(chat_key, null, null)
+			elif looking_at_interactable.is_in_group("world_chat"):
+				looking_at_interactable.activate_world_chat()
 			elif looking_at_interactable.is_in_group("sdw_chat"):
 				#var chat_key = looking_at_interactable.chat_key
 				looking_at_interactable.check()

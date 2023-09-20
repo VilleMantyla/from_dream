@@ -25,7 +25,6 @@ func _ready():
 	$house_entrance/sea/AnimationPlayer.play("sea",-1,2)
 	$house_build_ver2/water/AnimationPlayer.play("water",-1,2)
 	
-	$TV_hostel_chat.connect("chat_ended", self, "end_TV_hostel_chat")
 	$Player.connect("show_context_msg", self, "show_context_msg")
 	
 	$Battle.connect("leave_battle", self, "exit_battle")
@@ -98,6 +97,19 @@ func end_sd_world_chat():
 	$sd_world_chat.end_chat()
 	$Player.activate(true)
 
+func start_world_chat(path, chat_key):
+	$Player.activate(false)
+	active_chat = $world_chat/chat
+	$world_chat.show()
+	$world_chat/chat.start_chat(path, chat_key)
+	$Player.chatting = true
+
+func start_world_chat_timed(path, chat_key):
+	$Player.activate(false)
+	active_chat = $world_chat/chat
+	$world_chat.show()
+	$world_chat/chat.start_chat_timed(path, chat_key)
+
 func show_character(code):
 	if code == 1:
 		$TVsprite.texture = load("res://tv/tv_angry_yell.png")
@@ -126,11 +138,11 @@ func show_character(code):
 		"position", Vector2(1568, 824), 0.4).set_trans(Tween.EASE_OUT)
 		#$TVsprite/AnimationPlayer.play("pop_left",-1,2.5)
 
-func end_TV_hostel_chat():
-	$TV_hostel_chat.hide()
-	
+func end_world_chat():
+	$world_chat.hide()
 	$Player.chatting = false
-	$chat_bg.hide()
+	$Player.activate(true)
+	active_chat = null
 	
 	print(cutscene_after_chat)
 	if !check_for_cutscene_after_chat():
@@ -152,6 +164,10 @@ func end_alt_chat():
 func check_for_cutscene_after_chat():
 	if cutscene_after_chat == "tv_run_away":
 		FROM_TREE("tv_run_away")
+	elif cutscene_after_chat == "doors_open":
+		BANGING_ELEVATOR("doors_open")
+	elif cutscene_after_chat == "water_up":
+		BANGING_ELEVATOR("water_up")
 	elif cutscene_after_chat == "tv_plead":
 		KILLING_TV("tv_plead")
 	elif cutscene_after_chat == "after_hazy_chat":
@@ -181,21 +197,21 @@ func show_context_msg(key):
 func read_next_chat():
 	active_chat.try_reading_next_paragraph()
 
-func deprecated_interact_with_world_object(chat, focus_point, enemy):
-	$Player.activate(false)
-	if chat:
-		active_chat = $Chat
-		$Chat.show()
-		$chat_bg.show()
-		$Chat.start_chat("res://texts/chat.json", chat)
-		$Player.chatting = true
-	if focus_point:
-		focus_on_point(focus_point)
-	if enemy:
-		if chat:
-			battle_on_hold = enemy
-		else:
-			enter_battle(enemy)
+#func deprecated_interact_with_world_object(chat, focus_point, enemy):
+#	$Player.activate(false)
+#	if chat:
+#		active_chat = $Chat
+#		$Chat.show()
+#		$chat_bg.show()
+#		$Chat.start_chat("res://texts/chat.json", chat)
+#		$Player.chatting = true
+#	if focus_point:
+#		focus_on_point(focus_point)
+#	if enemy:
+#		if chat:
+#			battle_on_hold = enemy
+#		else:
+#			enter_battle(enemy)
 
 func focus_on_point(focus_point):
 	var original_rot = $Player/rotation_helper.global_rotation
@@ -223,6 +239,7 @@ var cutscene_after_chat = null
 
 func start_cutscene(cutscene_name):
 	$Player.activate(false)
+	$Player.lock_activation(true)
 	current_scene = cutscene_name
 	if cutscene_name == cutscenes.FROM_TREE:
 		tv.global_transform.origin.y = 0
@@ -233,16 +250,10 @@ func start_cutscene(cutscene_name):
 		$Player.global_transform.origin = Vector3(-105.1,1.6,5.25)
 		$Player.global_rotation.y = deg2rad(-160)
 		$Player/rotation_helper.global_rotation.x = deg2rad(-19)
+		$banging_elevator_cutscene/CollisionShape.disabled = true
 		
-		var left = $house_build_ver2/elevatordoorbottom1
-		var right = $house_build_ver2/elevatordoorbottom2
-		var left_target = left.global_transform.origin.x + 0.07
-		var right_target = right.global_transform.origin.x - 0.07
-		var tween1 = create_tween()
-		tween1.tween_property(left, "global_transform:origin:x", left_target, 0.25)
-		var tween2 = create_tween()
-		tween2.tween_property(right, "global_transform:origin:x", right_target, 0.25)
-		tween2.connect("finished", self, "BANGING_ELEVATOR", ["doors"])
+		BANGING_ELEVATOR("button_push")
+		
 	elif cutscene_name == cutscenes.KILLING_TV:
 		$killing_tv_cutscene/CollisionShape.disabled = true
 		$Camera4.current = true
@@ -251,6 +262,7 @@ func start_cutscene(cutscene_name):
 func end_cutscene():
 	current_scene = null
 	$Player/rotation_helper/Camera.current = true
+	$Player.lock_activation(false)
 	$Player.activate(true)
 
 func PLAYER_WAKES_UP(anim):
@@ -286,9 +298,8 @@ func FROM_TREE(anim):
 		tv.get_node("AnimationPlayer").play("taunting_idle",-1,1.2)
 		
 		cutscene_after_chat = "tv_run_away"
-		active_chat = $TV_hostel_chat
-		active_chat.show()
-		$chat_bg.show()
+		active_chat = $world_chat/chat
+		$world_chat.show()
 		active_chat.start_chat("res://texts/chat.json", "melph_tree_first")
 		$Player.chatting = true
 	if anim == "tv_run_away":
@@ -296,21 +307,72 @@ func FROM_TREE(anim):
 		$Path/PathFollow.add_child(tv)
 		tv.global_transform.origin = Vector3.ZERO
 		$Path.start_a_path()
+		$tv_tree_col/CollisionShape.disabled = true
 		end_cutscene()
 
 func BANGING_ELEVATOR(anim):
-	if anim == "doors":
+	if anim == "button_push":
+		cutscene_after_chat = "doors_open"
+		start_world_chat_timed("res://texts/01-hostel_world_chat.json", "2_chat")
+	elif anim == "doors_open":
+		var left = $house_build_ver2/elevatordoorbottom1
+		var right = $house_build_ver2/elevatordoorbottom2
+		var left_target = left.global_transform.origin.x + 0.07
+		var right_target = right.global_transform.origin.x - 0.07
+		var tween1 = create_tween()
+		tween1.tween_property(left, "global_transform:origin:x", left_target, 0.25)
+		var tween2 = create_tween()
+		tween2.tween_property(right, "global_transform:origin:x", right_target, 0.25)
+		tween2.connect("finished", self, "BANGING_ELEVATOR", ["doors"])
+	elif anim == "doors":
 		$tv_3/AnimationPlayer.play("fall_to_stuck")
 		var trgt = $tv_3.global_transform.origin.z + 0.15
 		var tween = create_tween()
 		tween.tween_property($tv_3, "global_transform:origin:z", trgt, 0.8)
-		$Chat.show()
-		$Chat.start_chat_timed("res://texts/chat.json", "TV_fall_scream")
-	if anim == "fall_to_stuck":
+		start_world_chat_timed("res://texts/01-hostel_world_chat.json", "3_chat")
+	elif anim == "fall_to_stuck":
 		$tv_3/AnimationPlayer.play("stuck")
-		$AnimationPlayer.play("rise")
-		$house_build_ver2/water/AnimationPlayer.play("rise",-1,0.25)
+		var empty_tween = create_tween()
+		var empty_node = Node2D.new()
+		empty_tween.tween_property(empty_node, "position", Vector2(), 2)
+		empty_tween.connect("finished",self,"BANGING_ELEVATOR",["stuck"])
+	elif anim == "stuck":
+		cutscene_after_chat = "water_up"
+		start_world_chat_timed("res://texts/01-hostel_world_chat.json", "4_chat")
+	elif anim == "water_up":
+		var empty_tween = create_tween()
+		var empty_node = Node2D.new()
+		empty_tween.tween_property(empty_node, "position", Vector2(), 2.5)
+		empty_tween.connect("finished",self,"BANGING_ELEVATOR",["eww"])
 		$house_build_ver2/water.show()
+		$house_build_ver2/water/AnimationPlayer.play("rise",-1,0.2)
+		$house_build_ver2/water/AnimationPlayer.connect("animation_finished",\
+		self,"BANGING_ELEVATOR")
+		#$AnimationPlayer.play("rise")
+	elif anim == "eww":
+		start_world_chat_timed("res://texts/01-hostel_world_chat.json", "5_chat")
+	elif anim == "rise":
+		var tween = create_tween()
+		var new_pos = $tv_3.global_transform.origin.y - 1.0
+		tween.tween_property($tv_3, "global_transform:origin:y",\
+		new_pos, 1)
+		tween.connect("finished",self,"BANGING_ELEVATOR",["suckers"])
+	elif anim == "suckers":
+		$AnimationPlayer.connect("animation_finished", self, "BANGING_ELEVATOR")
+		$AnimationPlayer.play("sucker_rise",-1,0.8)
+	elif anim == "sucker_rise":
+		var left = $house_build_ver2/elevatordoorbottom1
+		var right = $house_build_ver2/elevatordoorbottom2
+		var left_target = left.global_transform.origin.x - 0.07
+		var right_target = right.global_transform.origin.x + 0.07
+		var tween1 = create_tween()
+		tween1.tween_property(left, "global_transform:origin:x", left_target, 0.25)
+		var tween2 = create_tween()
+		tween2.tween_property(right, "global_transform:origin:x", right_target, 0.25)
+		tween2.connect("finished", self, "BANGING_ELEVATOR", ["cutscene_done"])
+	elif anim == "cutscene_done":
+		$suckers_col/CollisionShape.disabled = false
+		end_cutscene()
 
 func KILLING_TV(anim):
 	if anim == "floor_to_head":

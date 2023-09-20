@@ -3,7 +3,7 @@ extends RichTextLabel
 signal chat_ended
 
 var timer_enabled = false
-var timer_wait = 1
+var timer_wait = 1.5
 
 var wait
 var write
@@ -159,7 +159,7 @@ class Write:
 		time_to_next_char = current_sentence_speed
 		
 		if sentece_speed_sound.has("sprite-code"):
-			parent.get_parent().show_character(sentece_speed_sound["sprite-code"])
+			parent.get_parent().get_parent().show_character(sentece_speed_sound["sprite-code"])
 	
 	func showChar():
 		var character = frame_bbcode_clean[visible_chars]
