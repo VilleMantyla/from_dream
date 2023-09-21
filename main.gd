@@ -1,7 +1,6 @@
 extends Spatial
 
 enum cutscenes {FROM_TREE, BANGING_ELEVATOR, KILLING_TV}
-var current_scene = null
 
 var tv
 
@@ -244,7 +243,6 @@ var cutscene_after_chat = null
 func start_cutscene(cutscene_name):
 	$Player.activate(false)
 	$Player.lock_activation(true)
-	current_scene = cutscene_name
 	if cutscene_name == cutscenes.FROM_TREE:
 		tv.global_transform.origin.y = 0
 		tv.get_node("AnimationPlayer").play("getting_up",-1,1.2)
@@ -264,7 +262,6 @@ func start_cutscene(cutscene_name):
 		$Camera4/AnimationPlayer.play("floor_to_head",-1,0.4)
 
 func end_cutscene():
-	current_scene = null
 	$Player/rotation_helper/Camera.current = true
 	$Player.lock_activation(false)
 	$Player.activate(true)

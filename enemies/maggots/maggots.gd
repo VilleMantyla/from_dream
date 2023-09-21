@@ -58,6 +58,13 @@ func damage_to_part(part, dmg):
 		
 		emit_signal("enemy_died")
 		dead = true
+		
+	get_parent().get_parent().display_damge_number(dmg, part.global_position)
+
+func damage_to_all(dmg):
+	for maggot in get_children():
+		if maggot.hp > 0:
+			damage_to_part(maggot, dmg)
 
 func play_appear_anim():
 	for m in get_children():

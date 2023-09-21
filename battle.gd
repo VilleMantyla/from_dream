@@ -14,6 +14,9 @@ var enemy_appear_timer
 enum states{NO_BATTLE,BATTLE_ON,BATTLE_WIN}
 var state = states.NO_BATTLE
 
+var damage_number_pool = []
+onready var damage_number_tscn = preload("res://battle/damage_number.tscn")
+
 func _ready():
 	$weapons.connect("player_turn_completed", self, "switch_to_enemy_turn")
 	
@@ -25,7 +28,7 @@ func _ready():
 	
 	for e in $Enemies.get_children():
 		e.connect("enemy_died", self, "end_battle_victory")
-		e.connect("gp_dropped", self, "on_gp_drop")
+		e.connect("gp_dropped", self, "add_gp")
 		
 		e.hide()
 	
@@ -82,14 +85,40 @@ func activate_vi(anim):
 		$vi.activate()
 		get_node("bulletshooter").activate()
 
-func on_gp_drop(val):
+func add_gp(val):
 	gp += val
+	update_gp_text()
+	update_actions()
+
+func update_actions():
+	if gp >= 1000:
+		$actions.activate_hand_grenade()
+	else:
+		$actions.disable_hand_grenade()
+
+func update_gp_text():
 	var gp_as_string = str(gp)
 	if gp_as_string.length() > 3:
 		var first_comma = gp_as_string.length() - 3
 		gp_as_string = gp_as_string.insert(first_comma, ",")
 	
 	$gp.text = "¥" + gp_as_string
+
+func display_damge_number(val, start_pos):
+	var damage_number = get_damage_number()
+	damage_number.set_value_and_animate(val, start_pos)
+
+func get_damage_number():
+	if damage_number_pool.size() > 0:
+		return damage_number_pool.pop_back()
+	else:
+		var new_dmg_n = damage_number_tscn.instance()
+		new_dmg_n.connect("damage_number_finished", self, "add_damage_number_to_pool")
+		$damage_numbers.add_child(new_dmg_n)
+		return new_dmg_n
+
+func add_damage_number_to_pool(dmg_number):
+	damage_number_pool.append(dmg_number)
 
 func on_bulletshooter_finished():
 	$vi.deactivate()

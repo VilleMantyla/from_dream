@@ -18,6 +18,8 @@ var bullets_left = 5
 enum states {WAIT, FIRE}
 var state = states.WAIT
 
+var pistol_crit_enabled = false
+
 var clip_empty_timer #timer for small wait after shooting to check if player won
 					 #on last bullet
 var clip_empty_wait = 0.3
@@ -44,9 +46,9 @@ func _ready():
 #################
 ## Bonus wheel ##
 #################
-var pistol_bonus_on = false
+var pistol_critted = false
 func set_pistol_to_bonus(val):
-	pistol_bonus_on = val
+	pistol_critted = val
 
 func activate(e):
 	enemy = e
@@ -54,6 +56,13 @@ func activate(e):
 	reload()
 	set_process(true)
 	set_physics_process(true)
+	
+	if pistol_crit_enabled:
+		$pistol/Sprite.show()
+		$pistol/Sprite2.show()
+	else:
+		$pistol/Sprite.hide()
+		$pistol/Sprite2.hide()
 
 func deactivate():
 	enemy = null
@@ -90,11 +99,11 @@ func _physics_process(delta):
 		if weapon == weapons.PISTOL:
 			targets = pistol_collision_query(space)
 			$AudioStreamPlayer.play()
-			if pistol_bonus_on:
+			if pistol_critted and pistol_crit_enabled:
 				get_parent().get_node("pistol_bang").global_position = get_global_mouse_position()
 				get_parent().get_node("pistol_bang/AnimationPlayer").play("bonus",-1,2)
 				get_parent().get_node("pistol_bang/AnimationPlayer").seek(0)
-				pistol_damage = 2
+				pistol_damage = pistol_crit_damage
 			else:
 				get_parent().get_node("pistol_bang").global_position = get_global_mouse_position()
 				get_parent().get_node("pistol_bang/AnimationPlayer").play("normal",-1,2)
@@ -171,7 +180,7 @@ func change_weapon(new_weapon):
 		$pistol/CollisionShape2D.disabled = false
 		$pistol.show()
 		weapon_node = $pistol
-		$AudioStreamPlayer.stream = load("res://sounds/pistol_fire.wav")
+		$AudioStreamPlayer.stream = load("res://sounds/pistol_sho9.wav")
 	elif new_weapon == weapons.GRENADE_LAUCNHER:
 		weapon = weapons.GRENADE_LAUCNHER
 		$grenade_launcher/CollisionShape2D.disabled = false

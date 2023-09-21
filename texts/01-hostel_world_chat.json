@@ -108,7 +108,15 @@
 },
 {
 	"textframe": [{
-			"text": "I saw you get in. I want my Aku back!",
+			"text": "I saw you get in.",
+			"speed": 50,
+			"sound": 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "I want my Stone back!",
 			"speed": 50,
 			"sound": 0
 		}
@@ -133,7 +141,7 @@
 },
 {
 	"textframe": [{
-			"text": "I want my Aku-",
+			"text": "I want my Stone-",
 			"speed": 50,
 			"sound": 0
 		}
