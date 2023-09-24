@@ -1,6 +1,10 @@
 extends Spatial
 
 enum cutscenes {FROM_TREE, BANGING_ELEVATOR, KILLING_TV}
+#battles that occur in this order on a trigger, per trigger
+onready var battle_list = [$Battle/Enemies/maggots, $Battle/Enemies/flies]
+var sdw_chats_after_battle = ["teach_2"]
+
 
 var tv
 
@@ -31,7 +35,6 @@ func _ready():
 	for gs in $glitch_suckers.get_children():
 		gs.get_node("AnimationPlayer").get_animation("s_twiggle2_alt").set_loop(true)
 		gs.get_node("AnimationPlayer").play("s_twiggle2_alt",-1,1.5)
-	
 	
 	tv = $tv_ver2
 	tv.get_node("AnimationPlayer").get_animation("on_the_noose").set_loop(true)
@@ -189,6 +192,12 @@ func exit_battle():
 	$Battle.hide()
 	$Player.activate(true)
 	$ColorRect.show()
+	
+	if sdw_chats_after_battle.size() > 0:
+		var chat_key = sdw_chats_after_battle.pop_front()
+		start_sd_chat(chat_key)
+		if chat_key == "teach_2":
+			$Battle/weapons.pistol_crit_enabled = true
 
 func show_context_msg(key):
 	$context_msg.text = interactables[key]
@@ -215,6 +224,10 @@ func read_next_chat():
 func destroy_this_start_battle(enemy):
 	$Player.activate(false)
 	enter_battle(enemy)
+
+func start_listed_battle():
+	$Player.activate(false)
+	enter_battle(battle_list.pop_front())
 
 func focus_on_point(focus_point):
 	var original_rot = $Player/rotation_helper.global_rotation

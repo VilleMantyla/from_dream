@@ -1,6 +1,7 @@
 extends Area
 
 export (NodePath) var enemy
+export var get_battle_from_list = false
 export (String) var chat
 export var follow_on = false
 export var skip_fight = false
@@ -19,6 +20,7 @@ func _ready():
 	follow.speed = follow_speed
 	
 	state = idle
+	$justbody/AnimationPlayer.play("idle")
 
 func remove():
 	$CollisionShape.disabled = true
@@ -32,7 +34,6 @@ func _on_Eyes_body_entered(body):
 	target = body
 	if follow_on:
 		state = follow
-
 
 class Idle:
 	var parent
@@ -78,13 +79,15 @@ class Follow:
 		parent.get_node("CollisionShape").rotation.x = 0
 		parent.get_node("CollisionShape").rotation.z = 0
 
-
 func _on_enemy_trigger_body_entered(body):
 	$CollisionShape.disabled = true
 	if skip_fight:
 		enemy = null
+	elif get_battle_from_list:
+		get_parent().start_listed_battle()
 	else:
 		enemy = get_node(enemy)
+		get_parent().destroy_this_start_battle(enemy)
 	#get_parent().interact_with_world_object(chat, global_transform.origin, enemy)
-	get_parent().destroy_this_start_battle(enemy)
+	
 	#remove()

@@ -40,6 +40,23 @@
 	]
 }
 ],
+"teach_2": [{
+	"textframe": [{
+			"text": "You got a new sticker to your gun! [color=#1F51FF]Crit Wheel[/color]",
+			"speed": 15,
+			"sound": 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "shoot on red for extra damage!",
+			"speed": 15,
+			"sound": 0
+		}
+	]
+}
+],
 "check_0": [{
 	"textframe": [{
 			"text": "It's a trash can.",

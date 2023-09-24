@@ -45,7 +45,12 @@ func activate_topmenu():
 
 func hide_submenus():
 	items_submenu.hide()
+	$weapons.hide()
 
 func show_items_submenu():
 	$GridContainer.hide()
 	items_submenu.show()
+
+func show_weapons_submenu():
+	$GridContainer.hide()
+	$weapons.show()

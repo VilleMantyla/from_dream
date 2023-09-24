@@ -10,6 +10,8 @@ var enemy
 var leave_battle = false
 
 var enemy_appear_timer
+var victory_timer
+var victory_wait = 2.5
 
 enum states{NO_BATTLE,BATTLE_ON,BATTLE_WIN}
 var state = states.NO_BATTLE
@@ -41,6 +43,12 @@ func _ready():
 	enemy_appear_timer.one_shot = true
 	enemy_appear_timer.connect("timeout", self, "enemy_appear_finished")
 	add_child(enemy_appear_timer)
+	
+	victory_timer = Timer.new()
+	victory_timer.wait_time = victory_wait
+	victory_timer.one_shot = true
+	victory_timer.connect("timeout", self, "show_victory_screen")
+	add_child(victory_timer)
 
 func _input(event):
 	if event.is_action_pressed("interact") and leave_battle:
@@ -129,9 +137,11 @@ func on_bulletshooter_finished():
 func end_battle_victory():
 	state = states.BATTLE_WIN
 	enemy = null
-	leave_battle = true
-	print("battle ended")
 	
+	victory_timer.start()
+
+func show_victory_screen():
+	leave_battle = true
 	$win.show()
 	$win/gp_left.text = "Left: ¥" + str(gp)
 	$win/AnimationPlayer.play("silly_money_to_bank_anim",-1,0.5)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://menu/menu_sub_btn.png" type="Texture" id=1]
 [ext_resource path="res://menu/items_submenu.gd" type="Script" id=2]
@@ -18,6 +18,7 @@
 [ext_resource path="res://menu/item_slot_pressed.png" type="Texture" id=16]
 [ext_resource path="res://chat.gd" type="Script" id=17]
 [ext_resource path="res://menu/items/pink_sock.png" type="Texture" id=18]
+[ext_resource path="res://battle/asevalikko_mock_up.png" type="Texture" id=19]
 
 [sub_resource type="DynamicFont" id=3]
 size = 32
@@ -278,6 +279,7 @@ align = 1
 position = Vector2( 1500, 908 )
 scale = Vector2( 5, 5 )
 frames = SubResource( 5 )
+frame = 1
 speed_scale = 0.25
 playing = true
 
@@ -288,6 +290,7 @@ script = ExtResource( 2 )
 position = Vector2( 1500, 908 )
 scale = Vector2( 5, 5 )
 frames = SubResource( 5 )
+frame = 1
 speed_scale = 0.25
 playing = true
 
@@ -470,5 +473,13 @@ visible = false
 mesh = SubResource( 12 )
 skeleton = NodePath("")
 
+[node name="weapons" type="Node2D" parent="."]
+visible = false
+
+[node name="mockup" type="Sprite" parent="weapons"]
+texture = ExtResource( 19 )
+centered = false
+
 [connection signal="button_down" from="topmenu_btn" to="." method="activate_topmenu"]
 [connection signal="button_down" from="GridContainer/VBoxContainer2/TextureButton" to="." method="show_items_submenu"]
+[connection signal="button_down" from="GridContainer/VBoxContainer4/TextureButton" to="." method="show_weapons_submenu"]
