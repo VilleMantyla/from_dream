@@ -3,8 +3,7 @@ extends Spatial
 enum cutscenes {FROM_TREE, BANGING_ELEVATOR, KILLING_TV}
 #battles that occur in this order on a trigger, per trigger
 onready var battle_list = [$Battle/Enemies/maggots, $Battle/Enemies/flies]
-var sdw_chats_after_battle = ["teach_2"]
-
+var triggers_after_battle = ["teach_2", "water_away"]
 
 var tv
 
@@ -50,6 +49,12 @@ func _ready():
 	$void2/AnimationPlayer.play("holding_tv_idle")
 	$tv_2_floor/AnimationPlayer.get_animation("let_me_go").set_loop(true)
 	$tv_2_floor/AnimationPlayer.play("let_me_go",-1,1.5)
+	
+	$enemy_trigger/CollisionShape.disabled = true
+	$enemy_trigger2/CollisionShape.disabled = true
+	$enemy_trigger.hide()
+	$enemy_trigger2.hide()
+	
 
 func _process(delta):
 	if Input.is_action_just_pressed("menu") and !$menu_interact/AnimationPlayer.is_playing():
@@ -193,11 +198,8 @@ func exit_battle():
 	$Player.activate(true)
 	$ColorRect.show()
 	
-	if sdw_chats_after_battle.size() > 0:
-		var chat_key = sdw_chats_after_battle.pop_front()
-		start_sd_chat(chat_key)
-		if chat_key == "teach_2":
-			$Battle/weapons.pistol_crit_enabled = true
+	check_triggers(triggers_after_battle.pop_front())
+
 
 func show_context_msg(key):
 	$context_msg.text = interactables[key]
@@ -371,9 +373,10 @@ func BANGING_ELEVATOR(anim):
 		tween.tween_property($tv_3, "global_transform:origin:y",\
 		new_pos, 1)
 		tween.connect("finished",self,"BANGING_ELEVATOR",["suckers"])
+		$house_build_ver2/water/AnimationPlayer.play("water")
 	elif anim == "suckers":
 		$AnimationPlayer.connect("animation_finished", self, "BANGING_ELEVATOR")
-		$AnimationPlayer.play("sucker_rise",-1,0.8)
+		$AnimationPlayer.play("sucker_rise",-1,1.2)
 	elif anim == "sucker_rise":
 		var left = $house_build_ver2/elevatordoorbottom1
 		var right = $house_build_ver2/elevatordoorbottom2
@@ -386,6 +389,10 @@ func BANGING_ELEVATOR(anim):
 		tween2.connect("finished", self, "BANGING_ELEVATOR", ["cutscene_done"])
 	elif anim == "cutscene_done":
 		$suckers_col/CollisionShape.disabled = false
+		$enemy_trigger/CollisionShape.disabled = false
+		$enemy_trigger2/CollisionShape.disabled = false
+		$enemy_trigger.show()
+		$enemy_trigger2.show()
 		end_cutscene()
 
 func KILLING_TV(anim):
@@ -457,7 +464,17 @@ func FREE_ELEVATOR():
 	$house_build_ver2/fake_lift_floor.hide()
 	$house_build_ver2/fake_lift_car.hide()
 	$tv_3.hide()
+	$suckers_col/CollisionShape.disabled = true
 	$glitch_suckers.hide()
 	$tv3_static_body/CollisionShape.disabled = true
 	$house_build_ver2/elevatordoorbottom1.global_transform.origin.x += 0.5
 	$house_build_ver2/elevatordoorbottom2.global_transform.origin.x -= 0.5
+	$elevator_doors/CollisionShape.disabled = true
+	$house_build_ver2/water/AnimationPlayer.play("drain",-1,0.5)
+
+func check_triggers(key):
+	if key == "teach_2":
+		start_sd_chat("teach_2")
+		$Battle/weapons.pistol_crit_enabled = true
+	elif key == "water_away":
+		FREE_ELEVATOR()

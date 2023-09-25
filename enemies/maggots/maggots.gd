@@ -2,6 +2,7 @@ extends Node2D
 
 signal enemy_died
 signal gp_dropped
+signal dmg_number
 
 export (NodePath) var bullet_pattern
 
@@ -47,19 +48,23 @@ func damage_to_part(part, dmg):
 		part.get_node("Area2D/AnimatedSprite").stop()
 		emit_signal("gp_dropped", gp_value)
 	
-	if part_count <= 5 and !dead:
-		for maggot in get_children():
-			if maggot.hp > 0:
-				var temp = Vector2(0,-5000)
-				temp = temp.rotated(maggot.global_rotation)
-				temp = temp+maggot.global_position
-				var tween = create_tween()
-				tween.tween_property(maggot, "global_position", temp, 6).set_trans(Tween.EASE_OUT)
-		
+#	if part_count <= 5 and !dead:
+#		for maggot in get_children():
+#			if maggot.hp > 0:
+#				var temp = Vector2(0,-5000)
+#				temp = temp.rotated(maggot.global_rotation)
+#				temp = temp+maggot.global_position
+#				var tween = create_tween()
+#				tween.tween_property(maggot, "global_position", temp, 6).set_trans(Tween.EASE_OUT)
+#
+#		emit_signal("enemy_died")
+#		dead = true
+	
+	if part_count == 0:
 		emit_signal("enemy_died")
-		dead = true
 		
-	get_parent().get_parent().display_damge_number(dmg, part.global_position)
+	emit_signal("dmg_number",dmg, part.global_position)
+	#get_parent().get_parent().display_damge_number(dmg, part.global_position)
 
 func damage_to_all(dmg):
 	for maggot in get_children():

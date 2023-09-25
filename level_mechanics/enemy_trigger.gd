@@ -81,6 +81,7 @@ class Follow:
 
 func _on_enemy_trigger_body_entered(body):
 	$CollisionShape.disabled = true
+	hide()
 	if skip_fight:
 		enemy = null
 	elif get_battle_from_list:

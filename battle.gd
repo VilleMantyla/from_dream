@@ -31,6 +31,7 @@ func _ready():
 	for e in $Enemies.get_children():
 		e.connect("enemy_died", self, "end_battle_victory")
 		e.connect("gp_dropped", self, "add_gp")
+		e.connect("dmg_number", self, "display_damge_number")
 		
 		e.hide()
 	

@@ -104,6 +104,7 @@ func _physics_process(delta):
 				get_parent().get_node("pistol_bang/AnimationPlayer").play("bonus",-1,2)
 				get_parent().get_node("pistol_bang/AnimationPlayer").seek(0)
 				pistol_damage = pistol_crit_damage
+				$ap_crit.play()
 			else:
 				get_parent().get_node("pistol_bang").global_position = get_global_mouse_position()
 				get_parent().get_node("pistol_bang/AnimationPlayer").play("normal",-1,2)

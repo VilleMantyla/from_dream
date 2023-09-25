@@ -2,8 +2,11 @@ extends Node2D
 
 signal enemy_died
 signal gp_dropped
+signal dmg_number
 
 export (NodePath) var bullet_pattern
+
+var gp_value = 500
 
 var part_count = 0
 
@@ -17,15 +20,17 @@ func _ready():
 	deactivate()
 
 func appear_and_prepare():
-	#var rng = RandomNumberGenerator.new()
+#	var rng = RandomNumberGenerator.new()
+#	rng.randomize()
 	var animation_player = get_child(0).get_node("AnimationPlayer")
 	animation_player.connect("animation_finished", self, "animation_finished")
 	for fly in get_children():
 		fly.disable_collisionshape(false)
-		var pf = fly.get_node("Path2D/PathFollow2D")
-		#var random_offset = rng.randf_range(0.0, 1.0)
-		#pf.set_unit_offset(pf.get_unit_offset()+random_offset)
+#		var pf = fly.get_node("Path2D/PathFollow2D")
+#		var random_offset = rng.randf_range(0.0, 1.0)
+#		pf.set_unit_offset(pf.get_unit_offset()+random_offset)
 		fly.get_node("AnimationPlayer").play("appear",-1,1/appear_time)
+		fly.dead = false
 		
 	part_count = get_children().size()
 	flies = get_children()
@@ -49,8 +54,9 @@ func activate():
 
 func _process(delta):
 	for fly in flies:
-		var pf = fly.get_node("Path2D/PathFollow2D")
-		pf.set_offset(pf.get_offset()+speed*delta)
+		if !fly.dead:
+			var pf = fly.get_node("Path2D/PathFollow2D")
+			pf.set_offset(pf.get_offset()+speed*delta)
 
 func take_damage(parts, dmg):
 	for part in parts:
@@ -59,11 +65,22 @@ func take_damage(parts, dmg):
 func damage_to_part(part, dmg):
 	part.hp -= dmg
 	if part.hp <= 0:
-		part.hide()
+		part.dead = true
+		part.get_node("AnimationPlayer").play("die",-1,2.3)
+		part.get_node("Path2D/PathFollow2D/Area2D/AnimatedSprite").stop()
 		part.disable_collisionshape(true)
 		part_count -= 1
+		emit_signal("gp_dropped", gp_value)
 	else:
 		part.get_node("AnimationPlayer").play("damaged")
 	
 	if part_count == 0:
 		emit_signal("enemy_died")
+	
+	var pos = part.get_node("Path2D/PathFollow2D").global_position
+	emit_signal("dmg_number",dmg, pos)
+
+func damage_to_all(dmg):
+	for fly in get_children():
+		if fly.hp > 0:
+			damage_to_part(fly, dmg)

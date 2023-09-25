@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://shaders/enemy_noise.shader" type="Shader" id=1]
 [ext_resource path="res://enemies/select.gd" type="Script" id=2]
@@ -9,9 +9,9 @@
 [ext_resource path="res://enemies/flies/fly1.png" type="Texture" id=7]
 [ext_resource path="res://enemies/flies/fly0.png" type="Texture" id=8]
 
-[sub_resource type="Curve2D" id=1]
+[sub_resource type="Curve2D" id=23]
 _data = {
-"points": PoolVector2Array( 0, 0, 0, 0, 72, -96, 0, 0, 0, 0, 216, -40, 0, 0, 0, 0, 200, 112, 0, 0, 0, 0, 40, 168, 0, 0, 0, 0, -72, 64, 0, 0, 0, 0, -64, -48, 0, 0, 0, 0, 72, -96 )
+"points": PoolVector2Array( -55.0286, -1.97508, 55.0286, 1.97508, 64, -184, -53.9391, -64.4272, 53.9391, 64.4272, 264, -128, 76.3104, -57.6844, -76.3104, 57.6844, 272, 160, 98.8883, 46.4475, -98.8883, -46.4475, 56, 32, -28.4678, 47.9458, 28.4678, -47.9458, -128, -112, -46.6171, 1.25992, 46.6171, -1.25992, 64, -184 )
 }
 
 [sub_resource type="AnimatedTexture" id=20]
@@ -69,6 +69,18 @@ tracks/1/keys = {
 "update": 0,
 "values": [ false ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [sub_resource type="Animation" id=4]
 resource_name = "appear"
@@ -124,16 +136,43 @@ tracks/2/keys = {
 "values": [ 0.8, 0.0 ]
 }
 
+[sub_resource type="Animation" id=24]
+resource_name = "die"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Path2D/PathFollow2D/Area2D/AnimatedSprite:material:shader_param/play_noise")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
 [node name="fly" type="Node2D"]
 position = Vector2( 768, 416 )
 script = ExtResource( 3 )
 
 [node name="Path2D" type="Path2D" parent="."]
-curve = SubResource( 1 )
+curve = SubResource( 23 )
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
-position = Vector2( 72, -96 )
-rotation = 0.370894
+position = Vector2( 64, -184 )
+rotation = 0.0299826
 
 [node name="Area2D" type="Area2D" parent="Path2D/PathFollow2D"]
 script = ExtResource( 2 )
@@ -154,3 +193,4 @@ shape = SubResource( 2 )
 anims/RESET = SubResource( 3 )
 anims/appear = SubResource( 4 )
 anims/damaged = SubResource( 22 )
+anims/die = SubResource( 24 )
