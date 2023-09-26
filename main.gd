@@ -24,6 +24,10 @@ func _ready():
 	
 	#PLAYER_WAKES_UP("wake_up")
 	
+	$Menu/kanji_submenu.connect("answer_submitted", self, "check_kanji_puzzle_answer")
+	$Menu/kanji_submenu.connect("closed", self, "close_kanji_puzzle")
+	
+	
 	$house_entrance/sea/AnimationPlayer.play("sea",-1,2)
 	$house_build_ver2/water/AnimationPlayer.play("water",-1,2)
 	
@@ -54,7 +58,6 @@ func _ready():
 	$enemy_trigger2/CollisionShape.disabled = true
 	$enemy_trigger.hide()
 	$enemy_trigger2.hide()
-	
 
 func _process(delta):
 	if Input.is_action_just_pressed("menu") and !$menu_interact/AnimationPlayer.is_playing():
@@ -249,6 +252,23 @@ func focus_on_point(focus_point):
 	var v_tween = create_tween()
 	v_tween.tween_property($Player, "global_rotation", new_player_rot, 1).set_trans(Tween.EASE_IN_OUT)
 
+var kanji_puzzle = null
+func open_kanji_puzzle(kanji_puzz):
+	kanji_puzzle = kanji_puzz
+	$Player.activate(false)
+	$Menu.show_kanji_puzzle()
+	$Menu.show()
+
+func close_kanji_puzzle():
+	kanji_puzzle = null
+	$Player.activate(true)
+	$Menu.hide()
+
+func check_kanji_puzzle_answer(answer):
+	if kanji_puzzle.answer == answer:
+		kanji_puzzle.open()
+		close_kanji_puzzle()
+
 ###############
 ## CUTSCENES ##
 ###############
@@ -399,10 +419,7 @@ func KILLING_TV(anim):
 	if anim == "floor_to_head":
 		$Camera5.current = true
 		cutscene_after_chat = "tv_plead"
-		$Chat.show()
-		$chat_bg.show()
-		$Chat.start_chat("res://texts/chat.json", "let_me_go")
-		$Player.chatting = true
+		start_world_chat_timed("res://texts/01-hostel_world_chat.json", "6_chat")
 	elif anim == "tv_plead":
 		$Camera6.current = true
 		$Camera6/AnimationPlayer.play("show_knife",-1,0.33)
@@ -452,13 +469,16 @@ func KILLING_TV(anim):
 		$_void_battle_0.hide()
 		$void2.hide()
 		var player_up_tween = create_tween()
-		player_up_tween.connect("finished", self, "end_cutscene")
+		player_up_tween.connect("finished", self, "KILLING_TV", ["new_weapon"])
 		#player_up_tween.connect("finished", self, "KILLING_TV", ["start_battle"])
 		$Player/rotation_helper.rotation.x = deg2rad(-65)
 		var cam_org_y = $Player/rotation_helper/Camera.global_transform.origin.y
 		$Player/rotation_helper/Camera.global_transform.origin.y += -1.2
 		player_up_tween.tween_property($Player/rotation_helper/Camera, \
 		"global_transform:origin:y", cam_org_y, 3).set_trans(Tween.EASE_OUT)
+	elif anim == "new_weapon":
+		end_cutscene()
+		start_sd_chat("plot_1")
 
 func FREE_ELEVATOR():
 	$house_build_ver2/fake_lift_floor.hide()

@@ -190,5 +190,22 @@
 		}
 	]
 }
+],
+"6_chat": [{
+	"textframe": [{
+			"text": "Let me go!",
+			"speed": 50,
+			"sound": 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "I'm gonna kill you!",
+			"speed": 50,
+			"sound": 0
+		}
+	]
+}
 ]
 }

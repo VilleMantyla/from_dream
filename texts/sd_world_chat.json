@@ -40,6 +40,31 @@
 	]
 }
 ],
+"plot_1": [{
+	"textframe": [{
+			"text": "You got a new weapon sticker!",
+			"speed": 15,
+			"sound": 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "Use [color=#1F51FF]Grenade Launcher[/color] to do big damage.",
+			"speed": 15,
+			"sound": 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "To change weapons, click [color=#1F51FF]Grenade Launcher[/color] sticker during battle.",
+			"speed": 15,
+			"sound": 0
+		}
+	]
+}
+],
 "teach_2": [{
 	"textframe": [{
 			"text": "You got a new sticker to your gun! [color=#1F51FF]Crit Wheel[/color]",
@@ -122,6 +147,31 @@
 "check_2a": [{
 	"textframe": [{
 			"text": "You took Bracelet.",
+			"speed": 15,
+			"sound": 0
+		}
+	]
+}
+],
+"check_3": [{
+	"textframe": [{
+			"text": "She's... dead.",
+			"speed": 15,
+			"sound": 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "But her body is still fresh.",
+			"speed": 15,
+			"sound": 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "If we had a memory card, we could load her up to the SD.",
 			"speed": 15,
 			"sound": 0
 		}

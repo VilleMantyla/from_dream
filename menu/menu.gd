@@ -46,6 +46,7 @@ func activate_topmenu():
 func hide_submenus():
 	items_submenu.hide()
 	$weapons.hide()
+	$kanji_submenu.hide()
 
 func show_items_submenu():
 	$GridContainer.hide()
@@ -54,3 +55,17 @@ func show_items_submenu():
 func show_weapons_submenu():
 	$GridContainer.hide()
 	$weapons.show()
+
+func show_kanji_submenu():
+	$GridContainer.hide()
+	$kanji_submenu.set_state($kanji_submenu.states.MENU)
+	$kanji_submenu.show()
+
+func show_kanji_puzzle():
+	$ColorRect.hide()
+	$topmenu_btn.hide()
+	$GridContainer.hide()
+	$vi.hide()
+	
+	$kanji_submenu.set_state($kanji_submenu.states.PUZZLE)
+	$kanji_submenu.show()

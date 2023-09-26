@@ -156,6 +156,9 @@ func _process(delta):
 				looking_at_interactable.play_anim(1.3)
 			elif looking_at_interactable.is_in_group("chain"):
 				looking_at_interactable.cut_chain()
+			elif looking_at_interactable.is_in_group("kanji_puzzle"):
+				var kanji_puzzle = looking_at_interactable
+				get_parent().open_kanji_puzzle(kanji_puzzle)
 
 func _physics_process(delta):
 	var space_state = get_world().direct_space_state
