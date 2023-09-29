@@ -59,7 +59,9 @@ func _ready():
 	$enemy_trigger.hide()
 	$enemy_trigger2.hide()
 	$enemy_trigger3/CollisionShape.disabled = true
+	$enemy_trigger4/CollisionShape.disabled = true
 	$enemy_trigger3.hide()
+	$enemy_trigger4.hide()
 
 func _process(delta):
 	if Input.is_action_just_pressed("menu") and !$menu_interact/AnimationPlayer.is_playing():

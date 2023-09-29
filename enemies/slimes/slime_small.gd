@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
 var id = null
-var hp = 1
+var hp = 2
 
 func disable_collisionshape(val):
 	$CollisionShape2D.disabled = val

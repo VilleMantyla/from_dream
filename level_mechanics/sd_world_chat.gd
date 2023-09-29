@@ -63,7 +63,9 @@ func on_player_answer(ans):
 			get_parent().pick_up_item(Global.items.ANGLEGRINDER)
 			read_chat("res://texts/sd_world_chat.json", "check_4a")
 			get_parent().get_node("enemy_trigger3").show()
+			get_parent().get_node("enemy_trigger4").show()
 			get_parent().get_node("enemy_trigger3/CollisionShape").disabled = false
+			get_parent().get_node("enemy_trigger4/CollisionShape").disabled = false
 		else:
 			get_parent().cancel_item_pick_up()
 	elif current_chat_key == "check_5":

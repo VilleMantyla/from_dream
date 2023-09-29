@@ -23,7 +23,7 @@ var state = states.WAIT
 
 var pistol_crit_enabled = false
 export var force_pistol_crit = false #for debug only
-var g_bullets_enabled = false
+var g_bullets_enabled = true
 
 var clip_empty_timer #timer for small wait after shooting to check if player won
 					 #on last bullet

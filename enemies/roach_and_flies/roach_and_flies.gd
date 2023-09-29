@@ -118,3 +118,8 @@ func damage_to_part(part, dmg):
 
 	if part_count == 0:
 		emit_signal("enemy_died")
+
+func damage_to_all(dmg):
+	for part in get_children():
+		if part.hp > 0:
+			damage_to_part(part, dmg)
