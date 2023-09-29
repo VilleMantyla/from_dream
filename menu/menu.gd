@@ -21,6 +21,9 @@ func show_item_on_pickup(item):
 	$GridContainer.hide()
 	$vi.hide()
 	
+	$kanji_submenu.hide()
+	$weapons.hide()
+	
 	$items_submenu.view_item_on_pickup(item)
 	$items_submenu.show()
 	

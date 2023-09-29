@@ -22,6 +22,7 @@ func set_state(new_state):
 		$clear.hide()
 		$answer_mode_bg.hide()
 		$hint.hide()
+		$close.hide()
 	elif new_state == states.PUZZLE:
 		$answer_bg.show()
 		$answer.show()
@@ -29,6 +30,7 @@ func set_state(new_state):
 		$clear.show()
 		$hint.show()
 		$answer_mode_bg.show()
+		$close.show()
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	state = new_state
 

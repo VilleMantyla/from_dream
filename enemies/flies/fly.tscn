@@ -182,7 +182,6 @@ scene_root = NodePath("../../..")
 material = SubResource( 21 )
 scale = Vector2( 3, 3 )
 frames = SubResource( 19 )
-frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Path2D/PathFollow2D/Area2D"]

@@ -19,6 +19,14 @@ onready var item_data = {
 	Global.items.PINKSOCK: {
 		"3D": $Viewport/item_3dmodels/pink_sock,
 		"name": "Pink Sock"
+	},
+	Global.items.ANGLEGRINDER: {
+		"3D": $Viewport/item_3dmodels/anglegrinder,
+		"name": "Angle Grinder"
+	},
+	Global.items.MEMORYCARD: {
+		"3D": $Viewport/item_3dmodels/memorycard,
+		"name": "Memory Card"
 	}
 }
 
@@ -31,7 +39,7 @@ func _ready():
 	#selected_item = $Viewport/items/riris_bracelet
 	
 	#set_process(false)
-	set_process(true)
+	#set_process(true)
 
 func _process(delta):
 	if item_selected > -1:

@@ -1,6 +1,6 @@
 extends Node2D
 
-var hp = 20
+var hp = 10
 var shield = 5
 var id = null
 

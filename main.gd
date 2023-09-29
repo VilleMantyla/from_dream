@@ -58,6 +58,8 @@ func _ready():
 	$enemy_trigger2/CollisionShape.disabled = true
 	$enemy_trigger.hide()
 	$enemy_trigger2.hide()
+	$enemy_trigger3/CollisionShape.disabled = true
+	$enemy_trigger3.hide()
 
 func _process(delta):
 	if Input.is_action_just_pressed("menu") and !$menu_interact/AnimationPlayer.is_playing():
@@ -68,11 +70,6 @@ func _process(delta):
 	if $Player.chatting:
 		if Input.is_action_just_pressed("interact"):
 			read_next_chat()
-	
-	###for testing purposes only###
-	if Input.is_action_just_pressed("debug_btn_1"):
-		FREE_ELEVATOR()
-		$note_text.hide()
 
 func open_menu():
 	$Menu.open_menu()
@@ -479,6 +476,7 @@ func KILLING_TV(anim):
 	elif anim == "new_weapon":
 		end_cutscene()
 		start_sd_chat("plot_1")
+		$Battle/weapons.g_bullets_enabled = true
 
 func FREE_ELEVATOR():
 	$house_build_ver2/fake_lift_floor.hide()

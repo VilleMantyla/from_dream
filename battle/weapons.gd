@@ -2,6 +2,8 @@ extends Node2D
 
 signal player_turn_completed
 
+const SHOOTING_Y_LIMIT = 858
+
 var weapon
 enum weapons {PISTOL, GRENADE_LAUCNHER}
 var weapon_node
@@ -15,16 +17,28 @@ var enemy = null
 
 var bullets_left = 5
 
+
 enum states {WAIT, FIRE}
 var state = states.WAIT
 
 var pistol_crit_enabled = false
+export var force_pistol_crit = false #for debug only
+var g_bullets_enabled = false
 
 var clip_empty_timer #timer for small wait after shooting to check if player won
 					 #on last bullet
 var clip_empty_wait = 0.3
 
+var gp = 0
+var gp_label
+
+var bomb_btn
+onready var actions = get_parent().get_node("actions")
+
 func _ready():
+	gp_label = get_parent().get_node("gp")
+	bomb_btn = get_parent().get_node("actions/bomb")
+	
 	clip_empty_timer = Timer.new()
 	clip_empty_timer.one_shot = true
 	clip_empty_timer.wait_time = clip_empty_wait
@@ -42,6 +56,10 @@ func _ready():
 	
 	$pistol/Sprite/AnimationPlayer.get_animation("spin").set_loop(true)
 	$pistol/Sprite/AnimationPlayer.play("spin")
+	
+	if force_pistol_crit:
+		print_debug("pistol crit forced mode")
+		pistol_crit_enabled = true
 
 #################
 ## Bonus wheel ##
@@ -57,12 +75,19 @@ func activate(e):
 	set_process(true)
 	set_physics_process(true)
 	
+	add_gp(-gp)
+	
 	if pistol_crit_enabled:
 		$pistol/Sprite.show()
 		$pistol/Sprite2.show()
 	else:
 		$pistol/Sprite.hide()
 		$pistol/Sprite2.hide()
+	if g_bullets_enabled:
+		actions.get_node("gl_bullets").show()
+	else:
+		actions.get_node("gl_bullets").hide()
+	
 
 func deactivate():
 	enemy = null
@@ -81,17 +106,17 @@ func _process(delta): #could be changed to input
 	if $load_bar.value < 100: #and !pause_meter:
 		$load_bar.value = clamp($load_bar.value+delta*100, 0, 100)
 	
-	if Input.is_action_just_pressed("one"):
-		change_weapon(weapons.PISTOL)
-	elif Input.is_action_just_pressed("two"):
-		if get_parent().gp >= 500:
-			change_weapon(weapons.GRENADE_LAUCNHER)
-			get_parent().on_gp_drop(-500)
+#	if Input.is_action_just_pressed("one"):
+#		change_weapon(weapons.PISTOL)
+#	elif Input.is_action_just_pressed("two"):
+#		if get_parent().gp >= 500:
+#			change_weapon(weapons.GRENADE_LAUCNHER)
+#			get_parent().on_gp_drop(-500)
 
 func _physics_process(delta):
 	if state == states.FIRE and \
-	Input.is_action_just_pressed("fire") and bullets_left > 0:
-		spend_bullet()
+	Input.is_action_just_pressed("fire") and bullets_left > 0 and \
+	get_global_mouse_position().y < SHOOTING_Y_LIMIT:
 		
 		var space = get_world_2d().direct_space_state
 		
@@ -110,14 +135,17 @@ func _physics_process(delta):
 				get_parent().get_node("pistol_bang/AnimationPlayer").play("normal",-1,2)
 				get_parent().get_node("pistol_bang/AnimationPlayer").seek(0)
 				pistol_damage = pistol_normal_damage
-		elif weapon == weapons.GRENADE_LAUCNHER and $load_bar.value == 100:
+			spend_bullet()
+		elif weapon == weapons.GRENADE_LAUCNHER and gp >= 300: #and $load_bar.value == 100:
 			targets = grenade_launcher_collision_query(space)
 			gl_explode.global_position = get_global_mouse_position()
 			gl_explode.show()
 			gl_explode.play("default")
 			$AudioStreamPlayer.play()
 			$load_bar.value = 0
-		
+			
+			add_gp(-300)
+			spend_bullet()
 		if targets:
 			attack(targets)
 
@@ -187,7 +215,7 @@ func change_weapon(new_weapon):
 		$grenade_launcher/CollisionShape2D.disabled = false
 		$grenade_launcher.show()
 		weapon_node = $grenade_launcher
-		$AudioStreamPlayer.stream = load("res://sounds/grenade_launcher.wav")
+		$AudioStreamPlayer.stream = load("res://sounds/shotgun2.wav")
 
 func attack(targets):
 	if weapon == weapons.PISTOL:
@@ -215,3 +243,40 @@ func reload():
 	for b in get_parent().get_node("bullets").get_children():
 		b.show()
 		bullets_left += 1
+
+func _on_gl_bullets_button_down():
+	change_weapon(weapons.GRENADE_LAUCNHER)
+
+func add_gp(val):
+	gp += val
+	update_gp_text()
+	update_actions()
+
+func update_actions():
+	if gp >= 1000:
+		activate_hand_grenade()
+	else:
+		disable_hand_grenade()
+
+func update_gp_text():
+	var gp_as_string = str(gp)
+	if gp_as_string.length() > 3:
+		var first_comma = gp_as_string.length() - 3
+		gp_as_string = gp_as_string.insert(first_comma, ",")
+	
+	gp_label.text = "¥" + gp_as_string
+
+func change_to_normal_gun():
+	change_weapon(weapons.PISTOL)
+
+func use_bomb():
+	add_gp(-1000)
+	enemy.damage_to_all(1)
+
+func activate_hand_grenade():
+	bomb_btn.disabled = false
+	bomb_btn.get_node("normal").bbcode_text = "Bomb \n[color=#008000]¥ 1 000[/color]"
+
+func disable_hand_grenade():
+	bomb_btn.disabled = true
+	bomb_btn.get_node("normal").bbcode_text = "Bomb \n[color=#FF0000]¥ 1 000[/color]"

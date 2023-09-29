@@ -2,9 +2,6 @@ extends Node2D
 
 signal leave_battle
 
-var hp = 10
-var gp = 0
-
 var enemy
 
 var leave_battle = false
@@ -30,7 +27,7 @@ func _ready():
 	
 	for e in $Enemies.get_children():
 		e.connect("enemy_died", self, "end_battle_victory")
-		e.connect("gp_dropped", self, "add_gp")
+		e.connect("gp_dropped", $weapons, "add_gp")
 		e.connect("dmg_number", self, "display_damge_number")
 		
 		e.hide()
@@ -94,25 +91,6 @@ func activate_vi(anim):
 		$vi.activate()
 		get_node("bulletshooter").activate()
 
-func add_gp(val):
-	gp += val
-	update_gp_text()
-	update_actions()
-
-func update_actions():
-	if gp >= 1000:
-		$actions.activate_hand_grenade()
-	else:
-		$actions.disable_hand_grenade()
-
-func update_gp_text():
-	var gp_as_string = str(gp)
-	if gp_as_string.length() > 3:
-		var first_comma = gp_as_string.length() - 3
-		gp_as_string = gp_as_string.insert(first_comma, ",")
-	
-	$gp.text = "¥" + gp_as_string
-
 func display_damge_number(val, start_pos):
 	var damage_number = get_damage_number()
 	damage_number.set_value_and_animate(val, start_pos)
@@ -144,12 +122,12 @@ func end_battle_victory():
 func show_victory_screen():
 	leave_battle = true
 	$win.show()
-	$win/gp_left.text = "Left: ¥" + str(gp)
+	#$win/gp_left.text = "Left: ¥" + str(gp)
 	$win/AnimationPlayer.play("silly_money_to_bank_anim",-1,0.5)
 
 func move_money_to_bank():
 	$win/gp_left.text = "Left: ¥0"
-	$win/bank.text = "BANK: ¥" + str(gp)
+	#$win/bank.text = "BANK: ¥" + str(gp)
 
 func leave_battle():
 	leave_battle = false

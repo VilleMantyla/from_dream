@@ -12,3 +12,15 @@ position = Vector2( 968, 408 )
 
 [node name="fly" parent="." instance=ExtResource( 3 )]
 position = Vector2( 432, 264 )
+
+[node name="fly2" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1176, 304 )
+
+[node name="fly3" parent="." instance=ExtResource( 3 )]
+position = Vector2( 352, 416 )
+
+[node name="fly4" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1408, 376 )
+
+[node name="fly5" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1256, 496 )

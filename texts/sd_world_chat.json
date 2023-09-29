@@ -146,7 +146,7 @@
 ],
 "check_2a": [{
 	"textframe": [{
-			"text": "You took Bracelet.",
+			"text": "You got Bracelet.",
 			"speed": 15,
 			"sound": 0
 		}
@@ -172,6 +172,42 @@
 {
 	"textframe": [{
 			"text": "If we had a memory card, we could load her up to the SD.",
+			"speed": 15,
+			"sound": 0
+		}
+	]
+}
+],
+"check_4": [{
+	"questionframe": [{
+			"text": "It's an angle grinder. Take it?",
+			"speed": 15,
+			"sound": 0
+		}
+	]
+}
+],
+"check_4a": [{
+	"textframe": [{
+			"text": "You got [color=#39FF14]Angle Grinder[/color].",
+			"speed": 15,
+			"sound": 0
+		}
+	]
+}
+],
+"check_5": [{
+	"questionframe": [{
+			"text": "It's a memory card. Take it?",
+			"speed": 15,
+			"sound": 0
+		}
+	]
+}
+],
+"check_5a": [{
+	"textframe": [{
+			"text": "You got [color=#39FF14]Memory Card[/color].",
 			"speed": 15,
 			"sound": 0
 		}

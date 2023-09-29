@@ -200,14 +200,11 @@ rotation = 0.169068
 [node name="maggot40" parent="." instance=ExtResource( 1 )]
 position = Vector2( 1668, 340 )
 rotation = 2.82522
-scale = Vector2( 1, 1 )
 
 [node name="maggot50" parent="." instance=ExtResource( 1 )]
 position = Vector2( 1764, 226 )
 rotation = -0.0892582
-scale = Vector2( 1, 1 )
 
 [node name="maggot41" parent="." instance=ExtResource( 1 )]
 position = Vector2( 1767, 486 )
 rotation = 0.632394
-scale = Vector2( 1, 1 )

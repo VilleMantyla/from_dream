@@ -2,10 +2,14 @@ extends Node2D
 
 signal enemy_died
 signal gp_dropped
+signal dmg_number
 
 export (NodePath) var bullet_pattern
 
-var fly_speed = 150
+var fly_gp_value = 150
+var roach_gp_value = 1000
+
+var fly_speed = 300
 var roach_speed = 1
 
 var appear_time = 1.0
@@ -55,8 +59,9 @@ func _process(delta):
 	#rpf.set_offset(rpf.get_offset()+roach_speed*delta)
 	#flies
 	for fly in flies:
-		var fpf = fly.get_node("Path2D/PathFollow2D")
-		fpf.set_offset(fpf.get_offset()+fly_speed*delta)
+		if !fly.dead:
+			var pf = fly.get_node("Path2D/PathFollow2D")
+			pf.set_offset(pf.get_offset()+fly_speed*delta)
 
 func deactivate_and_reset():
 	part_count = 0
@@ -82,11 +87,11 @@ func damage_to_part(part, dmg):
 		print("roach takes damage " + str(dmg))
 		
 		if shield_on:
-			if part.shield < dmg:
+			if part.shield <= dmg:
 				part.shield = 0
 				part.get_node("AnimationPlayer").play("shield_off")
 			else:
-				pass
+				dmg = 0
 		else:
 			part.hp -= dmg
 			if part.hp > 0:
@@ -96,22 +101,20 @@ func damage_to_part(part, dmg):
 				part.disable_collisionshape(true)
 				part.get_node("AnimationPlayer").play("die",-1,1.3)
 				part_count -= 1
-				emit_signal("gp_dropped", 500)
-			
-	
-	if part.id == enemy_ids.FLY:
+				emit_signal("gp_dropped", roach_gp_value)
+	elif part.id == enemy_ids.FLY:
 		part.hp -= dmg
 		if part.hp <= 0:
 			part.disable_collisionshape(true)
-			part.hide()
+			part.dead = true
 			part_count -= 1
-			emit_signal("gp_dropped", 1)
-#	if part.hp <= 0:
-#		part.hide()
-#		part.disable_collisionshape(true)
-#		part_count -= 1
-#	else:
-#		part.get_node("AnimationPlayer").play("damaged")
-#
+			emit_signal("gp_dropped", fly_gp_value)
+			part.get_node("AnimationPlayer").play("die")
+		else:
+			part.get_node("AnimationPlayer").play("damaged")
+	
+	var pos = part.get_node("Path2D/PathFollow2D").global_position
+	emit_signal("dmg_number",dmg, pos)
+
 	if part_count == 0:
 		emit_signal("enemy_died")

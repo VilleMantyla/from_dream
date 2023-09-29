@@ -27,7 +27,7 @@ frame_2/delay_sec = 0.0
 
 [sub_resource type="ShaderMaterial" id=4]
 shader = ExtResource( 4 )
-shader_param/play_noise = false
+shader_param/play_noise = true
 shader_param/color_texutre = false
 shader_param/flash_color = Color( 1, 0, 0, 1 )
 shader_param/flash_modifier = 0.0
@@ -58,7 +58,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ false ]
+"values": [ true ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Path2D/PathFollow2D/Area2D/AnimatedSprite:material:shader_param/color_texutre")
@@ -234,6 +234,7 @@ material = SubResource( 4 )
 scale = Vector2( 3, 3 )
 frames = SubResource( 2 )
 animation = "normal"
+frame = 1
 playing = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Path2D/PathFollow2D/Area2D"]

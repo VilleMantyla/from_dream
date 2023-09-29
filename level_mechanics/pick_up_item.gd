@@ -11,13 +11,14 @@ func _ready():
 func pick_up():
 	$model.hide()
 	$sparkle.hide()
-	get_parent().get_node("Menu").show_item_on_pickup(item)
-	get_parent().pick_up_area = self
-	get_parent().start_sd_chat(chat_key)
+	get_node("/root/Main/Menu").show_item_on_pickup(item)
+	get_node("/root/Main").pick_up_area = self
+	get_node("/root/Main").start_sd_chat(chat_key)
 
 func deactivate():
 	$CollisionShape.disabled = true
 
 func reactivate():
 	$model.show()
-	$sparkle.show()
+	if sparkle:
+		$sparkle.show()

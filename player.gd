@@ -47,10 +47,10 @@ func _ready():
 	height = PLAYER_HEIGHT#global_transform.origin.y
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
-	step_sounds.append(load("res://sounds/stepalt0.wav"))
-	step_sounds.append(load("res://sounds/stepalt1.wav"))
-	step_sounds.append(load("res://sounds/stepalt2.wav"))
-	step_sounds.append(load("res://sounds/stepalt3.wav"))
+#	step_sounds.append(load("res://sounds/stepalt0.wav"))
+#	step_sounds.append(load("res://sounds/stepalt1.wav"))
+#	step_sounds.append(load("res://sounds/stepalt2.wav"))
+#	step_sounds.append(load("res://sounds/stepalt3.wav"))
 	
 #	step_sounds.append(load("res://sounds/step0.wav"))
 #	step_sounds.append(load("res://sounds/step1.wav"))
@@ -101,7 +101,8 @@ func _process(delta):
 			#walk
 			move_dir = (transform.basis*Vector3(move_input.x, 0, -move_input.y)).normalized()
 			if !$step_sound.is_playing():
-				play_footstep_sound()
+				#play_footstep_sound()
+				pass
 	else:
 		#idle
 		move_dir = Vector3.ZERO

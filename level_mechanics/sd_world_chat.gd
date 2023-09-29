@@ -58,6 +58,22 @@ func on_player_answer(ans):
 			read_chat("res://texts/sd_world_chat.json", "check_2a")
 		else:
 			get_parent().cancel_item_pick_up()
+	elif current_chat_key == "check_4":
+		if ans:
+			get_parent().pick_up_item(Global.items.ANGLEGRINDER)
+			read_chat("res://texts/sd_world_chat.json", "check_4a")
+			get_parent().get_node("enemy_trigger3").show()
+			get_parent().get_node("enemy_trigger3/CollisionShape").disabled = false
+		else:
+			get_parent().cancel_item_pick_up()
+	elif current_chat_key == "check_5":
+		if ans:
+			get_parent().pick_up_item(Global.items.MEMORYCARD)
+			read_chat("res://texts/sd_world_chat.json", "check_5a")
+#			get_parent().get_node("enemy_trigger3").show()
+#			get_parent().get_node("enemy_trigger3/CollisionShape").disabled = false
+		else:
+			get_parent().cancel_item_pick_up()
 	$yes_btn.hide()
 	$no_btn.hide()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
