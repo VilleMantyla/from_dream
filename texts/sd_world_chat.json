@@ -264,6 +264,49 @@
 			"sprite-code": 21
 		}
 	]
+},
+{
+	"textframe": [{
+			"text": "Nice to meet you TV",
+			"speed": 30,
+			"sound": 0,
+			"sprite-code": 10
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "...",
+			"speed": 30,
+			"sound": 0,
+			"sprite-code": 21
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "Hey you're actually kind cute.",
+			"speed": 30,
+			"sound": 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "Thank you TV.",
+			"speed": 30,
+			"sound": 0,
+			"sprite-code": 10
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "Please, make yourself comfortable at the Soul Device.",
+			"speed": 30,
+			"sound": 0
+		}
+	]
 }
 ],
 "teach_2": [{
