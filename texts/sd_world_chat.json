@@ -78,7 +78,7 @@
 },
 {
 	"textframe": [{
-			"text": "But you have a memory card.",
+			"text": "But you have the memory card.",
 			"speed": 15,
 			"sound": 0
 		}
@@ -126,11 +126,36 @@
 			"sound": 0
 		}
 	]
-}
-],
-"plot_4": [{
+},
+{
 	"textframe": [{
-			"text": "Hello new pet",
+			"text": "Hello!\nAllow me to introduce us.",
+			"speed": 15,
+			"sound": 0,
+			"sprite-code": 10
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "My name is Vi and this is my user Rain-",
+			"speed": 15,
+			"sound": 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "Hey you are the mute guy!",
+			"speed": 30,
+			"sound": 0,
+			"sprite-code": 21
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "and you've been uploaded to a Soul Device.",
 			"speed": 30,
 			"sound": 0,
 			"sprite-code": 10
@@ -139,7 +164,43 @@
 },
 {
 	"textframe": [{
-			"text": "Allow me to introduce us",
+			"text": "But... what happened to my body?",
+			"speed": 30,
+			"sound": 0,
+			"sprite-code": 21
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "It got killed.",
+			"speed": 30,
+			"sound": 0,
+			"sprite-code": 10
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "You mean... I'm dead?",
+			"speed": 30,
+			"sound": 0,
+			"sprite-code": 21
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "Only your body.",
+			"speed": 30,
+			"sound": 0,
+			"sprite-code": 10
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "Your mind is still perfectly intact, thanks to Rain!",
 			"speed": 30,
 			"sound": 0
 		}
@@ -147,7 +208,16 @@
 },
 {
 	"textframe": [{
-			"text": "Wait a second! Where's my stomach!!",
+			"text": "Huh...",
+			"speed": 30,
+			"sound": 0,
+			"sprite-code": 21
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "...",
 			"speed": 30,
 			"sound": 0
 		}
@@ -155,9 +225,43 @@
 },
 {
 	"textframe": [{
-			"text": "What... the...",
+			"text": "...",
 			"speed": 30,
 			"sound": 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "...",
+			"speed": 30,
+			"sound": 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "...",
+			"speed": 30,
+			"sound": 0,
+			"sprite-code": 10
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "What's your name?",
+			"speed": 30,
+			"sound": 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "My name... my name is TV",
+			"speed": 30,
+			"sound": 0,
+			"sprite-code": 21
 		}
 	]
 }
