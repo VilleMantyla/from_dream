@@ -1,6 +1,6 @@
 extends Spatial
 
-enum cutscenes {FROM_TREE, BANGING_ELEVATOR, KILLING_TV}
+enum cutscenes {FROM_TREE, BANGING_ELEVATOR, KILLING_TV, TV_RESURRECT}
 #battles that occur in this order on a trigger, per trigger
 onready var battle_list = [$Battle/Enemies/maggots, $Battle/Enemies/flies]
 var triggers_after_battle = ["teach_2", "water_away"]
@@ -22,11 +22,12 @@ var interactables = {
 func _ready():
 	randomize()
 	
-	#PLAYER_WAKES_UP("wake_up")
+	PLAYER_WAKES_UP("wake_up")
+	
+	$world_chat/chat.connect("character_code", self, "show_character_world_chat")
 	
 	$Menu/kanji_submenu.connect("answer_submitted", self, "check_kanji_puzzle_answer")
 	$Menu/kanji_submenu.connect("closed", self, "close_kanji_puzzle")
-	
 	
 	$house_entrance/sea/AnimationPlayer.play("sea",-1,2)
 	$house_build_ver2/water/AnimationPlayer.play("water",-1,2)
@@ -119,7 +120,7 @@ func start_world_chat_timed(path, chat_key):
 	$world_chat.show()
 	$world_chat/chat.start_chat_timed(path, chat_key)
 
-func show_character(code):
+func show_character_world_chat(code):
 	if code == 1:
 		$TVsprite.texture = load("res://tv/tv_angry_yell.png")
 		$TVsprite.position = Vector2(1568, 1350)
@@ -201,7 +202,6 @@ func exit_battle():
 	$ColorRect.show()
 	
 	check_triggers(triggers_after_battle.pop_front())
-
 
 func show_context_msg(key):
 	$context_msg.text = interactables[key]
@@ -294,6 +294,8 @@ func start_cutscene(cutscene_name):
 		$killing_tv_cutscene/CollisionShape.disabled = true
 		$Camera4.current = true
 		$Camera4/AnimationPlayer.play("floor_to_head",-1,0.4)
+	elif cutscene_name == cutscenes.TV_RESURRECT:
+		start_sd_chat("plot_2")
 
 func end_cutscene():
 	$Player/rotation_helper/Camera.current = true
@@ -491,6 +493,14 @@ func FREE_ELEVATOR():
 	$house_build_ver2/elevatordoorbottom2.global_transform.origin.x -= 0.5
 	$elevator_doors/CollisionShape.disabled = true
 	$house_build_ver2/water/AnimationPlayer.play("drain",-1,0.5)
+
+func TV_RESURRECT(step):
+	if step == "tv_upload":
+		$tv_2_floor/AnimationPlayer.connect("animation_finished", self, "TV_RESURRECT")
+		$tv_2_floor/AnimationPlayer.play("turn_to_noise")
+	elif step == "turn_to_noise":
+		end_cutscene()
+		start_sd_chat("plot_3")
 
 func check_triggers(key):
 	if key == "teach_2":

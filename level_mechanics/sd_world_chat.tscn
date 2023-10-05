@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://chat.gd" type="Script" id=1]
 [ext_resource path="res://level_mechanics/sd_world_chat.gd" type="Script" id=2]
@@ -8,8 +8,9 @@
 [ext_resource path="res://battle/vi0.png" type="Texture" id=6]
 [ext_resource path="res://battle/noise_3.png" type="Texture" id=7]
 [ext_resource path="res://fonts/NotoSansJP-Regular.ttf" type="DynamicFontData" id=8]
-[ext_resource path="res://menu/new_new_tv.png" type="Texture" id=9]
+[ext_resource path="res://tv/tv_sd_in_pain1.png" type="Texture" id=9]
 [ext_resource path="res://level_mechanics/world_chat_bg.png" type="Texture" id=10]
+[ext_resource path="res://tv/tv_sd_in_pain0.png" type="Texture" id=11]
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
@@ -33,6 +34,14 @@ font_data = ExtResource( 8 )
 
 [sub_resource type="Theme" id=4]
 default_font = SubResource( 3 )
+
+[sub_resource type="SpriteFrames" id=9]
+animations = [ {
+"frames": [ ExtResource( 11 ), ExtResource( 9 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
 
 [sub_resource type="DynamicFont" id=5]
 size = 36
@@ -61,13 +70,13 @@ visible = false
 position = Vector2( 1561, 945 )
 scale = Vector2( 1.61719, 1.36979 )
 frames = SubResource( 2 )
-frame = 1
 playing = true
 
 [node name="vi" type="AnimatedSprite" parent="."]
 position = Vector2( 1400, 832 )
 scale = Vector2( 5, 5 )
 frames = SubResource( 1 )
+frame = 1
 speed_scale = 0.5
 playing = true
 
@@ -84,11 +93,13 @@ __meta__ = {
 "_editor_description_": ""
 }
 
-[node name="tv" type="Sprite" parent="."]
+[node name="tv" type="AnimatedSprite" parent="."]
 visible = false
-position = Vector2( 1400, 864 )
-scale = Vector2( 1.9, 1.9 )
-texture = ExtResource( 9 )
+position = Vector2( 1400, 888 )
+scale = Vector2( 3, 3 )
+frames = SubResource( 9 )
+frame = 1
+playing = true
 
 [node name="speaker" type="RichTextLabel" parent="."]
 margin_left = 384.0

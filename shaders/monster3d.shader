@@ -1,5 +1,6 @@
 shader_type spatial;
 render_mode unshaded;
+render_mode cull_disabled;
 
 uniform sampler2D tex1: hint_albedo;
 

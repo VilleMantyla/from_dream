@@ -2,21 +2,19 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/tv_dress.png-98810d2f58a56f0ecd9d130ca5b5e793.s3tc.stex"
-path.etc2="res://.import/tv_dress.png-98810d2f58a56f0ecd9d130ca5b5e793.etc2.stex"
+path="res://.import/tv_dress.png-98810d2f58a56f0ecd9d130ca5b5e793.stex"
 metadata={
-"imported_formats": [ "s3tc", "etc2" ],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://tv/tv_dress.png"
-dest_files=[ "res://.import/tv_dress.png-98810d2f58a56f0ecd9d130ca5b5e793.s3tc.stex", "res://.import/tv_dress.png-98810d2f58a56f0ecd9d130ca5b5e793.etc2.stex" ]
+dest_files=[ "res://.import/tv_dress.png-98810d2f58a56f0ecd9d130ca5b5e793.stex" ]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
@@ -31,7 +29,7 @@ process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false
 process/normal_map_invert_y=false
-stream=false
+stream=0
 size_limit=0
 detect_3d=false
 svg/scale=1.0

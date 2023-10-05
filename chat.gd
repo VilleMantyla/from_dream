@@ -1,6 +1,7 @@
 extends RichTextLabel
 
 signal chat_ended
+signal character_code
 
 var timer_enabled = false
 var timer_wait = 1.5
@@ -35,6 +36,15 @@ func _ready():
 
 func _process(delta):
 	state.update(delta)
+
+func get_character_code_before_chat(chat_path, chat_key):
+	var chat = read_json_file(chat_path)
+	var code = 0
+	if chat[chat_key][0].has("textframe"):
+		code = chat[chat_key][0]["textframe"][0]["sprite-code"]
+	elif chat[chat_key][0].has("questionframe"):
+		code = chat[chat_key][0]["questionframe"][0]["sprite-code"]
+	return code
 
 func start_chat(chat_path, dialog_key):
 	letter = read_json_file(chat_path)
@@ -95,15 +105,7 @@ class Wait:
 			timer_val -= delta
 			if timer_val <= 0:
 				read_frame()
-			
-#		if Input.is_action_just_pressed("space"):
-#			parent.first_text = false
-#			read_frame()
-#		if read:
-#			read = false
-#			read_frame()
-		pass
-	
+
 	func read_frame():
 		# Read next frame from current dialog
 		var frame
@@ -153,13 +155,15 @@ class Write:
 	
 	func setNewSentence():
 		var sentece_speed_sound = frame.nextSentence()
-		char_cumulative += parent.clean_BBCode(sentece_speed_sound["text"]).replace("\n","").length()
+		char_cumulative += parent.clean_BBCode(sentece_speed_sound["text"]).\
+		replace("\n","").length()
 		current_sentence_speed = 1.0/sentece_speed_sound["speed"]
 		current_sentence_sound = sentece_speed_sound["sound"]
 		time_to_next_char = current_sentence_speed
 		
 		if sentece_speed_sound.has("sprite-code"):
-			parent.get_parent().get_parent().show_character(sentece_speed_sound["sprite-code"])
+			#parent.get_parent().get_parent().show_character(sentece_speed_sound["sprite-code"])
+			parent.emit_signal("character_code", sentece_speed_sound["sprite-code"])
 	
 	func showChar():
 		var character = frame_bbcode_clean[visible_chars]
@@ -242,6 +246,8 @@ class End:
 	func enter():
 		parent.state_name = parent.END
 		parent.visible_characters = 0
+		parent.bbcode_text = ""
+		print("old chat should be cleared")
 		parent.emit_signal("chat_ended")
 		return self
 	

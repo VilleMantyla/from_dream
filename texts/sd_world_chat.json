@@ -3,7 +3,8 @@
 	"textframe": [{
 			"text": "Hello, my name is VI.",
 			"speed": 15,
-			"sound": 0
+			"sound": 0,
+			"sprite-code": 10
 		}
 	]
 },
@@ -44,7 +45,8 @@
 	"textframe": [{
 			"text": "You got a new weapon sticker!",
 			"speed": 15,
-			"sound": 0
+			"sound": 0,
+			"sprite-code": 10
 		}
 	]
 },
@@ -65,11 +67,114 @@
 	]
 }
 ],
+"plot_2": [{
+	"textframe": [{
+			"text": "She's dead.",
+			"speed": 15,
+			"sound": 0,
+			"sprite-code": 10
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "But you have a memory card.",
+			"speed": 15,
+			"sound": 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "We can use it to upload her to your Soul Device.",
+			"speed": 15,
+			"sound": 0
+		}
+	]
+},
+{
+	"questionframe": [{
+			"text": "Upload the girl to your Soul Device?",
+			"speed": 15,
+			"sound": 0
+		}
+	]
+}
+],
+"plot_3": [{
+	"textframe": [{
+			"text": "Uhh.. my stomach..",
+			"speed": 30,
+			"sound": 0,
+			"sprite-code": 20
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "......",
+			"speed": 30,
+			"sound": 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "Wait a second! Where's my stomach!!",
+			"speed": 30,
+			"sound": 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "What... the...",
+			"speed": 30,
+			"sound": 0
+		}
+	]
+}
+],
+"plot_4": [{
+	"textframe": [{
+			"text": "Hello new pet",
+			"speed": 30,
+			"sound": 0,
+			"sprite-code": 10
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "Allow me to introduce us",
+			"speed": 30,
+			"sound": 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "Wait a second! Where's my stomach!!",
+			"speed": 30,
+			"sound": 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "What... the...",
+			"speed": 30,
+			"sound": 0
+		}
+	]
+}
+],
 "teach_2": [{
 	"textframe": [{
 			"text": "You got a new sticker to your gun! [color=#1F51FF]Crit Wheel[/color]",
 			"speed": 15,
-			"sound": 0
+			"sound": 0,
+			"sprite-code": 10
 		}
 	]
 },
@@ -86,7 +191,8 @@
 	"textframe": [{
 			"text": "It's a trash can.",
 			"speed": 15,
-			"sound": 0
+			"sound": 0,
+			"sprite-code": 10
 		}
 	]
 },
@@ -103,7 +209,8 @@
 	"questionframe": [{
 			"text": "There's a sock inside the trash can. Take it?",
 			"speed": 15,
-			"sound": 0
+			"sound": 0,
+			"sprite-code": 10
 		}
 	]
 }
@@ -112,7 +219,8 @@
 	"textframe": [{
 			"text": "You got Pink Sock.",
 			"speed": 15,
-			"sound": 0
+			"sound": 0,
+			"sprite-code": 10
 		}
 	]
 }
@@ -121,7 +229,8 @@
 	"textframe": [{
 			"text": "It's an empty trash can.",
 			"speed": 15,
-			"sound": 0
+			"sound": 0,
+			"sprite-code": 10
 		}
 	]
 }
@@ -130,7 +239,8 @@
 	"textframe": [{
 			"text": "Shouldn't we help that girl?",
 			"speed": 15,
-			"sound": 0
+			"sound": 0,
+			"sprite-code": 10
 		}
 	]
 }
@@ -139,7 +249,8 @@
 	"questionframe": [{
 			"text": "It's a bracelet. Take it?",
 			"speed": 15,
-			"sound": 0
+			"sound": 0,
+			"sprite-code": 10
 		}
 	]
 }
@@ -148,7 +259,8 @@
 	"textframe": [{
 			"text": "You got Bracelet.",
 			"speed": 15,
-			"sound": 0
+			"sound": 0,
+			"sprite-code": 10
 		}
 	]
 }
@@ -157,7 +269,8 @@
 	"textframe": [{
 			"text": "She's... dead.",
 			"speed": 15,
-			"sound": 0
+			"sound": 0,
+			"sprite-code": 10
 		}
 	]
 },
@@ -182,7 +295,8 @@
 	"questionframe": [{
 			"text": "It's an angle grinder. Take it?",
 			"speed": 15,
-			"sound": 0
+			"sound": 0,
+			"sprite-code": 10
 		}
 	]
 }
@@ -191,7 +305,8 @@
 	"textframe": [{
 			"text": "You got [color=#39FF14]Angle Grinder[/color].",
 			"speed": 15,
-			"sound": 0
+			"sound": 0,
+			"sprite-code": 10
 		}
 	]
 }
@@ -200,7 +315,8 @@
 	"questionframe": [{
 			"text": "It's a memory card. Take it?",
 			"speed": 15,
-			"sound": 0
+			"sound": 0,
+			"sprite-code": 10
 		}
 	]
 }
@@ -209,7 +325,8 @@
 	"textframe": [{
 			"text": "You got [color=#39FF14]Memory Card[/color].",
 			"speed": 15,
-			"sound": 0
+			"sound": 0,
+			"sprite-code": 10
 		}
 	]
 }
