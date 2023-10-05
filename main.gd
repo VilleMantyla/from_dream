@@ -22,7 +22,7 @@ var interactables = {
 func _ready():
 	randomize()
 	
-	PLAYER_WAKES_UP("wake_up")
+	start_cutscene(-1) #player wakes up
 	
 	$world_chat/chat.connect("character_code", self, "show_character_world_chat")
 	
@@ -277,7 +277,9 @@ var cutscene_after_chat = null
 func start_cutscene(cutscene_name):
 	$Player.activate(false)
 	$Player.lock_activation(true)
-	if cutscene_name == cutscenes.FROM_TREE:
+	if cutscene_name == -1:
+		PLAYER_WAKES_UP("wake_up")
+	elif cutscene_name == cutscenes.FROM_TREE:
 		tv.global_transform.origin.y = 0
 		tv.get_node("AnimationPlayer").play("getting_up",-1,1.2)
 		$cutscene_audio1.play()
@@ -311,8 +313,8 @@ func PLAYER_WAKES_UP(anim):
 		player_up_tween.tween_property($Player/rotation_helper/Camera, \
 		"global_transform:origin:y", cam_org_y, 3).set_trans(Tween.EASE_OUT)
 	elif anim == "vi_intro":
-		active_chat = $sd_world_chat.start_chat("res://texts/sd_world_chat.json",\
-		"plot_0")
+		end_cutscene()
+		start_sd_chat("plot_0")
 		$Player.chatting = true
 
 func FROM_TREE(anim):

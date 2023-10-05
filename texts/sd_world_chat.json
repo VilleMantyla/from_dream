@@ -85,14 +85,6 @@
 	]
 },
 {
-	"textframe": [{
-			"text": "We can use it to upload her to your Soul Device.",
-			"speed": 15,
-			"sound": 0
-		}
-	]
-},
-{
 	"questionframe": [{
 			"text": "Upload the girl to your Soul Device?",
 			"speed": 15,
@@ -122,7 +114,8 @@
 	"textframe": [{
 			"text": "Wait a second! Where's my stomach!!",
 			"speed": 30,
-			"sound": 0
+			"sound": 0,
+			"sprite-code": 21
 		}
 	]
 },

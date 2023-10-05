@@ -44,12 +44,25 @@ func get_chat():
 func set_character_sprite(code):
 	$vi.hide()
 	$tv.hide()
+	#check if new character or begin of chat to
+	#if false for both, launch tween side pop
 	if code == 10:
 		$vi.show()
 		$speaker.bbcode_text = "Vi"
 	elif code == 20:
+		$tv.play("hurt")
 		$tv.show()
 		$speaker.bbcode_text = "Girl"
+	elif code == 21:
+		$tv.play("annoyed_question")
+		$speaker.bbcode_text = "Girl"
+		
+		$tv.position = Vector2(1500, 888)
+		var tween = create_tween()
+		tween.tween_property($tv, \
+		"position", Vector2(1400, 888), 0.4).set_trans(Tween.EASE_OUT)
+		
+		$tv.show()
 
 func on_player_answer(ans):
 	if current_chat_key == "check_0":
