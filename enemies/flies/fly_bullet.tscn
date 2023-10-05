@@ -5,7 +5,7 @@
 
 [sub_resource type="Curve2D" id=2]
 _data = {
-"points": PoolVector2Array( -20.1587, -456.091, 20.1587, 456.091, 728, -314, -351.193, -262.048, 351.193, 262.048, 1479, 1461 )
+"points": PoolVector2Array( -73.8468, -444.177, 73.8468, 444.177, 670, -266, -56.6688, -105.752, 56.6688, 105.752, 945, 546, -194.357, -113.246, 194.357, 113.246, 1513, 1230 )
 }
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -16,8 +16,8 @@ curve = SubResource( 2 )
 script = ExtResource( 2 )
 
 [node name="PathFollow2D" type="PathFollow2D" parent="."]
-position = Vector2( 728, -314 )
-rotation = 1.52445
+position = Vector2( 670, -266 )
+rotation = 1.40539
 loop = false
 
 [node name="Area2D" type="Area2D" parent="PathFollow2D"]
