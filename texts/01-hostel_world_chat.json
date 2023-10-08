@@ -207,5 +207,55 @@
 		}
 	]
 }
+],
+"7_chat": [{
+	"textframe": [{
+			"text": "[color=#a0cc00]I just wanted to sleep with her[/color]",
+			"speed": 50,
+			"sound": 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "[color=#a0cc00]THAT'S NOT WRONG[/color]",
+			"speed": 50,
+			"sound": 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "[color=#a0cc00]I'm a good guy![/color]",
+			"speed": 50,
+			"sound": 0
+		}
+	]
+}
+],
+"8_chat": [{
+	"textframe": [{
+			"text": "[color=#a0cc00]Oh don't be shy[/color]",
+			"speed": 50,
+			"sound": 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "[color=#a0cc00]This is what I do with my friends in bathrooms all the time[/color]",
+			"speed": 50,
+			"sound": 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "[color=#a0cc00]Now let me wipe that for you![/color]",
+			"speed": 50,
+			"sound": 0
+		}
+	]
+}
 ]
 }

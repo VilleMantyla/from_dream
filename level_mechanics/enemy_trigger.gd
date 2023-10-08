@@ -4,7 +4,6 @@ export (NodePath) var enemy
 export var get_battle_from_list = false
 export (String) var chat
 export var follow_on = false
-export var skip_fight = false
 
 var idle
 var follow
@@ -80,15 +79,13 @@ class Follow:
 		parent.get_node("CollisionShape").rotation.z = 0
 
 func _on_enemy_trigger_body_entered(body):
-	$CollisionShape.disabled = true
-	hide()
-	if skip_fight:
-		enemy = null
-	elif get_battle_from_list:
-		get_parent().start_listed_battle()
+	if get_battle_from_list:
+		var focus_point = $focus_point.global_transform.origin
+		get_parent().start_listed_battle(enemy, focus_point, chat, self)
 	else:
 		enemy = get_node(enemy)
 		get_parent().destroy_this_start_battle(enemy)
-	#get_parent().interact_with_world_object(chat, global_transform.origin, enemy)
-	
-	#remove()
+
+func disable():
+	$CollisionShape.disabled = true
+	hide()

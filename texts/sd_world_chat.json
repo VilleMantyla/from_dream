@@ -34,6 +34,14 @@
 },
 {
 	"textframe": [{
+			"text": "A Soul Device is an interbody computer that can interpret signals, help you manage your items and much more",
+			"speed": 15,
+			"sound": 0
+		}
+	]
+},
+{
+	"textframe": [{
 			"text": "To access the Soul Device press TAB.",
 			"speed": 15,
 			"sound": 0
@@ -129,7 +137,7 @@
 },
 {
 	"textframe": [{
-			"text": "Hello!\nAllow me to introduce us.",
+			"text": "Allow me to introduce us.",
 			"speed": 15,
 			"sound": 0,
 			"sprite-code": 10
@@ -200,7 +208,7 @@
 },
 {
 	"textframe": [{
-			"text": "Your mind is still perfectly intact, thanks to Rain!",
+			"text": "Your mind is still perfectly intact in the soul device, thanks to Rain!",
 			"speed": 30,
 			"sound": 0
 		}
@@ -285,7 +293,7 @@
 },
 {
 	"textframe": [{
-			"text": "Hey you're actually kind cute.",
+			"text": "Hey you're actually kinda cute.",
 			"speed": 30,
 			"sound": 0
 		}
@@ -302,9 +310,79 @@
 },
 {
 	"textframe": [{
-			"text": "Please, make yourself comfortable at the Soul Device.",
+			"text": "What is a Soul Device anyway?",
+			"speed": 30,
+			"sound": 0,
+			"sprite-code": 21
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "A Soul Device is an inside body computer that can digitize and store human souls.",
+			"speed": 30,
+			"sound": 0,
+			"sprite-code": 10
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "Every dead body emits a signal, a soul's signal.",
 			"speed": 30,
 			"sound": 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "If the person has only passed away recently, the soul can still be digitized.",
+			"speed": 30,
+			"sound": 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "but if the dead is not recent, well, the soul turns into a ghost, that must be put down.",
+			"speed": 30,
+			"sound": 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "How.. how much time do you have to digitize a soul?!",
+			"speed": 30,
+			"sound": 0,
+			"sprite-code": 21
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "It depends on the soul.",
+			"speed": 30,
+			"sound": 0,
+			"sprite-code": 10
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "Well what are we waiting for, we must go and kill that hooded guy!",
+			"speed": 30,
+			"sound": 0,
+			"sprite-code": 21
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "Please, make yourself comfortable at the Soul Device.",
+			"speed": 30,
+			"sound": 0,
+			"sprite-code": 10
 		}
 	]
 }

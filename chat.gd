@@ -47,6 +47,7 @@ func get_character_code_before_chat(chat_path, chat_key):
 	return code
 
 func start_chat(chat_path, dialog_key):
+	timer_enabled = false
 	letter = read_json_file(chat_path)
 	set_process(true)
 	first_text = true

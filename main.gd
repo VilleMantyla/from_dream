@@ -7,6 +7,7 @@ var triggers_after_battle = ["teach_2", "water_away"]
 
 var tv
 
+var active_enemy_trigger = null
 var battle_on_hold = null
 
 var active_chat = null
@@ -22,7 +23,8 @@ var interactables = {
 func _ready():
 	randomize()
 	
-	start_cutscene(-1) #player wakes up
+	#start_cutscene(-1) #player wakes up
+	#start_cutscene(cutscenes.TV_RESURRECT)
 	
 	$world_chat/chat.connect("character_code", self, "show_character_world_chat")
 	
@@ -197,6 +199,8 @@ func enter_battle(enemy):
 	$ColorRect.hide()
 
 func exit_battle():
+	active_enemy_trigger.disable()
+	active_enemy_trigger = null
 	$Battle.hide()
 	$Player.activate(true)
 	$ColorRect.show()
@@ -229,9 +233,16 @@ func destroy_this_start_battle(enemy):
 	$Player.activate(false)
 	enter_battle(enemy)
 
-func start_listed_battle():
+func start_listed_battle(enemy, focus_point, chat, trigger):
 	$Player.activate(false)
-	enter_battle(battle_list.pop_front())
+	active_enemy_trigger = trigger
+	if focus_point:
+		focus_on_point(focus_point)
+	if chat:
+		start_world_chat("res://texts/01-hostel_world_chat.json", chat)
+		battle_on_hold = battle_list.pop_front()
+	else:
+		enter_battle(battle_list.pop_front())
 
 func focus_on_point(focus_point):
 	var original_rot = $Player/rotation_helper.global_rotation
