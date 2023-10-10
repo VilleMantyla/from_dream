@@ -107,7 +107,9 @@ func cancel_item_pick_up():
 
 func end_sd_world_chat():
 	$sd_world_chat.end_chat()
-	$Player.activate(true)
+	
+	if !check_for_cutscene_after_chat():
+		$Player.activate(true)
 
 func start_world_chat(path, chat_key):
 	$Player.activate(false)
@@ -184,8 +186,15 @@ func check_for_cutscene_after_chat():
 		KILLING_TV("tv_plead")
 	elif cutscene_after_chat == "after_hazy_chat":
 		KILLING_TV("after_hazy_chat")
+	elif cutscene_after_chat == "new_kanjis":
+		TV_RESURRECT("new_kanjis")
+	elif cutscene_after_chat == "plot_6":
+		var empty_tween = create_tween()
+		var empty_node = Node2D.new()
+		empty_tween.connect("finished",self,"check_triggers",["plot_6"])
+		empty_tween.tween_property(empty_node, "position", Vector2(), 0.2)
 	else:
-		print("no cutscene after chat")
+		print_debug("cutscene check error, no cutscene found")
 		return false
 	cutscene_after_chat = null
 	return true
@@ -229,8 +238,9 @@ func read_next_chat():
 #		else:
 #			enter_battle(enemy)
 
-func destroy_this_start_battle(enemy):
+func destroy_this_start_battle(enemy, focus_point, chat, trigger):
 	$Player.activate(false)
+	active_enemy_trigger = trigger
 	enter_battle(enemy)
 
 func start_listed_battle(enemy, focus_point, chat, trigger):
@@ -272,7 +282,7 @@ func open_kanji_puzzle(kanji_puzz):
 func close_kanji_puzzle():
 	kanji_puzzle = null
 	$Player.activate(true)
-	$Menu.hide()
+	$Menu.reset_kanji_puzzle_view()
 
 func check_kanji_puzzle_answer(answer):
 	if kanji_puzzle.answer == answer:
@@ -308,7 +318,7 @@ func start_cutscene(cutscene_name):
 		$Camera4.current = true
 		$Camera4/AnimationPlayer.play("floor_to_head",-1,0.4)
 	elif cutscene_name == cutscenes.TV_RESURRECT:
-		start_sd_chat("plot_2")
+		TV_RESURRECT("tv_upload")
 
 func end_cutscene():
 	$Player/rotation_helper/Camera.current = true
@@ -428,6 +438,7 @@ func BANGING_ELEVATOR(anim):
 		$enemy_trigger.show()
 		$enemy_trigger2.show()
 		end_cutscene()
+		start_sd_chat("plot_5")
 
 func KILLING_TV(anim):
 	if anim == "floor_to_head":
@@ -471,21 +482,20 @@ func KILLING_TV(anim):
 		$Player/rotation_helper.rotation.x = deg2rad(0)
 		$Player.rotation.y = deg2rad(0)
 	elif anim == "start_battle":
-		#$no_hope_trigger._on_enemy_trigger_body_entered($Player)
-		print("player pos: " + str($Player.global_transform.origin))
 		$_void_battle_0.show()
 		$_void_battle_0.start()
 		cutscene_after_chat = "after_hazy_chat"
 		active_chat = $_void_battle_0/RichTextLabel
 		$Player.chatting = true
 	elif anim == "after_hazy_chat":
-		print("player pos: " + str($Player.global_transform.origin))
+		var v_wake_up_pos = Vector3(-104.45,0,4.4)
+		v_wake_up_pos.y = $Player.global_transform.origin.y
+		$Player.global_transform.origin = v_wake_up_pos
 		$_void_battle_0.hide()
 		$void2.hide()
 		var player_up_tween = create_tween()
 		player_up_tween.connect("finished", self, "KILLING_TV", ["new_weapon"])
-		#player_up_tween.connect("finished", self, "KILLING_TV", ["start_battle"])
-		$Player/rotation_helper.rotation.x = deg2rad(-65)
+		$Player/rotation_helper.rotation.x = deg2rad(-55)
 		var cam_org_y = $Player/rotation_helper/Camera.global_transform.origin.y
 		$Player/rotation_helper/Camera.global_transform.origin.y += -1.2
 		player_up_tween.tween_property($Player/rotation_helper/Camera, \
@@ -512,12 +522,25 @@ func TV_RESURRECT(step):
 		$tv_2_floor/AnimationPlayer.connect("animation_finished", self, "TV_RESURRECT")
 		$tv_2_floor/AnimationPlayer.play("turn_to_noise")
 	elif step == "turn_to_noise":
-		end_cutscene()
+		cutscene_after_chat = "new_kanjis"
 		start_sd_chat("plot_3")
+	elif step == "new_kanjis":
+		$Menu.add_new_kanji("女", "Woman")
+		$Menu.add_new_kanji("天", "Heaven, Sky")
+		end_cutscene()
+		var empty_tween = create_tween()
+		var empty_node = Node2D.new()
+		empty_tween.connect("finished",self,"check_triggers",["new_kanjis"])
+		empty_tween.tween_property(empty_node, "position", Vector2(), 0.2)
 
 func check_triggers(key):
 	if key == "teach_2":
+		cutscene_after_chat = "plot_6"
 		start_sd_chat("teach_2")
 		$Battle/weapons.pistol_crit_enabled = true
+	elif key == "plot_6":
+		start_sd_chat("plot_6")
 	elif key == "water_away":
 		FREE_ELEVATOR()
+	elif key == "new_kanjis":
+		start_sd_chat("plot_4")

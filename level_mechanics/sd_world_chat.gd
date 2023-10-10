@@ -92,20 +92,36 @@ func on_player_answer(ans):
 			get_parent().get_node("enemy_trigger4").show()
 			get_parent().get_node("enemy_trigger3/CollisionShape").disabled = false
 			get_parent().get_node("enemy_trigger4/CollisionShape").disabled = false
+			get_parent().get_node("house_build_ver2/cafeteria_chain/cut_area").\
+			chat_key = "check_7"
+			get_parent().get_node("house_build_ver2/extra_chain").chat_key = "check_9"
 		else:
 			get_parent().cancel_item_pick_up()
 	elif current_chat_key == "check_5":
 		if ans:
 			get_parent().pick_up_item(Global.items.MEMORYCARD)
 			read_chat("res://texts/sd_world_chat.json", "check_5a")
-			get_parent().get_node("tv_dead/CollisionShape").disabled = true
-			get_parent().get_node("tv_resurection/CollisionShape").disabled = false
+			get_parent().get_node("tv_dead").chat_key = "plot_2"
 		else:
 			get_parent().cancel_item_pick_up()
 	elif current_chat_key == "plot_2":
 		if ans:
+			get_parent().get_node("tv_dead/CollisionShape").disabled = true
 			get_parent().end_sd_world_chat()
-			get_parent().TV_RESURRECT("tv_upload")
+			get_parent().start_cutscene(get_parent().cutscenes.TV_RESURRECT)
+		else:
+			get_parent().end_sd_world_chat()
+	elif current_chat_key == "check_7":
+		#cut cafeteria chain
+		if ans:
+			get_parent().get_node("house_build_ver2/cafeteria_chain/cut_area").\
+			cut_chain()
+		get_parent().end_sd_world_chat()
+	elif current_chat_key == "check_9":
+		if ans:
+			get_parent().get_node("house_build_ver2/extra_chain").\
+			cut_chain()
+		get_parent().end_sd_world_chat()
 	$yes_btn.hide()
 	$no_btn.hide()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)

@@ -84,7 +84,7 @@ func _on_enemy_trigger_body_entered(body):
 		get_parent().start_listed_battle(enemy, focus_point, chat, self)
 	else:
 		enemy = get_node(enemy)
-		get_parent().destroy_this_start_battle(enemy)
+		get_parent().destroy_this_start_battle(enemy, null, null, self)
 
 func disable():
 	$CollisionShape.disabled = true

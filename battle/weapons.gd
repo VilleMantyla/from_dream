@@ -7,7 +7,7 @@ const SHOOTING_Y_LIMIT = 858
 var weapon
 enum weapons {PISTOL, GRENADE_LAUCNHER}
 var weapon_node
-var pistol_normal_damage = 1
+var pistol_normal_damage = 100
 var pistol_crit_damage = 2
 var pistol_damage = pistol_normal_damage
 var grenade_launcher_damage = 5

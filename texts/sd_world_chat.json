@@ -208,7 +208,7 @@
 },
 {
 	"textframe": [{
-			"text": "Your mind is still perfectly intact in the soul device, thanks to Rain!",
+			"text": "Your mind is still perfectly intact in the Soul Device, thanks to Rain!",
 			"speed": 30,
 			"sound": 0
 		}
@@ -352,6 +352,14 @@
 },
 {
 	"textframe": [{
+			"text": "So far we've erased a couple ghost signals but it's highly likely we face more.",
+			"speed": 30,
+			"sound": 0
+		}
+	]
+},
+{
+	"textframe": [{
 			"text": "How.. how much time do you have to digitize a soul?!",
 			"speed": 30,
 			"sound": 0,
@@ -383,6 +391,118 @@
 			"speed": 30,
 			"sound": 0,
 			"sprite-code": 10
+		}
+	]
+}
+],
+"plot_4": [{
+	"textframe": [{
+			"text": "You got 2 new Kanjis!",
+			"speed": 15,
+			"sound": 0,
+			"sprite-code": 10
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "You can check them in your Soul Device in the Kanji submenu.",
+			"speed": 15,
+			"sound": 0
+		}
+	]
+}
+],
+"plot_5": [{
+	"textframe": [{
+			"text": "I sense disturbance signals in this area.",
+			"speed": 15,
+			"sound": 0,
+			"sprite-code": 10
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "We should erase the signals to get further.",
+			"speed": 15,
+			"sound": 0
+		}
+	]
+}
+],
+"plot_6": [{
+	"textframe": [{
+			"text": "That was a deprecated soul turned into a ghost.",
+			"speed": 15,
+			"sound": 0,
+			"sprite-code": 10
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "There's no hope for them so we're better of erasing them.",
+			"speed": 15,
+			"sound": 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "Erasing a ghost signal often gets you money and sometimes other goodies.",
+			"speed": 15,
+			"sound": 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "So if you see one, erase one!",
+			"speed": 15,
+			"sound": 0
+		}
+	]
+}
+],
+"plot_7": [{
+	"textframe": [{
+			"text": "By the way what's your story Rain?",
+			"speed": 15,
+			"sound": 0,
+			"sprite-code": 21
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "How did you end up here? Don't you wanna get out?",
+			"speed": 15,
+			"sound": 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "Oh that's right, you can't talk.",
+			"speed": 15,
+			"sound": 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "Sorry for calling you a retard back there...",
+			"speed": 15,
+			"sound": 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "...",
+			"speed": 15,
+			"sound": 0
 		}
 	]
 }
@@ -502,7 +622,7 @@
 },
 {
 	"textframe": [{
-			"text": "If we had a memory card, we could load her up to the SD.",
+			"text": "If we had a memory card, we could load her up to your Soul Device.",
 			"speed": 15,
 			"sound": 0
 		}
@@ -542,6 +662,46 @@
 "check_5a": [{
 	"textframe": [{
 			"text": "You got [color=#39FF14]Memory Card[/color].",
+			"speed": 15,
+			"sound": 0,
+			"sprite-code": 10
+		}
+	]
+}
+],
+"check_6": [{
+	"textframe": [{
+			"text": "This chain could be cut with a tool, but you don't have one.",
+			"speed": 15,
+			"sound": 0,
+			"sprite-code": 10
+		}
+	]
+}
+],
+"check_7": [{
+	"questionframe": [{
+			"text": "Cut the chain with the Angle Grinder?",
+			"speed": 15,
+			"sound": 0,
+			"sprite-code": 10
+		}
+	]
+}
+],
+"check_8": [{
+	"textframe": [{
+			"text": "This chain could be cut with a tool, but you don't have one.",
+			"speed": 15,
+			"sound": 0,
+			"sprite-code": 10
+		}
+	]
+}
+],
+"check_9": [{
+	"questionframe": [{
+			"text": "Cut the chain with the Angle Grinder?",
 			"speed": 15,
 			"sound": 0,
 			"sprite-code": 10

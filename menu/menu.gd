@@ -44,6 +44,8 @@ func reset_item_view():
 
 func activate_topmenu():
 	hide_submenus()
+	$ColorRect.show()
+	$topmenu_btn.show()
 	$GridContainer.show()
 
 func hide_submenus():
@@ -72,3 +74,9 @@ func show_kanji_puzzle():
 	
 	$kanji_submenu.set_state($kanji_submenu.states.PUZZLE)
 	$kanji_submenu.show()
+
+func reset_kanji_puzzle_view():
+	close_menu()
+
+func add_new_kanji(kanji, translation):
+	$kanji_submenu.add_new_kanji(kanji, translation)

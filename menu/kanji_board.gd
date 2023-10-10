@@ -11,8 +11,7 @@ var state = -1
 var answer = []
 
 func _ready():
-	add_new_kanji("女", "Woman")
-	add_new_kanji("天", "Heaven, Sky")
+	pass
 
 func set_state(new_state):
 	if new_state == states.MENU:

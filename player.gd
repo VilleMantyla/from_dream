@@ -155,8 +155,6 @@ func _process(delta):
 				new_roty, 0.7).set_trans(Tween.EASE_IN_OUT)
 				
 				looking_at_interactable.play_anim(1.3)
-			elif looking_at_interactable.is_in_group("chain"):
-				looking_at_interactable.cut_chain()
 			elif looking_at_interactable.is_in_group("kanji_puzzle"):
 				var kanji_puzzle = looking_at_interactable
 				get_parent().open_kanji_puzzle(kanji_puzzle)

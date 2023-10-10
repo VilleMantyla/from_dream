@@ -193,7 +193,7 @@
 ],
 "6_chat": [{
 	"textframe": [{
-			"text": "Let me go!",
+			"text": "I'm gonna kill you!",
 			"speed": 50,
 			"sound": 0
 		}
@@ -201,7 +201,7 @@
 },
 {
 	"textframe": [{
-			"text": "I'm gonna kill you!",
+			"text": "Let me go!",
 			"speed": 50,
 			"sound": 0
 		}
@@ -253,6 +253,96 @@
 	"textframe": [{
 			"text": "[color=#a0cc00]Now let me wipe that for you![/color]",
 			"speed": 50,
+			"sound": 0
+		}
+	]
+}
+],
+"9_chat": [{
+	"textframe": [{
+			"text": "A fluffy Shiba Inu named Mochi was chasing the most beautiful butterfly.",
+			"speed": 15,
+			"sound": 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "But every time the brightly colored butterfly landed, the desperate Mochi scared it away.",
+			"speed": 15,
+			"sound": 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "Running after the butterfly and yelping it to stop, Mochi kept wandering further and further away from home.",
+			"speed": 15,
+			"sound": 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "Finally Mochi caught the butterfly, but his bite clipped the wings.",
+			"speed": 15,
+			"sound": 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "Now Mochi was lost, in an odd and strange neighbourhood.",
+			"speed": 15,
+			"sound": 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "With a wingless butterfly lying at his paws.",
+			"speed": 15,
+			"sound": 0
+		}
+	]
+}
+],
+"10_chat": [{
+	"textframe": [{
+			"text": "This world is rotten.\nFull of whores, faggots, disgusting creatures...",
+			"speed": 15,
+			"sound": 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "Why they reject me?\nIs it because I'm ugly?\nBecause I don't have the money?\nBecause of my height?",
+			"speed": 15,
+			"sound": 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "Every single human being on this forsaken planet should be put down like a diseased dog.",
+			"speed": 15,
+			"sound": 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "Just wait what I got for you.",
+			"speed": 15,
+			"sound": 0
+		}
+	]
+},
+{
+	"textframe": [{
+			"text": "Just fucking wait.",
+			"speed": 15,
 			"sound": 0
 		}
 	]
