@@ -100,9 +100,6 @@ func _process(delta):
 		else:
 			#walk
 			move_dir = (transform.basis*Vector3(move_input.x, 0, -move_input.y)).normalized()
-			if !$step_sound.is_playing():
-				#play_footstep_sound()
-				pass
 	else:
 		#idle
 		move_dir = Vector3.ZERO

@@ -20,11 +20,7 @@ func _ready():
 	
 	state = idle
 	$justbody/AnimationPlayer.play("idle")
-
-func remove():
-	$CollisionShape.disabled = true
 	set_process(false)
-	queue_free()
 
 func _process(delta):
 	state.update(delta)
@@ -33,6 +29,11 @@ func _on_Eyes_body_entered(body):
 	target = body
 	if follow_on:
 		state = follow
+
+func set_to_follow(body):
+	target = body
+	state = follow
+	set_process(true)
 
 class Idle:
 	var parent
@@ -83,6 +84,8 @@ func _on_enemy_trigger_body_entered(body):
 		var focus_point = $focus_point.global_transform.origin
 		get_parent().start_listed_battle(enemy, focus_point, chat, self)
 	else:
+		if !enemy:
+			return
 		enemy = get_node(enemy)
 		get_parent().destroy_this_start_battle(enemy, null, null, self)
 
