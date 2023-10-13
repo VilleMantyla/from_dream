@@ -115,6 +115,8 @@ func _process(delta):
 				get_parent().start_cutscene(looking_at_interactable.cutscene_name)
 			elif looking_at_interactable.is_in_group("area_switch"):
 				switch_area(looking_at_interactable)
+			elif looking_at_interactable.is_in_group("level_switch"):
+				get_parent().load_new_level(looking_at_interactable)
 			elif looking_at_interactable.is_in_group("world_chat"):
 				looking_at_interactable.activate_world_chat()
 			elif looking_at_interactable.is_in_group("sdw_chat"):

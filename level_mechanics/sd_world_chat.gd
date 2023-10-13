@@ -122,6 +122,21 @@ func on_player_answer(ans):
 			get_parent().get_node("house_build_ver2/extra_chain").\
 			cut_chain()
 		get_parent().end_sd_world_chat()
+	elif current_chat_key == "check_10":
+		if ans:
+			#happens in roof scene, not inside hostel
+			get_parent().get_node("button_puzzle").set_new_input(0)
+		get_parent().end_sd_world_chat()
+	elif current_chat_key == "check_11":
+		if ans:
+			#happens in roof scene, not inside hostel
+			get_parent().get_node("button_puzzle").set_new_input(1)
+		get_parent().end_sd_world_chat()
+	elif current_chat_key == "check_12":
+		if ans:
+			#happens in roof scene, not inside hostel
+			get_parent().get_node("button_puzzle").set_new_input(2)
+		get_parent().end_sd_world_chat()
 	$yes_btn.hide()
 	$no_btn.hide()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)

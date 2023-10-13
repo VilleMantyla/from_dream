@@ -1,11 +1,11 @@
-extends Spatial
+extends Node
 
 enum cutscenes {FROM_TREE, BANGING_ELEVATOR, KILLING_TV, TV_RESURRECT}
 #battles that occur in this order on a trigger, per trigger
 onready var battle_list = [$Battle/Enemies/maggots, $Battle/Enemies/flies]
 var triggers_after_battle = ["teach_2", "water_away"]
 
-var tv
+#var tv
 
 var active_enemy_trigger = null
 var battle_on_hold = null
@@ -16,12 +16,18 @@ var in_menu = false
 
 var pick_up_area = null
 
+export var level_specific_script = ""
+
 var interactables = {
 	"ladder" : "press space to climb"
 }
 
 func _ready():
 	randomize()
+	
+	if !level_specific_script.empty():
+		level_specific_script = load(level_specific_script).new(self)
+		
 	
 	#start_cutscene(-1) #player wakes up
 	#start_cutscene(cutscenes.TV_RESURRECT)
@@ -31,40 +37,40 @@ func _ready():
 	$Menu/kanji_submenu.connect("answer_submitted", self, "check_kanji_puzzle_answer")
 	$Menu/kanji_submenu.connect("closed", self, "close_kanji_puzzle")
 	
-	$house_entrance/sea/AnimationPlayer.play("sea",-1,2)
-	$house_build_ver2/water/AnimationPlayer.play("water",-1,2)
+#	$house_entrance/sea/AnimationPlayer.play("sea",-1,2)
+#	$house_build_ver2/water/AnimationPlayer.play("water",-1,2)
 	
 	$Player.connect("show_context_msg", self, "show_context_msg")
 	
 	$Battle.connect("leave_battle", self, "exit_battle")
 	
-	for gs in $glitch_suckers.get_children():
-		gs.get_node("AnimationPlayer").get_animation("s_twiggle2_alt").set_loop(true)
-		gs.get_node("AnimationPlayer").play("s_twiggle2_alt",-1,1.5)
+#	for gs in $glitch_suckers.get_children():
+#		gs.get_node("AnimationPlayer").get_animation("s_twiggle2_alt").set_loop(true)
+#		gs.get_node("AnimationPlayer").play("s_twiggle2_alt",-1,1.5)
 	
-	tv = $tv_ver2
-	tv.get_node("AnimationPlayer").get_animation("on_the_noose").set_loop(true)
-	tv.get_node("AnimationPlayer").play("on_the_noose",-1,2)
-	tv.get_node("AnimationPlayer").connect("animation_finished", self, "FROM_TREE")
-	
-	$tv_3/AnimationPlayer.get_animation("banging_door").set_loop(true)
-	$tv_3/AnimationPlayer.play("banging_door",-1,2)
-	$tv_3/AnimationPlayer.get_animation("stuck").set_loop(true)
-	$tv_3/AnimationPlayer.connect("animation_finished", self, "BANGING_ELEVATOR")
-	
-	$void2/AnimationPlayer.get_animation("holding_tv_idle").set_loop(true)
-	$void2/AnimationPlayer.play("holding_tv_idle")
-	$tv_2_floor/AnimationPlayer.get_animation("let_me_go").set_loop(true)
-	$tv_2_floor/AnimationPlayer.play("let_me_go",-1,1.5)
-	
-	$enemy_trigger/CollisionShape.disabled = true
-	$enemy_trigger2/CollisionShape.disabled = true
-	$enemy_trigger.hide()
-	$enemy_trigger2.hide()
-	$enemy_trigger3/CollisionShape.disabled = true
-	$enemy_trigger4/CollisionShape.disabled = true
-	$enemy_trigger3.hide()
-	$enemy_trigger4.hide()
+#	tv = $tv_ver2
+#	tv.get_node("AnimationPlayer").get_animation("on_the_noose").set_loop(true)
+#	tv.get_node("AnimationPlayer").play("on_the_noose",-1,2)
+#	tv.get_node("AnimationPlayer").connect("animation_finished", self, "FROM_TREE")
+#
+#	$tv_3/AnimationPlayer.get_animation("banging_door").set_loop(true)
+#	$tv_3/AnimationPlayer.play("banging_door",-1,2)
+#	$tv_3/AnimationPlayer.get_animation("stuck").set_loop(true)
+#	$tv_3/AnimationPlayer.connect("animation_finished", self, "BANGING_ELEVATOR")
+#
+#	$void2/AnimationPlayer.get_animation("holding_tv_idle").set_loop(true)
+#	$void2/AnimationPlayer.play("holding_tv_idle")
+#	$tv_2_floor/AnimationPlayer.get_animation("let_me_go").set_loop(true)
+#	$tv_2_floor/AnimationPlayer.play("let_me_go",-1,1.5)
+#
+#	$enemy_trigger/CollisionShape.disabled = true
+#	$enemy_trigger2/CollisionShape.disabled = true
+#	$enemy_trigger.hide()
+#	$enemy_trigger2.hide()
+#	$enemy_trigger3/CollisionShape.disabled = true
+#	$enemy_trigger4/CollisionShape.disabled = true
+#	$enemy_trigger3.hide()
+#	$enemy_trigger4.hide()
 
 func _process(delta):
 	if Input.is_action_just_pressed("menu") and !$menu_interact/AnimationPlayer.is_playing():
@@ -222,6 +228,9 @@ func show_context_msg(key):
 func read_next_chat():
 	active_chat.try_reading_next_paragraph()
 
+func load_new_level(level_switcher):
+	get_tree().change_scene(level_switcher.get_level_path())
+
 #func deprecated_interact_with_world_object(chat, focus_point, enemy):
 #	$Player.activate(false)
 #	if chat:
@@ -301,6 +310,7 @@ func start_cutscene(cutscene_name):
 	if cutscene_name == -1:
 		PLAYER_WAKES_UP("wake_up")
 	elif cutscene_name == cutscenes.FROM_TREE:
+		var tv = $tv_ver2
 		tv.global_transform.origin.y = 0
 		tv.get_node("AnimationPlayer").play("getting_up",-1,1.2)
 		$cutscene_audio1.play()
@@ -339,6 +349,7 @@ func PLAYER_WAKES_UP(anim):
 		$Player.chatting = true
 
 func FROM_TREE(anim):
+	var tv = $tv_ver2
 	if anim == "getting_up":
 		tv.global_rotation.y = deg2rad(148)
 		tv.get_node("AnimationPlayer").play("stand_rise")

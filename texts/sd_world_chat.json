@@ -415,7 +415,7 @@
 ],
 "plot_5": [{
 	"textframe": [{
-			"text": "I sense disturbance signals in this area.",
+			"text": "I sense ghost signals in this area.",
 			"speed": 15,
 			"sound": 0,
 			"sprite-code": 10
@@ -702,6 +702,36 @@
 "check_9": [{
 	"questionframe": [{
 			"text": "Cut the chain with the Angle Grinder?",
+			"speed": 15,
+			"sound": 0,
+			"sprite-code": 10
+		}
+	]
+}
+],
+"check_10": [{
+	"questionframe": [{
+			"text": "Press 一 button?",
+			"speed": 15,
+			"sound": 0,
+			"sprite-code": 10
+		}
+	]
+}
+],
+"check_11": [{
+	"questionframe": [{
+			"text": "Press 二 button?",
+			"speed": 15,
+			"sound": 0,
+			"sprite-code": 10
+		}
+	]
+}
+],
+"check_12": [{
+	"questionframe": [{
+			"text": "Press 三 button?",
 			"speed": 15,
 			"sound": 0,
 			"sprite-code": 10

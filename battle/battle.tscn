@@ -1,0 +1,1425 @@
+[gd_scene load_steps=107 format=2]
+
+[ext_resource path="res://fonts/NotoSansJP-Light.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://fonts/RobotoCondensed-Regular.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://battle/bulletshooter.gd" type="Script" id=3]
+[ext_resource path="res://battle/bullet.gd" type="Script" id=4]
+[ext_resource path="res://enemies/roach_and_flies/roach_and_flies.gd" type="Script" id=5]
+[ext_resource path="res://enemies/maggots/maggot_bullet_pattern.gd" type="Script" id=6]
+[ext_resource path="res://enemies/maggots/maggots.gd" type="Script" id=7]
+[ext_resource path="res://enemies/roach_and_flies/roach_fly_pattern.gd" type="Script" id=8]
+[ext_resource path="res://enemies/flies/flies.gd" type="Script" id=9]
+[ext_resource path="res://enemies/flies/fly_bullet_pattern.gd" type="Script" id=10]
+[ext_resource path="res://battle/pistol_sight3_marker.png" type="Texture" id=11]
+[ext_resource path="res://battle/battle_ready_text.png" type="Texture" id=12]
+[ext_resource path="res://battle/noise_0.png" type="Texture" id=13]
+[ext_resource path="res://battle/dodge_box_1.png" type="Texture" id=14]
+[ext_resource path="res://battle/battle_btm_layer_black.png" type="Texture" id=15]
+[ext_resource path="res://battle/noise_3.png" type="Texture" id=16]
+[ext_resource path="res://battle/noise_2.png" type="Texture" id=17]
+[ext_resource path="res://battle/noise_1.png" type="Texture" id=18]
+[ext_resource path="res://battle/noise_5.png" type="Texture" id=19]
+[ext_resource path="res://battle/noise_4.png" type="Texture" id=20]
+[ext_resource path="res://battle/weapons.gd" type="Script" id=21]
+[ext_resource path="res://battle/tamagotchi.gd" type="Script" id=22]
+[ext_resource path="res://battle.gd" type="Script" id=23]
+[ext_resource path="res://battle/actions.gd" type="Script" id=24]
+[ext_resource path="res://enemies/slimes/slimes.gd" type="Script" id=25]
+[ext_resource path="res://enemies/slimes/slime_bullet_pattern.gd" type="Script" id=26]
+[ext_resource path="res://battle/pistol_sight3_cross_2.png" type="Texture" id=27]
+[ext_resource path="res://battle/grenade_ex_2.png" type="Texture" id=28]
+[ext_resource path="res://battle/reloading.png" type="Texture" id=29]
+[ext_resource path="res://battle/pistol_bang_crit.png" type="Texture" id=30]
+[ext_resource path="res://battle/vi0.png" type="Texture" id=31]
+[ext_resource path="res://battle/hp.png" type="Texture" id=32]
+[ext_resource path="res://battle/stats_frame.png" type="Texture" id=33]
+[ext_resource path="res://battle/pistol_bang_normal.png" type="Texture" id=34]
+[ext_resource path="res://battle/grenade_ex_3.png" type="Texture" id=35]
+[ext_resource path="res://battle/grenade_ex_4.png" type="Texture" id=36]
+[ext_resource path="res://battle/grenade_ex_1.png" type="Texture" id=37]
+[ext_resource path="res://battle/gun_select.png" type="Texture" id=38]
+[ext_resource path="res://battle/pistol_critwheel.png" type="Texture" id=39]
+[ext_resource path="res://battle/shoot.png" type="Texture" id=40]
+[ext_resource path="res://battle/bullet_sprite.png" type="Texture" id=41]
+[ext_resource path="res://battle/vi1.png" type="Texture" id=42]
+[ext_resource path="res://battle/game_over_text.png" type="Texture" id=43]
+[ext_resource path="res://battle/biggun_select.png" type="Texture" id=44]
+[ext_resource path="res://enemies/maggots/maggot0.png" type="Texture" id=45]
+[ext_resource path="res://battle/grenade_laucnher_sight.png" type="Texture" id=46]
+[ext_resource path="res://sounds/pistol_sho9.wav" type="AudioStream" id=47]
+[ext_resource path="res://battle/white.png" type="Texture" id=48]
+[ext_resource path="res://battle/grenade_ex_0.png" type="Texture" id=49]
+[ext_resource path="res://battle/gun_selected.png" type="Texture" id=50]
+[ext_resource path="res://battle/hand_grenade_action_disabled0_btn.png" type="Texture" id=51]
+[ext_resource path="res://sounds/crit_sound6.wav" type="AudioStream" id=52]
+[ext_resource path="res://battle/m79_sticker_neutral.png" type="Texture" id=53]
+[ext_resource path="res://battle/hand_grenade_action_btn.png" type="Texture" id=54]
+[ext_resource path="res://battle/m79_sticker_selected.png" type="Texture" id=55]
+[ext_resource path="res://battle/m79_sticker_disabled.png" type="Texture" id=56]
+[ext_resource path="res://enemies/flies/fly_bullet_pattern.tscn" type="PackedScene" id=57]
+[ext_resource path="res://battle/shooting_arena.tscn" type="PackedScene" id=58]
+[ext_resource path="res://enemies/roach_and_flies/roach_and_flies.tscn" type="PackedScene" id=59]
+[ext_resource path="res://enemies/slimes/slimes.tscn" type="PackedScene" id=60]
+[ext_resource path="res://enemies/slimes/slime_bullet_pattern.tscn" type="PackedScene" id=61]
+[ext_resource path="res://enemies/flies/flies.tscn" type="PackedScene" id=62]
+[ext_resource path="res://battle/shooting_borders.tscn" type="PackedScene" id=63]
+[ext_resource path="res://enemies/maggots/maggots.tscn" type="PackedScene" id=64]
+[ext_resource path="res://enemies/roach_and_flies/roach_fly_pattern.tscn" type="PackedScene" id=65]
+
+[sub_resource type="SpriteFrames" id=185]
+animations = [ {
+"frames": [ ExtResource( 49 ), ExtResource( 37 ), ExtResource( 28 ), ExtResource( 35 ), ExtResource( 36 ) ],
+"loop": true,
+"name": "default",
+"speed": 8.0
+} ]
+
+[sub_resource type="Animation" id=186]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ ExtResource( 34 ) ]
+}
+
+[sub_resource type="Animation" id=187]
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1e-05, 1e-05 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 30 ) ]
+}
+
+[sub_resource type="Animation" id=188]
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1e-05, 1e-05 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 34 ) ]
+}
+
+[sub_resource type="DynamicFont" id=464]
+size = 36
+font_data = ExtResource( 1 )
+
+[sub_resource type="Theme" id=465]
+default_font = SubResource( 464 )
+
+[sub_resource type="DynamicFont" id=468]
+size = 36
+font_data = ExtResource( 1 )
+
+[sub_resource type="Theme" id=469]
+default_font = SubResource( 468 )
+
+[sub_resource type="Animation" id=189]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=190]
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 360.0 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("../..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.1, 0.9 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [ false ],
+"method": "set_pistol_to_bonus"
+}, {
+"args": [ true ],
+"method": "set_pistol_to_bonus"
+} ]
+}
+
+[sub_resource type="CircleShape2D" id=191]
+
+[sub_resource type="CircleShape2D" id=192]
+radius = 56.0
+
+[sub_resource type="DynamicFont" id=193]
+size = 80
+font_data = ExtResource( 2 )
+
+[sub_resource type="Theme" id=194]
+default_font = SubResource( 193 )
+
+[sub_resource type="Animation" id=195]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../vi:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 960, 920 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("dodge_box:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("dodge_box:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("../reload_text:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("../reload_text:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=196]
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.6, 1.1, 1.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0.196078 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../vi:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 1.2, 1.7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 960, 920 ), Vector2( 960, 532 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("dodge_box:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 1.7, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 1, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("dodge_box:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 1.7 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("../reload_text:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.5, 0.7, 1.1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true, false ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("../reload_text:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("../reload_text:texture")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 29 ) ]
+}
+
+[sub_resource type="Animation" id=197]
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.9, 1.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../vi:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5, 1.1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 960, 532 ), Vector2( 960, 532 ), Vector2( 960, 920 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("dodge_box:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("dodge_box:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="DynamicFont" id=198]
+size = 30
+font_data = ExtResource( 2 )
+
+[sub_resource type="Theme" id=199]
+default_font = SubResource( 198 )
+
+[sub_resource type="SpriteFrames" id=200]
+animations = [ {
+"frames": [ ExtResource( 31 ), ExtResource( 42 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=201]
+extents = Vector2( 11, 11 )
+
+[sub_resource type="Animation" id=202]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("animated_sprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=203]
+length = 1.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("animated_sprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6, 0.9, 1.2, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false, true, false, true ]
+}
+
+[sub_resource type="Shader" id=204]
+code = "shader_type canvas_item;
+
+uniform float amplitude : hint_range(0.0, 1.0);
+uniform float rate : hint_range(0.0, 720.0);
+
+void fragment(){
+	float offset_dir = step(sin(UV.x * rate), 0.0) * 2.0;
+	float final_offset = ((offset_dir - 1.0) * (amplitude/1.0));
+	COLOR = texture(TEXTURE, vec2(UV.x, UV.y + final_offset));
+	//color.a *= clamp(1. - offset/fade, 0., 1.)
+}"
+
+[sub_resource type="ShaderMaterial" id=205]
+shader = SubResource( 204 )
+shader_param/amplitude = 0.0
+shader_param/rate = 720.0
+
+[sub_resource type="Animation" id=206]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ ExtResource( 40 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 960, 512 ) ]
+}
+
+[sub_resource type="Animation" id=207]
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 29 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 960, 512 ) ]
+}
+
+[sub_resource type="CapsuleShape2D" id=208]
+radius = 31.0
+height = 79.0
+
+[sub_resource type="SpriteFrames" id=210]
+animations = [ {
+"frames": [ ExtResource( 13 ), ExtResource( 18 ), ExtResource( 17 ), ExtResource( 16 ), ExtResource( 20 ), ExtResource( 19 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="Animation" id=211]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../gameover:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("../battle_start_label:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("../battle_start_label:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("../battle_start_label:material:shader_param/amplitude")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.6 ]
+}
+
+[sub_resource type="Animation" id=309]
+resource_name = "battle_start_100%"
+length = 1.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("../battle_start_label:material:shader_param/amplitude")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.799166, 1.29917 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../battle_start_label:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.799166, 0.999166 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath("../weapons")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "set_state_to_FIRE"
+} ]
+}
+
+[sub_resource type="Animation" id=307]
+resource_name = "battle_start_50%"
+length = 1.25
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 1.25 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../battle_start_label:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("../battle_start_label:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("../battle_start_label:material:shader_param/amplitude")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.4, 0.0 ]
+}
+
+[sub_resource type="Animation" id=212]
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=213]
+length = 3.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 2, 2.1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ Color( 1, 1, 1, 0.392157 ), Color( 1, 1, 1, 0.392157 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../gameover:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="DynamicFontData" id=214]
+font_path = "res://fonts/RobotoCondensed-Regular.ttf"
+
+[sub_resource type="DynamicFont" id=215]
+size = 28
+font_data = SubResource( 214 )
+
+[sub_resource type="Theme" id=216]
+default_font = SubResource( 215 )
+
+[sub_resource type="Animation" id=217]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("gp_left:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=218]
+tracks/0/type = "method"
+tracks/0/path = NodePath("..")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "move_money_to_bank"
+} ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("gp_left:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true, false, true ]
+}
+
+[sub_resource type="Shader" id=219]
+code = "shader_type canvas_item;
+
+uniform float amplitude : hint_range(0.0, 1.0);
+uniform float rate : hint_range(0.0, 720.0);
+
+void fragment(){
+	float offset_dir = step(sin(UV.x * rate), 0.0) * 2.0;
+	float final_offset = ((offset_dir - 1.0) * (amplitude/1.0));
+	COLOR = texture(TEXTURE, vec2(UV.x, UV.y + final_offset));
+	//color.a *= clamp(1. - offset/fade, 0., 1.)
+}"
+
+[sub_resource type="ShaderMaterial" id=220]
+shader = SubResource( 219 )
+shader_param/amplitude = 0.6
+shader_param/rate = 720.0
+
+[node name="Battle" type="Node2D"]
+visible = false
+script = ExtResource( 23 )
+
+[node name="shooting_arena" type="Node2D" parent="." instance=ExtResource( 58 )]
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="maggots" type="Node2D" parent="Enemies" instance=ExtResource( 64 )]
+script = ExtResource( 7 )
+bullet_pattern = NodePath("../../bulletshooter/maggot_bullet_pattern")
+
+[node name="flies" type="Node2D" parent="Enemies" instance=ExtResource( 62 )]
+script = ExtResource( 9 )
+bullet_pattern = NodePath("../../bulletshooter/fly_bullet_pattern")
+
+[node name="roach_and_flies" type="Node2D" parent="Enemies" instance=ExtResource( 59 )]
+script = ExtResource( 5 )
+bullet_pattern = NodePath("../../bulletshooter/roach_fly_pattern")
+
+[node name="slimes" type="Node2D" parent="Enemies" instance=ExtResource( 60 )]
+script = ExtResource( 25 )
+bullet_pattern = NodePath("../../bulletshooter/slime_bullet_pattern")
+
+[node name="shooting_borders" type="Node2D" parent="." instance=ExtResource( 63 )]
+
+[node name="gl_explode" type="AnimatedSprite" parent="."]
+visible = false
+frames = SubResource( 185 )
+
+[node name="pistol_bang" type="Sprite" parent="."]
+visible = false
+texture = ExtResource( 34 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="pistol_bang"]
+anims/RESET = SubResource( 186 )
+anims/bonus = SubResource( 187 )
+anims/normal = SubResource( 188 )
+
+[node name="actions" type="Node2D" parent="."]
+script = ExtResource( 24 )
+
+[node name="normal_gun" type="TextureButton" parent="actions"]
+margin_left = 392.0
+margin_top = 923.0
+margin_right = 585.0
+margin_bottom = 1021.0
+texture_normal = ExtResource( 38 )
+texture_pressed = ExtResource( 50 )
+
+[node name="bomb" type="TextureButton" parent="actions"]
+margin_left = 1325.0
+margin_top = 904.0
+margin_right = 1525.0
+margin_bottom = 1028.0
+disabled = true
+texture_normal = ExtResource( 54 )
+texture_disabled = ExtResource( 51 )
+
+[node name="normal" type="RichTextLabel" parent="actions/bomb"]
+margin_left = 8.0
+margin_top = 6.0
+margin_right = 194.0
+margin_bottom = 121.0
+mouse_filter = 2
+theme = SubResource( 465 )
+bbcode_enabled = true
+bbcode_text = "Bomb
+[color=#FF0000]¥ 1 000[/color]"
+text = "Bomb
+¥ 1 000"
+
+[node name="signal" type="Label" parent="actions/bomb"]
+visible = false
+margin_left = 10.0
+margin_top = 33.0
+margin_right = 189.0
+margin_bottom = 86.0
+theme = SubResource( 465 )
+text = "NO SIGNAL"
+
+[node name="gl_bullets" type="TextureButton" parent="actions"]
+margin_left = 608.0
+margin_top = 910.0
+margin_right = 808.0
+margin_bottom = 1034.0
+texture_normal = ExtResource( 53 )
+texture_pressed = ExtResource( 55 )
+texture_disabled = ExtResource( 56 )
+
+[node name="normal" type="RichTextLabel" parent="actions/gl_bullets"]
+margin_left = 7.0
+margin_top = 3.0
+margin_right = 176.0
+margin_bottom = 111.0
+mouse_filter = 2
+theme = SubResource( 469 )
+bbcode_enabled = true
+bbcode_text = "G Bullet
+[color=#FF0000]¥ 300[/color]"
+text = "G Bullet
+¥ 300"
+
+[node name="weapons" type="Node2D" parent="."]
+script = ExtResource( 21 )
+
+[node name="pistol" type="Area2D" parent="weapons"]
+visible = false
+
+[node name="Sprite" type="Sprite" parent="weapons/pistol"]
+texture = ExtResource( 39 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="weapons/pistol/Sprite"]
+anims/RESET = SubResource( 189 )
+anims/spin = SubResource( 190 )
+
+[node name="Sprite2" type="Sprite" parent="weapons/pistol"]
+position = Vector2( 0, -30 )
+scale = Vector2( 1.25, 1.25 )
+texture = ExtResource( 11 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="weapons/pistol"]
+shape = SubResource( 191 )
+disabled = true
+
+[node name="Sprite3" type="Sprite" parent="weapons/pistol"]
+scale = Vector2( 2, 2 )
+texture = ExtResource( 27 )
+
+[node name="grenade_launcher" type="Area2D" parent="weapons"]
+visible = false
+
+[node name="Sprite" type="Sprite" parent="weapons/grenade_launcher"]
+texture = ExtResource( 46 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="weapons/grenade_launcher"]
+shape = SubResource( 192 )
+disabled = true
+
+[node name="load_bar" type="ProgressBar" parent="weapons"]
+visible = false
+margin_left = -50.0
+margin_top = 35.0
+margin_right = 50.0
+margin_bottom = 49.0
+value = 100.0
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="weapons"]
+stream = ExtResource( 47 )
+
+[node name="ap_crit" type="AudioStreamPlayer" parent="weapons"]
+stream = ExtResource( 52 )
+volume_db = -15.0
+
+[node name="damage_numbers" type="Node2D" parent="."]
+
+[node name="frame3" type="Sprite" parent="."]
+visible = false
+position = Vector2( 975, 937 )
+scale = Vector2( 2, 1 )
+texture = ExtResource( 33 )
+
+[node name="biggun" type="Sprite" parent="."]
+visible = false
+position = Vector2( 1376, 1024 )
+scale = Vector2( 0.9, 0.9 )
+texture = ExtResource( 44 )
+
+[node name="tv_gun_text" type="RichTextLabel" parent="."]
+visible = false
+margin_left = 1032.0
+margin_top = 360.0
+margin_right = 1816.0
+margin_bottom = 568.0
+theme = SubResource( 194 )
+text = "I'M READY FOR YOU SENPAI"
+
+[node name="bullets" type="Node2D" parent="."]
+position = Vector2( 40, 832 )
+
+[node name="bullet0" type="Sprite" parent="bullets"]
+position = Vector2( 64, 88 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 41 )
+
+[node name="bullet1" type="Sprite" parent="bullets"]
+position = Vector2( 120, 88 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 41 )
+
+[node name="bullet2" type="Sprite" parent="bullets"]
+position = Vector2( 176, 88 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 41 )
+
+[node name="bullet3" type="Sprite" parent="bullets"]
+position = Vector2( 232, 88 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 41 )
+
+[node name="bullet4" type="Sprite" parent="bullets"]
+position = Vector2( 288, 88 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 41 )
+
+[node name="dodge_arena" type="Sprite" parent="."]
+visible = false
+modulate = Color( 1, 1, 1, 0 )
+texture = ExtResource( 15 )
+centered = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="dodge_arena"]
+anims/RESET = SubResource( 195 )
+anims/fade_in = SubResource( 196 )
+anims/fade_out = SubResource( 197 )
+
+[node name="dodge_box" type="Sprite" parent="dodge_arena"]
+visible = false
+position = Vector2( 960, 540 )
+texture = ExtResource( 14 )
+
+[node name="hp_count" type="Node2D" parent="."]
+position = Vector2( 0, 96 )
+
+[node name="point0" type="Sprite" parent="hp_count"]
+position = Vector2( 912, 905 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 32 )
+
+[node name="hp" type="RichTextLabel" parent="."]
+margin_left = 848.0
+margin_top = 984.0
+margin_right = 1168.0
+margin_bottom = 1040.0
+theme = SubResource( 199 )
+bbcode_enabled = true
+bbcode_text = "HP:"
+text = "HP:"
+
+[node name="gp" type="RichTextLabel" parent="."]
+margin_left = 1016.0
+margin_top = 984.0
+margin_right = 1336.0
+margin_bottom = 1040.0
+theme = SubResource( 199 )
+bbcode_enabled = true
+bbcode_text = "¥0"
+text = "¥0"
+
+[node name="vi" type="Area2D" parent="."]
+position = Vector2( 960, 920 )
+collision_layer = 4
+collision_mask = 2
+script = ExtResource( 22 )
+god_mode = true
+
+[node name="animated_sprite" type="AnimatedSprite" parent="vi"]
+scale = Vector2( 4, 4 )
+frames = SubResource( 200 )
+speed_scale = 0.2
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="vi"]
+shape = SubResource( 201 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="vi"]
+anims/RESET = SubResource( 202 )
+anims/hit = SubResource( 203 )
+
+[node name="reload_text" type="Sprite" parent="."]
+visible = false
+material = SubResource( 205 )
+position = Vector2( 960, 512 )
+scale = Vector2( 5, 5 )
+texture = ExtResource( 40 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="reload_text"]
+anims/RESET = SubResource( 206 )
+anims/enemy_turn = SubResource( 207 )
+
+[node name="dodge_limit_0" type="Node2D" parent="."]
+position = Vector2( 763, 392 )
+
+[node name="dodge_limit_1" type="Node2D" parent="."]
+position = Vector2( 1157, 688 )
+
+[node name="bulletshooter" type="Node2D" parent="."]
+script = ExtResource( 3 )
+
+[node name="maggot_bullet_pattern" type="Node2D" parent="bulletshooter"]
+script = ExtResource( 6 )
+
+[node name="bullet0" type="Area2D" parent="bulletshooter/maggot_bullet_pattern"]
+position = Vector2( 966, -197 )
+collision_layer = 2
+collision_mask = 4
+script = ExtResource( 4 )
+
+[node name="sprite" type="Sprite" parent="bulletshooter/maggot_bullet_pattern/bullet0"]
+scale = Vector2( 4, 4 )
+texture = ExtResource( 45 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="bulletshooter/maggot_bullet_pattern/bullet0"]
+position = Vector2( 2, 1.5 )
+shape = SubResource( 208 )
+
+[node name="bullet1" type="Area2D" parent="bulletshooter/maggot_bullet_pattern"]
+position = Vector2( 966, -197 )
+collision_layer = 2
+collision_mask = 4
+script = ExtResource( 4 )
+
+[node name="sprite" type="Sprite" parent="bulletshooter/maggot_bullet_pattern/bullet1"]
+scale = Vector2( 4, 4 )
+texture = ExtResource( 45 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="bulletshooter/maggot_bullet_pattern/bullet1"]
+position = Vector2( 2, 1.5 )
+shape = SubResource( 208 )
+
+[node name="bullet2" type="Area2D" parent="bulletshooter/maggot_bullet_pattern"]
+position = Vector2( 966, -197 )
+collision_layer = 2
+collision_mask = 4
+script = ExtResource( 4 )
+
+[node name="sprite" type="Sprite" parent="bulletshooter/maggot_bullet_pattern/bullet2"]
+scale = Vector2( 4, 4 )
+texture = ExtResource( 45 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="bulletshooter/maggot_bullet_pattern/bullet2"]
+position = Vector2( 2, 1.5 )
+shape = SubResource( 208 )
+
+[node name="bullet3" type="Area2D" parent="bulletshooter/maggot_bullet_pattern"]
+position = Vector2( 966, -197 )
+collision_layer = 2
+collision_mask = 4
+script = ExtResource( 4 )
+
+[node name="sprite" type="Sprite" parent="bulletshooter/maggot_bullet_pattern/bullet3"]
+scale = Vector2( 4, 4 )
+texture = ExtResource( 45 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="bulletshooter/maggot_bullet_pattern/bullet3"]
+position = Vector2( 2, 1.5 )
+shape = SubResource( 208 )
+
+[node name="bullet4" type="Area2D" parent="bulletshooter/maggot_bullet_pattern"]
+position = Vector2( 966, -197 )
+collision_layer = 2
+collision_mask = 4
+script = ExtResource( 4 )
+
+[node name="sprite" type="Sprite" parent="bulletshooter/maggot_bullet_pattern/bullet4"]
+scale = Vector2( 4, 4 )
+texture = ExtResource( 45 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="bulletshooter/maggot_bullet_pattern/bullet4"]
+position = Vector2( 2, 1.5 )
+shape = SubResource( 208 )
+
+[node name="fly_bullet_pattern" type="Node2D" parent="bulletshooter" instance=ExtResource( 57 )]
+script = ExtResource( 10 )
+
+[node name="slime_bullet_pattern" type="Node2D" parent="bulletshooter" instance=ExtResource( 61 )]
+script = ExtResource( 26 )
+
+[node name="roach_fly_pattern" type="Node2D" parent="bulletshooter" instance=ExtResource( 65 )]
+script = ExtResource( 8 )
+
+[node name="noise_screen" type="AnimatedSprite" parent="."]
+visible = false
+scale = Vector2( 7.5, 5.625 )
+frames = SubResource( 210 )
+frame = 4
+speed_scale = 6.0
+playing = true
+centered = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="noise_screen"]
+anims/RESET = SubResource( 211 )
+anims/battle_start_100% = SubResource( 309 )
+anims/battle_start_50% = SubResource( 307 )
+anims/fade_off = SubResource( 212 )
+anims/game_over = SubResource( 213 )
+
+[node name="win" type="Sprite" parent="."]
+visible = false
+texture = ExtResource( 48 )
+centered = false
+
+[node name="gp_left" type="Label" parent="win"]
+margin_left = 832.0
+margin_top = 664.0
+margin_right = 1055.0
+margin_bottom = 697.0
+theme = SubResource( 216 )
+text = "LEFT FROM BATTLE: 0"
+
+[node name="bank" type="Label" parent="win"]
+margin_left = 832.0
+margin_top = 720.0
+margin_right = 1055.0
+margin_bottom = 753.0
+theme = SubResource( 216 )
+text = "BANK: 0"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="win"]
+anims/RESET = SubResource( 217 )
+anims/silly_money_to_bank_anim = SubResource( 218 )
+
+[node name="battle_start_label" type="Sprite" parent="."]
+visible = false
+material = SubResource( 220 )
+position = Vector2( 936, 512 )
+scale = Vector2( 3, 3 )
+texture = ExtResource( 12 )
+
+[node name="gameover" type="Sprite" parent="."]
+visible = false
+position = Vector2( 944, 496 )
+scale = Vector2( 5, 5 )
+texture = ExtResource( 43 )
+
+[connection signal="button_down" from="actions/normal_gun" to="weapons" method="change_to_normal_gun"]
+[connection signal="button_down" from="actions/bomb" to="weapons" method="use_bomb"]
+[connection signal="button_down" from="actions/gl_bullets" to="weapons" method="_on_gl_bullets_button_down"]
+[connection signal="area_entered" from="vi" to="vi" method="_on_tamagotchi_area_entered"]

@@ -1,0 +1,31 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://fonts/NotoSansJP-Regular.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://chat.gd" type="Script" id=2]
+[ext_resource path="res://level_mechanics/world_chat.gd" type="Script" id=3]
+[ext_resource path="res://battle/text_bg.png" type="Texture" id=4]
+
+[sub_resource type="DynamicFont" id=175]
+size = 30
+font_data = ExtResource( 1 )
+
+[sub_resource type="Theme" id=176]
+default_font = SubResource( 175 )
+
+[node name="world_chat" type="Node2D"]
+visible = false
+script = ExtResource( 3 )
+
+[node name="chat_bg" type="Sprite" parent="."]
+position = Vector2( 904, 920 )
+texture = ExtResource( 4 )
+
+[node name="chat" type="RichTextLabel" parent="."]
+margin_left = 512.0
+margin_top = 840.0
+margin_right = 1280.0
+margin_bottom = 992.0
+theme = SubResource( 176 )
+bbcode_text = "text text text"
+text = "text text text"
+script = ExtResource( 2 )
